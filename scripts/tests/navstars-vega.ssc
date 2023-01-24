@@ -1,4 +1,0 @@
-
-include("navstars-common.inc");
-core.selectObjectByName("Vega", false);
-StelMovementMgr.setFlagTracking(true);
