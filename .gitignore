@@ -3,6 +3,7 @@ builds
 build
 installers
 .DS_Store
+stelscope.pro.*
 CMakeLists.txt.user*
 CMakeFiles
 CMakeCache*
