@@ -74,9 +74,9 @@ public:
 	virtual float getVMagnitude(const StelCore* core) const Q_DECL_OVERRIDE;
 	//! sets the nameI18 property with the appropriate translation.
 	//! Function overriden to handle the problem with name conflicts.
-	virtual void translateName(const StelTranslator& trans) Q_DECL_OVERRIDE;
+//	virtual void translateName(const StelTranslator& trans) Q_DECL_OVERRIDE;
 	virtual QString getEnglishName(void) const Q_DECL_OVERRIDE {return englishName;}
-	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE {return nameI18;}
+//	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE {return nameI18;}
 
 	//! \brief sets absolute magnitude and slope parameter.
 	//! These are the parameters in the IAU's two-parameter magnitude system
@@ -158,8 +158,8 @@ private:
 	QVector<Vec3f> dusttailColorArr;   // NEW computed for every 5 mins, modulates dust tail brightness for extinction
 	static QVector<Vec2f> tailTexCoordArr; // computed only once for all comets!
 	static QVector<unsigned short> tailIndices; // computed only once for all comets!
-	static StelTextureSP comaTexture;
-	static StelTextureSP tailTexture;      // it seems not really necessary to have different textures. gas tail is just painted blue.
+/*	static StelTextureSP comaTexture;
+    static StelTextureSP tailTexture;   */   // it seems not really necessary to have different textures. gas tail is just painted blue.
 };
 
 #endif //COMET_HPP

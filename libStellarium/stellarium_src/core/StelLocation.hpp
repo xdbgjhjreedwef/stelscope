@@ -103,7 +103,7 @@ public:
 	//! location database (e.g. Ubuntu:Asia/Kolkata=Windows:Asia/Calcutta),
 	//! which requires some translation effort during the loading process.
 	//! After loading from the location DB, the ianaTimeZone should contain the full name which may differ from the database name.
-	//  See LP:1662132
+    //  See LP:1662132bortleSca
 	// GZ renamed to more clearly indicate these are IANA names.
 	// Besides IANA names, other valid names seem to be "LMST", "LTST" and "system_default".
 	QString ianaTimeZone;

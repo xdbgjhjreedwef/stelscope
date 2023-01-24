@@ -25,8 +25,8 @@
 #include "StelPropertyMgr.hpp"
 #include "VecMath.hpp"
 #include "GeomMath.hpp"
-#include "StelFader.hpp"
-#include "StelTextureTypes.hpp"
+//#include "StelFader.hpp"
+//#include "StelTextureTypes.hpp"
 #include "StelProjectorType.hpp"
 #include "RotationElements.hpp"
 
@@ -46,20 +46,20 @@ typedef void (OsculatingFunctType)(double jde0,double jde,double xyz[3], double 
 
 class Orbit;
 class KeplerOrbit;
-class StelFont;
-class StelPainter;
-class StelTranslator;
+//class StelFont;
+//class StelPainter;
+//class StelTranslator;
 class StelOBJ;
-class StelOpenGLArray;
+//class StelOpenGLArray;
 class HipsSurvey;
 template <class T> class QFuture;
-class QOpenGLBuffer;
-class QOpenGLFunctions;
-class QOpenGLShaderProgram;
-class QOpenGLTexture;
-#ifdef DEBUG_SHADOWMAP
-class QOpenGLFramebufferObject;
-#endif
+//class QOpenGLBuffer;
+//class QOpenGLFunctions;
+//class QOpenGLShaderProgram;
+//class QOpenGLTexture;
+//#ifdef DEBUG_SHADOWMAP
+//class QOpenGLFramebufferObject;
+//#endif
 
 typedef QSharedPointer<class HipsSurvey> HipsSurveyP;
 
@@ -71,7 +71,7 @@ public:
 	double getSize(void) const {return static_cast<double>(radiusMax);}
 	const float radiusMin;
 	const float radiusMax;
-	StelTextureSP tex;
+    //StelTextureSP tex;
 };
 
 // Class to calculate Besselian elements of solar eclipse
@@ -157,7 +157,7 @@ public:
 	Planet(const QString& englishName,
 	       double equatorialRadius,
 	       double oblateness,
-	       Vec3f halocolor,
+           //Vec3f halocolor,
 	       float albedo,
 	       float roughness,
 	       const QString& texMapName,
@@ -222,12 +222,12 @@ public:
 	//! - penumbral-eclipse-magnitude (on Earth for Moon only)
 	//! - umbral-eclipse-magnitude (on Earth for Moon only)
 	virtual QVariantMap getInfoMap(const StelCore *core) const  Q_DECL_OVERRIDE;
-	virtual double getCloseViewFov(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual double getSatellitesFov(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual double getParentSatellitesFov(const StelCore* core) const Q_DECL_OVERRIDE;
+    //virtual double getCloseViewFov(const StelCore* core) const Q_DECL_OVERRIDE;
+    //virtual double getSatellitesFov(const StelCore* core) const Q_DECL_OVERRIDE;
+    //virtual double getParentSatellitesFov(const StelCore* core) const Q_DECL_OVERRIDE;
 	virtual float getVMagnitude(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual float getSelectPriority(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual Vec3f getInfoColor(void) const Q_DECL_OVERRIDE;
+    //virtual float getSelectPriority(const StelCore* core) const Q_DECL_OVERRIDE;
+    //virtual Vec3f getInfoColor(void) const Q_DECL_OVERRIDE;
 	virtual QString getType(void) const Q_DECL_OVERRIDE {return PLANET_TYPE;}
 	virtual QString getID(void) const Q_DECL_OVERRIDE { return englishName; }
 	//! A Planet's own eclipticPos is in VSOP87 ref. frame (practically equal to ecliptic of J2000 for us) coordinates relative to the parent body (sun, planet).
@@ -237,15 +237,15 @@ public:
 	//! The positional computation is called by SolarSystem. If the core's aberration setting is active, the J2000 position will then include it.
 	virtual Vec3d getJ2000EquatorialPos(const StelCore *core) const Q_DECL_OVERRIDE;
 	virtual QString getEnglishName(void) const Q_DECL_OVERRIDE;
-	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE;
-	QString getNativeName(void) const { return nativeName; }
-	QString getNativeNameI18n(void) const { return nativeNameMeaningI18n; }
+    //virtual QString getNameI18n(void) const Q_DECL_OVERRIDE;
+//	QString getNativeName(void) const { return nativeName; }
+//	QString getNativeNameI18n(void) const { return nativeNameMeaningI18n; }
 	QString getCommonEnglishName(void) const {return englishName;}
-	QString getCommonNameI18n(void) const {return nameI18;}
+//QString getCommonNameI18n(void) const {return nameI18;}
 	//! Get angular semidiameter, degrees. If planet display is artificially enlarged (e.g. Moon upscale), value will also be increased.
 	virtual double getAngularRadius(const StelCore* core) const Q_DECL_OVERRIDE;
 	virtual bool hasAtmosphere(void) {return atmosphere;}
-	virtual bool hasHalo(void) {return halo;}
+//	virtual bool hasHalo(void) {return halo;}
 	//! Returns whether planet positions are valid and useful for the current simulation time.
 	//! E.g. outdated orbital elements for Kepler orbits (beyond their orbit_good .ini file entries)
 	//! may lead to invalid positions which should better not be used.
@@ -264,7 +264,7 @@ public:
 	///////////////////////////////////////////////////////////////////////////
 	// Methods of SolarSystem object
 	//! Translate planet name using the passed translator
-	virtual void translateName(const StelTranslator &trans);
+//	virtual void translateName(const StelTranslator &trans);
 
 	// Draw the Planet
 	// GZ Made that virtual to allow comets having their own draw().
@@ -293,13 +293,13 @@ public:
 	//! Get albedo
 	double getAlbedo(void) const { return static_cast<double>(albedo); }
 
-	const QString& getTextMapName() const {return texMapName;}
+//	const QString& getTextMapName() const {return texMapName;}
 	const QString getPlanetTypeString() const {return pTypeMap.value(pType);}
 	PlanetType getPlanetType() const {return pType;}
 	Orbit* getOrbit() const {return orbitPtr;}
 
-	void setNativeName(QString planet) { nativeName = planet; }
-	void setNativeNameMeaning(QString planet) { nativeNameMeaning = planet; }
+//	void setNativeName(QString planet) { nativeName = planet; }
+//	void setNativeNameMeaning(QString planet) { nativeNameMeaning = planet; }
 
 	//! set the IAU moon number (designation of the moon), if any.
 	void setIAUMoonNumber(QString designation);
@@ -464,30 +464,30 @@ public:
 
 	const QSharedPointer<Planet> getParent(void) const {return parent;}
 
-	static void setLabelColor(const Vec3f& lc) {labelColor = lc;}
-	static const Vec3f& getLabelColor(void) {return labelColor;}
+//	static void setLabelColor(const Vec3f& lc) {labelColor = lc;}
+//	static const Vec3f& getLabelColor(void) {return labelColor;}
 
 	// update displayed elements. @param deltaTime: ms (since last call)
 	virtual void update(int deltaTime);
 
-	void setFlagHints(bool b){hintFader = b;}
-	bool getFlagHints(void) const {return hintFader;}
+//	void setFlagHints(bool b){hintFader = b;}
+//	bool getFlagHints(void) const {return hintFader;}
 
 	void setFlagLabels(bool b){flagLabels = b;}
 	bool getFlagLabels(void) const {return flagLabels;}
 
-	bool flagNativeName;
-	void setFlagNativeName(bool b) { flagNativeName = b; }
-	bool getFlagNativeName(void) const { return flagNativeName; }
+    //bool flagNativeName;
+    //void setFlagNativeName(bool b) { flagNativeName = b; }
+    //bool getFlagNativeName(void) const { return flagNativeName; }
 
 	///////////////////////////////////////////////////////////////////////////
 	///// Orbit related code
 	// Should move to an OrbitPath class which works on a SolarSystemObject, not a Planet
-	void setFlagOrbits(bool b){orbitFader = b;}
-	bool getFlagOrbits(void) const {return orbitFader;}
-	LinearFader orbitFader;
+//	void setFlagOrbits(bool b){orbitFader = b;}
+//	bool getFlagOrbits(void) const {return orbitFader;}
+    //LinearFader orbitFader;
 	// draw orbital path of Planet
-	void drawOrbit(const StelCore*);
+    //void drawOrbit(const StelCore*);
 	Vec3d orbit[ORBIT_SEGMENTS+1];  // store heliocentric coordinates for drawing the orbit
 	double deltaJDE;                // time difference between positional updates.
 	double deltaOrbitJDE;
@@ -495,87 +495,87 @@ public:
 					// the end: good for elliptical orbits, bad for parabolic
 					// and hyperbolic orbits
 
-	static Vec3f orbitColor;
-	static void setOrbitColor(const Vec3f& oc) {orbitColor = oc;}
-	static const Vec3f& getOrbitColor() {return orbitColor;}
+//	static Vec3f orbitColor;
+//	static void setOrbitColor(const Vec3f& oc) {orbitColor = oc;}
+//	static const Vec3f& getOrbitColor() {return orbitColor;}
 
-	static Vec3f orbitMajorPlanetsColor;
-	static void setMajorPlanetOrbitColor(const Vec3f& oc) { orbitMajorPlanetsColor = oc;}
-	static const Vec3f& getMajorPlanetOrbitColor() {return orbitMajorPlanetsColor;}
+//	static Vec3f orbitMajorPlanetsColor;
+//	static void setMajorPlanetOrbitColor(const Vec3f& oc) { orbitMajorPlanetsColor = oc;}
+//	static const Vec3f& getMajorPlanetOrbitColor() {return orbitMajorPlanetsColor;}
 
-	static Vec3f orbitMoonsColor;
-	static void setMoonOrbitColor(const Vec3f& oc) { orbitMoonsColor = oc;}
-	static const Vec3f& getMoonOrbitColor() {return orbitMoonsColor;}
+//	static Vec3f orbitMoonsColor;
+//	static void setMoonOrbitColor(const Vec3f& oc) { orbitMoonsColor = oc;}
+//	static const Vec3f& getMoonOrbitColor() {return orbitMoonsColor;}
 
-	static Vec3f orbitMinorPlanetsColor;
-	static void setMinorPlanetOrbitColor(const Vec3f& oc) { orbitMinorPlanetsColor = oc;}
-	static const Vec3f& getMinorPlanetOrbitColor() {return orbitMinorPlanetsColor;}
+//	static Vec3f orbitMinorPlanetsColor;
+//	static void setMinorPlanetOrbitColor(const Vec3f& oc) { orbitMinorPlanetsColor = oc;}
+//	static const Vec3f& getMinorPlanetOrbitColor() {return orbitMinorPlanetsColor;}
 
-	static Vec3f orbitDwarfPlanetsColor;
-	static void setDwarfPlanetOrbitColor(const Vec3f& oc) { orbitDwarfPlanetsColor = oc;}
-	static const Vec3f& getDwarfPlanetOrbitColor() {return orbitDwarfPlanetsColor;}
+//	static Vec3f orbitDwarfPlanetsColor;
+//	static void setDwarfPlanetOrbitColor(const Vec3f& oc) { orbitDwarfPlanetsColor = oc;}
+//	static const Vec3f& getDwarfPlanetOrbitColor() {return orbitDwarfPlanetsColor;}
 
-	static Vec3f orbitCubewanosColor;
-	static void setCubewanoOrbitColor(const Vec3f& oc) { orbitCubewanosColor = oc;}
-	static const Vec3f& getCubewanoOrbitColor() {return orbitCubewanosColor;}
+//	static Vec3f orbitCubewanosColor;
+//	static void setCubewanoOrbitColor(const Vec3f& oc) { orbitCubewanosColor = oc;}
+//	static const Vec3f& getCubewanoOrbitColor() {return orbitCubewanosColor;}
 
-	static Vec3f orbitPlutinosColor;
-	static void setPlutinoOrbitColor(const Vec3f& oc) { orbitPlutinosColor = oc;}
-	static const Vec3f& getPlutinoOrbitColor() {return orbitPlutinosColor;}
+//	static Vec3f orbitPlutinosColor;
+//	static void setPlutinoOrbitColor(const Vec3f& oc) { orbitPlutinosColor = oc;}
+//	static const Vec3f& getPlutinoOrbitColor() {return orbitPlutinosColor;}
 
-	static Vec3f orbitScatteredDiscObjectsColor;
-	static void setScatteredDiscObjectOrbitColor(const Vec3f& oc) { orbitScatteredDiscObjectsColor = oc;}
-	static const Vec3f& getScatteredDiscObjectOrbitColor() {return orbitScatteredDiscObjectsColor;}
+//	static Vec3f orbitScatteredDiscObjectsColor;
+//	static void setScatteredDiscObjectOrbitColor(const Vec3f& oc) { orbitScatteredDiscObjectsColor = oc;}
+//	static const Vec3f& getScatteredDiscObjectOrbitColor() {return orbitScatteredDiscObjectsColor;}
 
-	static Vec3f orbitOortCloudObjectsColor;
-	static void setOortCloudObjectOrbitColor(const Vec3f& oc) { orbitOortCloudObjectsColor = oc;}
-	static const Vec3f& getOortCloudObjectOrbitColor() {return orbitOortCloudObjectsColor;}
+//	static Vec3f orbitOortCloudObjectsColor;
+//	static void setOortCloudObjectOrbitColor(const Vec3f& oc) { orbitOortCloudObjectsColor = oc;}
+//	static const Vec3f& getOortCloudObjectOrbitColor() {return orbitOortCloudObjectsColor;}
 
-	static Vec3f orbitCometsColor;
-	static void setCometOrbitColor(const Vec3f& oc) { orbitCometsColor = oc;}
-	static const Vec3f& getCometOrbitColor() {return orbitCometsColor;}
+//	static Vec3f orbitCometsColor;
+//	static void setCometOrbitColor(const Vec3f& oc) { orbitCometsColor = oc;}
+//	static const Vec3f& getCometOrbitColor() {return orbitCometsColor;}
 
-	static Vec3f orbitSednoidsColor;
-	static void setSednoidOrbitColor(const Vec3f& oc) { orbitSednoidsColor = oc;}
-	static const Vec3f& getSednoidOrbitColor() {return orbitSednoidsColor;}
+//	static Vec3f orbitSednoidsColor;
+//	static void setSednoidOrbitColor(const Vec3f& oc) { orbitSednoidsColor = oc;}
+//	static const Vec3f& getSednoidOrbitColor() {return orbitSednoidsColor;}
 
-	static Vec3f orbitInterstellarColor;
-	static void setInterstellarOrbitColor(const Vec3f& oc) { orbitInterstellarColor = oc;}
-	static const Vec3f& getInterstellarOrbitColor() {return orbitInterstellarColor;}
+//	static Vec3f orbitInterstellarColor;
+//	static void setInterstellarOrbitColor(const Vec3f& oc) { orbitInterstellarColor = oc;}
+//	static const Vec3f& getInterstellarOrbitColor() {return orbitInterstellarColor;}
 
-	static Vec3f orbitMercuryColor;
-	static void setMercuryOrbitColor(const Vec3f& oc) { orbitMercuryColor = oc;}
-	static const Vec3f& getMercuryOrbitColor() {return orbitMercuryColor;}
+//	static Vec3f orbitMercuryColor;
+//	static void setMercuryOrbitColor(const Vec3f& oc) { orbitMercuryColor = oc;}
+//	static const Vec3f& getMercuryOrbitColor() {return orbitMercuryColor;}
 
-	static Vec3f orbitVenusColor;
-	static void setVenusOrbitColor(const Vec3f& oc) { orbitVenusColor = oc;}
-	static const Vec3f& getVenusOrbitColor() {return orbitVenusColor;}
+//	static Vec3f orbitVenusColor;
+//	static void setVenusOrbitColor(const Vec3f& oc) { orbitVenusColor = oc;}
+//	static const Vec3f& getVenusOrbitColor() {return orbitVenusColor;}
 
-	static Vec3f orbitEarthColor;
-	static void setEarthOrbitColor(const Vec3f& oc) { orbitEarthColor = oc;}
-	static const Vec3f& getEarthOrbitColor() {return orbitEarthColor;}
+//	static Vec3f orbitEarthColor;
+//	static void setEarthOrbitColor(const Vec3f& oc) { orbitEarthColor = oc;}
+//	static const Vec3f& getEarthOrbitColor() {return orbitEarthColor;}
 
-	static Vec3f orbitMarsColor;
-	static void setMarsOrbitColor(const Vec3f& oc) { orbitMarsColor = oc;}
-	static const Vec3f& getMarsOrbitColor() {return orbitMarsColor;}
+//	static Vec3f orbitMarsColor;
+//	static void setMarsOrbitColor(const Vec3f& oc) { orbitMarsColor = oc;}
+//	static const Vec3f& getMarsOrbitColor() {return orbitMarsColor;}
 
-	static Vec3f orbitJupiterColor;
-	static void setJupiterOrbitColor(const Vec3f& oc) { orbitJupiterColor = oc;}
-	static const Vec3f& getJupiterOrbitColor() {return orbitJupiterColor;}
+//	static Vec3f orbitJupiterColor;
+//	static void setJupiterOrbitColor(const Vec3f& oc) { orbitJupiterColor = oc;}
+//	static const Vec3f& getJupiterOrbitColor() {return orbitJupiterColor;}
 
-	static Vec3f orbitSaturnColor;
-	static void setSaturnOrbitColor(const Vec3f& oc) { orbitSaturnColor = oc;}
-	static const Vec3f& getSaturnOrbitColor() {return orbitSaturnColor;}
+//	static Vec3f orbitSaturnColor;
+//	static void setSaturnOrbitColor(const Vec3f& oc) { orbitSaturnColor = oc;}
+//	static const Vec3f& getSaturnOrbitColor() {return orbitSaturnColor;}
 
-	static Vec3f orbitUranusColor;
-	static void setUranusOrbitColor(const Vec3f& oc) { orbitUranusColor = oc;}
-	static const Vec3f& getUranusOrbitColor() {return orbitUranusColor;}
+//	static Vec3f orbitUranusColor;
+//	static void setUranusOrbitColor(const Vec3f& oc) { orbitUranusColor = oc;}
+//	static const Vec3f& getUranusOrbitColor() {return orbitUranusColor;}
 
-	static Vec3f orbitNeptuneColor;
-	static void setNeptuneOrbitColor(const Vec3f& oc) { orbitNeptuneColor = oc;}
-	static const Vec3f& getNeptuneOrbitColor() {return orbitNeptuneColor;}
+//	static Vec3f orbitNeptuneColor;
+//	static void setNeptuneOrbitColor(const Vec3f& oc) { orbitNeptuneColor = oc;}
+//	static const Vec3f& getNeptuneOrbitColor() {return orbitNeptuneColor;}
 
-	static PlanetOrbitColorStyle orbitColorStyle;
+//	static PlanetOrbitColorStyle orbitColorStyle;
 
 	//! Return the list of planets which project some shadow on this planet
 	QVector<const Planet*> getCandidatesForShadow() const;
@@ -595,8 +595,8 @@ public:
 	//! @note Limitation for efficiency: If this is a planet moon from another planet, we compute RTS for the parent planet instead!
 	virtual Vec4d getRTSTime(const StelCore* core, const double altitude=0.) const Q_DECL_OVERRIDE;
 
-	void resetTextures();
-	void replaceTexture(const QString& texName);
+    //void resetTextures();
+    //void replaceTexture(const QString& texName);
 	
 protected:
 	// These components for getInfoString() can be overridden in subclasses
@@ -620,7 +620,7 @@ protected:
 		~PlanetOBJModel();
 
 		//! Loads the data from the StelOBJ into the StelOpenGLArray
-		bool loadGL();
+        //bool loadGL();
 
 		void performScaling(double scale);
 
@@ -635,16 +635,16 @@ protected:
 		//! Used to store the projected array data, avoids re-allocation each frame
 		QVector<Vec3f> projectedPosArray;
 		//! An OpenGL buffer for the projected positions
-		QOpenGLBuffer* projPosBuffer;
+//		QOpenGLBuffer* projPosBuffer;
 		//! The single texture to use
-		StelTextureSP texture;
+//		StelTextureSP texture;
 		//! The original StelOBJ data, deleted after loading to GL
 		StelOBJ* obj;
 		//! The opengl array, created by loadObjModel() but filled later in main thread
-		StelOpenGLArray* arr;
+//		StelOpenGLArray* arr;
 	};
 
-	static StelTextureSP texEarthShadow;     // for lunar eclipses
+//	static StelTextureSP texEarthShadow;     // for lunar eclipses
 
 	//! Used in drawSphere() to compute shadows, and inside a function to derive eclipse sizes.
 	//! @param solarEclipseCase For reasons currently unknown we must handle solar eclipses as special case.
@@ -653,44 +653,44 @@ protected:
 	//! Update the orbit position values.
 	void computeOrbit();
 
-	Vec3f getCurrentOrbitColor() const;
+    //Vec3f getCurrentOrbitColor() const;
 	
 	//! Return the information string "ready to print"
 	QString getPlanetLabel() const;
 
 	//! Draw the 3d model. Call the proper functions if there are rings etc..
 	//! @param screenRd radius in screen pixels
-	void draw3dModel(StelCore* core, StelProjector::ModelViewTranformP transfo, float screenRd, bool drawOnlyRing=false);
+    //void draw3dModel(StelCore* core, StelProjector::ModelViewTranformP transfo, float screenRd, bool drawOnlyRing=false);
 
 	//! Draws the OBJ model, assuming it is available
 	//! @param screenRd radius in screen pixels.
 	//! @return false if the model can currently not be drawn (not loaded)
-	bool drawObjModel(StelPainter* painter, float screenRd);
+//	bool drawObjModel(StelPainter* painter, float screenRd);
 
-	bool drawObjShadowMap(StelPainter* painter, QMatrix4x4 &shadowMatrix);
+//	bool drawObjShadowMap(StelPainter* painter, QMatrix4x4 &shadowMatrix);
 
 	//! Starts the OBJ loading process, if it has not been done yet.
 	//! Returns true when the OBJ is ready to draw
-	bool ensureObjLoaded();
+    //bool ensureObjLoaded();
 
 	//! Draw the 3D sphere
-	void drawSphere(StelPainter* painter, float screenRd, bool drawOnlyRing=false);
+//	void drawSphere(StelPainter* painter, float screenRd, bool drawOnlyRing=false);
 
 	//! Draw the Hips survey.
-	void drawSurvey(StelCore* core, StelPainter* painter);
+//	void drawSurvey(StelCore* core, StelPainter* painter);
 
 	//! Draw the circle and name of the Planet
-	void drawHints(const StelCore* core, const QFont& planetNameFont);
+//	void drawHints(const StelCore* core, const QFont& planetNameFont);
     
-	PlanetOBJModel* loadObjModel() const;
+//	PlanetOBJModel* loadObjModel() const;
 
 	QString englishName;             // english planet name
-	QString nameI18;                 // International translated name
-	QString nativeName;              // Can be used in a skyculture
+    //QString nameI18;                 // International translated name
+    /*QString nativeName;              // Can be used in a skyculture
 	QString nativeNameMeaning;       // Can be used in a skyculture
-	QString nativeNameMeaningI18n;   // Can be used in a skyculture
-	QString texMapName;              // Texture file path
-	QString normalMapName;           // Texture file path
+    QString nativeNameMeaningI18n; */  // Can be used in a skyculture
+    //QString texMapName;              // Texture file path
+    //QString normalMapName;           // Texture file path
 	RotationElements re;             // Rotation and axis orientation parameters
 	double siderealPeriod;           // sidereal period (Planet year or a moon's sidereal month) [earth days]
 	double equatorialRadius;         // Planet's equatorial radius in AU
@@ -703,7 +703,7 @@ protected:
 					 // The "State Vector" [Heafner 1999] can be formed from (JDE, eclipticPos, eclipticVelocity)
 	Vec3d aberrationPush;            // 0.21.2+: a small displacement to be applied if aberred positions are requested.
 	Vec3d screenPos;                 // Used to store temporarily the 2D position on screen. We need double for moons. Observe Styx from Pluto w/o atmosphere to see that.
-	Vec3f haloColor;                 // used for drawing the planet halo. Also, when non-spherical (OBJ) model without texture is used, its color is derived from haloColour*albedo.
+    //Vec3f haloColor;                 // used for drawing the planet halo. Also, when non-spherical (OBJ) model without texture is used, its color is derived from haloColour*albedo.
 
 	float absoluteMagnitude;         // since 2017 this moved to the Planet class: V(1,0) from Explanatory Supplement or WGCCRE2009 paper for the planets, H in the H,G magnitude system for Minor planets, H10 for comets.
 					 // This is the apparent visual magnitude when 1AU from sun and observer, with zero phase angle.
@@ -723,8 +723,8 @@ protected:
 					 // For Earth, this should be Greenwich Mean Sidereal Time GMST.
 					 // For V0.21+, and for planets computed after the IAU2009/WGCCRE papers this is angle W (rotDeg),
 					 // i.e. angle between ascending node of body equator w.r.t. ICRF equator and its prime meridian.
-	StelTextureSP texMap;            // Planet map texture
-	StelTextureSP normalMap;         // Planet normal map texture
+//	StelTextureSP texMap;            // Planet map texture
+//	StelTextureSP normalMap;         // Planet normal map texture
 
 	PlanetOBJModel* objModel;               // Planet model (when it has been loaded)
 	QFuture<PlanetOBJModel*>* objModelLoader;// For async loading of the OBJ file
@@ -746,138 +746,138 @@ protected:
 	OsculatingFunctType *const osculatingFunc;
 	QSharedPointer<Planet> parent;           // Planet parent i.e. sun for earth
 	QList<QSharedPointer<Planet> > satellites;      // satellites of the Planet
-	LinearFader hintFader;
-	LinearFader labelsFader;         // Store the current state of the label for this planet
+//	LinearFader hintFader;
+//	LinearFader labelsFader;         // Store the current state of the label for this planet
 	bool flagLabels;                 // Define whether labels should be displayed
 	bool hidden;                     // useful for fake planets used as observation positions - not drawn or labeled
 	bool atmosphere;                 // Does the planet have an atmosphere?
-	bool halo;                       // Does the planet have a halo?
+    //bool halo;                       // Does the planet have a halo?
 	PlanetType pType;                // Type of body
 	bool multisamplingEnabled_;
 
 	static ApparentMagnitudeAlgorithm vMagAlgorithm;
 
-	QOpenGLFunctions* gl;
+//	QOpenGLFunctions* gl;
 
-	static Vec3f labelColor;
-	static StelTextureSP hintCircleTex;
+//	static Vec3f labelColor;
+//	static StelTextureSP hintCircleTex;
 	static const QMap<PlanetType, QString> pTypeMap; // Maps fast type to english name.
 	static const QMap<ApparentMagnitudeAlgorithm, QString> vMagAlgorithmMap;
-	static bool drawMoonHalo;
-	static bool drawSunHalo;
+//	static bool drawMoonHalo;
+//	static bool drawSunHalo;
 	//! If true, planet orbits will be drawn even if planet is off screen.
-	static bool permanentDrawingOrbits;
-	static int orbitsThickness;
+//	static bool permanentDrawingOrbits;
+//	static int orbitsThickness;
 
 private:
 	class StelPropertyMgr* propMgr;
 	QString iauMoonNumber;
 	// File path for texture and normal map; both variables used for saving original names of files
-	QString texMapFileOrig;
-	QString normalMapFileOrig;
+    //QString texMapFileOrig;
+    //QString normalMapFileOrig;
 
 	const QString getContextString() const;
 	QPair<double, double> getLunarEclipseMagnitudes() const;
 
 	// Shader-related variables
-	struct PlanetShaderVars {
-		// Vertex attributes
-		int texCoord;
-		int unprojectedVertex;
-		int vertex;
-		int normalIn;
+//	struct PlanetShaderVars {
+//		// Vertex attributes
+//		int texCoord;
+//		int unprojectedVertex;
+//		int vertex;
+//		int normalIn;
 
-		// Common uniforms
-		int projectionMatrix;
-		int tex;
-		int lightDirection;
-		int eyeDirection;
-		int diffuseLight;
-		int ambientLight;
-		int shadowCount;
-		int shadowData;
-		int sunInfo;
-		int skyBrightness;
-		int orenNayarParameters;
-		int outgasParameters;
+//		// Common uniforms
+//		int projectionMatrix;
+//		int tex;
+//		int lightDirection;
+//		int eyeDirection;
+//		int diffuseLight;
+//		int ambientLight;
+//		int shadowCount;
+//		int shadowData;
+//		int sunInfo;
+//		int skyBrightness;
+//		int orenNayarParameters;
+//		int outgasParameters;
 
-		// For Mars poles
-		int poleLat; // latitudes of edges of northern (x) and southern (y) polar cap [texture y, moving from 0 (S) to 1 (N)]. Only used for Mars, use [1, 0] for other objects.
+//		// For Mars poles
+//		int poleLat; // latitudes of edges of northern (x) and southern (y) polar cap [texture y, moving from 0 (S) to 1 (N)]. Only used for Mars, use [1, 0] for other objects.
 
-		// Moon-specific variables
-		int earthShadow;
-		int eclipsePush; // apparent brightness push for partial Lunar Eclipse (make bright rim overbright)
-		int normalMap;
+//		// Moon-specific variables
+//		int earthShadow;
+//		int eclipsePush; // apparent brightness push for partial Lunar Eclipse (make bright rim overbright)
+//		int normalMap;
 
-		// Rings-specific variables
-		int isRing;
-		int ring;
-		int outerRadius;
-		int innerRadius;
-		int ringS;
+//		// Rings-specific variables
+//		int isRing;
+//		int ring;
+//		int outerRadius;
+//		int innerRadius;
+//		int ringS;
 
-		// Shadowmap variables
-		int shadowMatrix;
-		int shadowTex;
-		int poissonDisk;
+//		// Shadowmap variables
+//		int shadowMatrix;
+//		int shadowTex;
+//		int poissonDisk;
 		
-		void initLocations(QOpenGLShaderProgram*);
-	};
+////		void initLocations(QOpenGLShaderProgram*);
+//	};
 
 	//! Encapsulates some calculated information used for rendering
-	struct RenderData
-	{
-		Mat4d modelMatrix;
-		Mat4d mTarget;
-		QVector<const Planet*> shadowCandidates;
-		QMatrix4x4 shadowCandidatesData;
-		Vec3d eyePos;
-	};
+//	struct RenderData
+//	{
+//		Mat4d modelMatrix;
+//		Mat4d mTarget;
+//		QVector<const Planet*> shadowCandidates;
+//		QMatrix4x4 shadowCandidatesData;
+//		Vec3d eyePos;
+//	};
 
 	//! Calculates and uploads the common shader uniforms (projection matrix, texture, lighting&shadow data)
-	RenderData setCommonShaderUniforms(const StelPainter &painter, QOpenGLShaderProgram* shader, const PlanetShaderVars& shaderVars); // const;
+//	RenderData setCommonShaderUniforms(const StelPainter &painter, QOpenGLShaderProgram* shader, const PlanetShaderVars& shaderVars); // const;
 
-	static PlanetShaderVars planetShaderVars;
-	static QOpenGLShaderProgram* planetShaderProgram;
+//	static PlanetShaderVars planetShaderVars;
+//	static QOpenGLShaderProgram* planetShaderProgram;
 
-	static PlanetShaderVars ringPlanetShaderVars;
-	static QOpenGLShaderProgram* ringPlanetShaderProgram;
+//	static PlanetShaderVars ringPlanetShaderVars;
+//	static QOpenGLShaderProgram* ringPlanetShaderProgram;
 	
-	static PlanetShaderVars moonShaderVars;
-	static QOpenGLShaderProgram* moonShaderProgram;
+//	static PlanetShaderVars moonShaderVars;
+//	static QOpenGLShaderProgram* moonShaderProgram;
 
-	static PlanetShaderVars objShaderVars;
-	static QOpenGLShaderProgram* objShaderProgram;
+//	static PlanetShaderVars objShaderVars;
+//	static QOpenGLShaderProgram* objShaderProgram;
 
-	static PlanetShaderVars objShadowShaderVars;
-	static QOpenGLShaderProgram* objShadowShaderProgram;
+//	static PlanetShaderVars objShadowShaderVars;
+//	static QOpenGLShaderProgram* objShadowShaderProgram;
 
-	static PlanetShaderVars transformShaderVars;
-	static QOpenGLShaderProgram* transformShaderProgram;
+//	static PlanetShaderVars transformShaderVars;
+//	static QOpenGLShaderProgram* transformShaderProgram;
 
-	static bool shaderError;		// True if loading shaders caused errors
+//	static bool shaderError;		// True if loading shaders caused errors
 
-	static bool shadowInitialized;
-	static Vec2f shadowPolyOffset;
-#ifdef DEBUG_SHADOWMAP
-	static QOpenGLFramebufferObject* shadowFBO;
-#else
-	static unsigned int shadowFBO;
-#endif
-	static unsigned int shadowTex;
+////	static bool shadowInitialized;
+////	static Vec2f shadowPolyOffset;
+//#ifdef DEBUG_SHADOWMAP
+//	static QOpenGLFramebufferObject* shadowFBO;
+//#else
+//	static unsigned int shadowFBO;
+//#endif
+//	static unsigned int shadowTex;
 
 
-	static bool initShader();
-	static void deinitShader();
-	static bool initFBO();
-	static void deinitFBO();
+//	static bool initShader();
+//	static void deinitShader();
+//	static bool initFBO();
+//	static void deinitFBO();
 
-	static QOpenGLShaderProgram* createShader(const QString& name,
-						  PlanetShaderVars& vars,
-						  const QByteArray& vSrc,
-						  const QByteArray& fSrc,
-						  const QByteArray& prefix=QByteArray(),
-						  const QMap<QByteArray,int>& fixedAttributeLocations=QMap<QByteArray,int>());
+//	static QOpenGLShaderProgram* createShader(const QString& name,
+//						  PlanetShaderVars& vars,
+//						  const QByteArray& vSrc,
+//						  const QByteArray& fSrc,
+//						  const QByteArray& prefix=QByteArray(),
+//						  const QMap<QByteArray,int>& fixedAttributeLocations=QMap<QByteArray,int>());
 
 	// Cache of positions in the parent ecliptic coordinates in AU.
 	// Used only for orbit plotting

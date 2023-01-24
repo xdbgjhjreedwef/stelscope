@@ -19,15 +19,15 @@
 
 #include "HipsMgr.hpp"
 #include "StelHips.hpp"
-#include "StelPainter.hpp"
+//#include "StelPainter.hpp"
 #include "StelCore.hpp"
 #include "StelApp.hpp"
-#include "StelTranslator.hpp"
+//#include "StelTranslator.hpp"
 #include "StelModuleMgr.hpp"
-#include "StelSkyLayerMgr.hpp"
+//#include "StelSkyLayerMgr.hpp"
 #include "StelUtils.hpp"
 
-#include <QNetworkReply>
+//#include <QNetworkReply>
 #include <QSettings>
 #include <QTimer>
 
@@ -39,7 +39,8 @@ HipsMgr::HipsMgr()
 
 HipsMgr::~HipsMgr()
 {
-	if (StelApp::getInstance().getNetworkAccessManager()->networkAccessible()==QNetworkAccessManager::Accessible)
+//TODO: remove if usable with internet only
+//	if (StelApp::getInstance().getNetworkAccessManager()->networkAccessible()==QNetworkAccessManager::Accessible)
 	{
 		// Store active HiPS to config.ini if network is available
 		QSettings* conf = StelApp::getInstance().getSettings();
@@ -105,30 +106,30 @@ void HipsMgr::loadSources()
 			<< "https://data.stellarium.org/surveys/hipslist";
 	}
 
-	for (QUrl source: qAsConst(sources))
-	{
-		if (source.scheme().isEmpty()) source.setScheme("file");
-		QNetworkRequest req = QNetworkRequest(source);
-		req.setRawHeader("User-Agent", StelUtils::getUserAgentString().toLatin1());
-		QNetworkReply* networkReply = StelApp::getInstance().getNetworkAccessManager()->get(req);
-		connect(networkReply, &QNetworkReply::finished, this, [=] {
-			QByteArray data = networkReply->readAll();
-			QList<HipsSurveyP> newSurveys = HipsSurvey::parseHipslist(data);
-			for (HipsSurveyP &survey: newSurveys)
-			{
-				connect(survey.data(), SIGNAL(propertiesChanged()), this, SIGNAL(surveysChanged()));
-				emit gotNewSurvey(survey);
-			}
-			surveys += newSurveys;
-			emit surveysChanged();
-			nbSourcesLoaded++;
-			if (nbSourcesLoaded == sources.size())
-			{
-				state = Loaded;
-				emit stateChanged(state);
-			}
-		});
-	}
+//	for (QUrl source: qAsConst(sources))
+//	{
+//		if (source.scheme().isEmpty()) source.setScheme("file");
+//		QNetworkRequest req = QNetworkRequest(source);
+//		req.setRawHeader("User-Agent", StelUtils::getUserAgentString().toLatin1());
+//		QNetworkReply* networkReply = StelApp::getInstance().getNetworkAccessManager()->get(req);
+//		connect(networkReply, &QNetworkReply::finished, this, [=] {
+//			QByteArray data = networkReply->readAll();
+//			QList<HipsSurveyP> newSurveys = HipsSurvey::parseHipslist(data);
+//			for (HipsSurveyP &survey: newSurveys)
+//			{
+//				connect(survey.data(), SIGNAL(propertiesChanged()), this, SIGNAL(surveysChanged()));
+//				emit gotNewSurvey(survey);
+//			}
+//			surveys += newSurveys;
+//			emit surveysChanged();
+//			nbSourcesLoaded++;
+//			if (nbSourcesLoaded == sources.size())
+//			{
+//				state = Loaded;
+//				emit stateChanged(state);
+//			}
+//		});
+//	}
 	conf->endGroup();
 }
 
@@ -142,13 +143,13 @@ void HipsMgr::init()
 	conf->endGroup();
 	bool hasVisibleSurvey = size>0 ? true: false;
 
-	if (StelApp::getInstance().getNetworkAccessManager()->networkAccessible()==QNetworkAccessManager::NotAccessible)
-	{
-		setFlagShow(false);
-		hasVisibleSurvey = false;
-	}
+//	if (StelApp::getInstance().getNetworkAccessManager()->networkAccessible()==QNetworkAccessManager::NotAccessible)
+//	{
+//		setFlagShow(false);
+//		hasVisibleSurvey = false;
+//	}
 
-	addAction("actionShow_Hips_Surveys", N_("Display Options"), N_("Toggle Hierarchical Progressive Surveys"), "flagShow", "Ctrl+Alt+D");
+//	addAction("actionShow_Hips_Surveys", N_("Display Options"), N_("Toggle Hierarchical Progressive Surveys"), "flagShow", "Ctrl+Alt+D");
 
 	// Start loading the sources only after stellarium has time to set up the proxy.
 	// We only do it if we actually have a visible survey.  Otherwise it's
@@ -190,30 +191,30 @@ void HipsMgr::deinit()
 void HipsMgr::draw(StelCore* core)
 {
 	if (!visible) return;
-	StelPainter sPainter(core->getProjection(StelCore::FrameJ2000));
-	for (auto &survey: surveys)
-	{
-		if (survey->isVisible() && survey->planet.isEmpty())
-		{
-			survey->draw(&sPainter);
-		}
-	}
+//	StelPainter sPainter(core->getProjection(StelCore::FrameJ2000));
+//	for (auto &survey: surveys)
+//	{
+//		if (survey->isVisible() && survey->planet.isEmpty())
+//		{
+//			survey->draw(&sPainter);
+//		}
+//	}
 }
 
 void HipsMgr::update(double deltaTime)
 {
 	for (auto &survey: surveys)
 	{
-		survey->fader.update(static_cast<int>(deltaTime * 1000));
+        //survey->fader.update(static_cast<int>(deltaTime * 1000));
 	}
 }
 
-double HipsMgr::getCallOrder(StelModuleActionName actionName) const
-{
-	if (actionName==StelModule::ActionDraw)
-		return 7;
-	return 0;
-}
+//double HipsMgr::getCallOrder(StelModuleActionName actionName) const
+//{
+//	if (actionName==StelModule::ActionDraw)
+//		return 7;
+//	return 0;
+//}
 
 HipsSurveyP HipsMgr::getSurveyByUrl(const QString &url)
 {

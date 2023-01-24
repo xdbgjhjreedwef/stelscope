@@ -66,29 +66,29 @@ public:
     Cardinals();
     virtual ~Cardinals();
     void draw(const StelCore* core, double latitude) const;
-    void setColor(const Vec3f& c) {color = c;}
-    Vec3f getColor() const {return color;}
-    void updateI18n();
+   // void setColor(const Vec3f& c) {color = c;}
+   // Vec3f getColor() const {return color;}
+    //void updateI18n();
     void update(double deltaTime);
-    void setFadeDuration(float duration);
-    void setFlagShowCardinals(bool b) { fader4WCR = b; }
-    bool getFlagShowCardinals() const { return fader4WCR; }
+//    void setFadeDuration(float duration);
+//    void setFlagShowCardinals(bool b) { fader4WCR = b; }
+//    bool getFlagShowCardinals() const { return fader4WCR; }
 
-    void setFlagShow4WCRLabels(bool b) { fader4WCR = b; }
-    bool getFlagShow4WCRLabels() const { return fader4WCR; }
-    void setFlagShow8WCRLabels(bool b) { fader8WCR = b; }
-    bool getFlagShow8WCRLabels() const { return fader8WCR; }
-    void setFlagShow16WCRLabels(bool b) { fader16WCR = b; }
-    bool getFlagShow16WCRLabels() const { return fader16WCR; }
+//    void setFlagShow4WCRLabels(bool b) { fader4WCR = b; }
+//    bool getFlagShow4WCRLabels() const { return fader4WCR; }
+//    void setFlagShow8WCRLabels(bool b) { fader8WCR = b; }
+//    bool getFlagShow8WCRLabels() const { return fader8WCR; }
+//    void setFlagShow16WCRLabels(bool b) { fader16WCR = b; }
+//    bool getFlagShow16WCRLabels() const { return fader16WCR; }
 private:
     class StelPropertyMgr* propMgr;
-    QFont font4WCR, font8WCR, font16WCR;
-    Vec3f color;
+//    QFont font4WCR, font8WCR, font16WCR;
+//    Vec3f color;
     static constexpr float cp = static_cast<float>(1./(1.+M_SQRT2)); // dimension for secondary intercardinals
     static const QMap<Cardinals::CompassDirection, Vec3f> rose4winds, rose8winds, rose16winds;
-    QMap<Cardinals::CompassDirection, QString> labels;
-    LinearFader fader4WCR, fader8WCR, fader16WCR;
-    int screenFontSize;
+    //QMap<Cardinals::CompassDirection, QString> labels;
+    //LinearFader fader4WCR, fader8WCR, fader16WCR;
+    //int screenFontSize;
 };
 
 //! @class LandscapeMgr
@@ -109,99 +109,99 @@ private:
 class LandscapeMgr : public StelModule
 {
 	Q_OBJECT
-	Q_PROPERTY(bool atmosphereDisplayed
-		   READ getFlagAtmosphere
-		   WRITE setFlagAtmosphere
-		   NOTIFY atmosphereDisplayedChanged)
-	Q_PROPERTY(bool atmosphereNoScatter
-		   READ getFlagAtmosphereNoScatter
-		   WRITE setFlagAtmosphereNoScatter
-		   NOTIFY atmosphereNoScatterChanged)
-	Q_PROPERTY(bool cardinalPointsDisplayed
-		   READ getFlagCardinalPoints
-		   WRITE setFlagCardinalPoints
-		   NOTIFY cardinalPointsDisplayedChanged)
-	Q_PROPERTY(bool ordinalPointsDisplayed
-		   READ getFlagOrdinalPoints
-		   WRITE setFlagOrdinalPoints
-		   NOTIFY ordinalPointsDisplayedChanged)
-	Q_PROPERTY(bool ordinal16WRPointsDisplayed
-		   READ getFlagOrdinal16WRPoints
-		   WRITE setFlagOrdinal16WRPoints
-		   NOTIFY ordinal16WRPointsDisplayedChanged)
-	Q_PROPERTY(Vec3f cardinalPointsColor
-		   READ getColorCardinalPoints
-		   WRITE setColorCardinalPoints
-		   NOTIFY cardinalPointsColorChanged)
-	Q_PROPERTY(bool fogDisplayed
-		   READ getFlagFog
-		   WRITE setFlagFog
-		   NOTIFY fogDisplayedChanged)
-	Q_PROPERTY(bool landscapeDisplayed
-		   READ getFlagLandscape
-		   WRITE setFlagLandscape
-		   NOTIFY landscapeDisplayedChanged)
-	Q_PROPERTY(bool illuminationDisplayed
-		   READ getFlagIllumination
-		   WRITE setFlagIllumination
-		   NOTIFY illuminationDisplayedChanged)
-	Q_PROPERTY(bool labelsDisplayed
-		   READ getFlagLabels
-		   WRITE setFlagLabels
-		   NOTIFY labelsDisplayedChanged)
-	Q_PROPERTY(bool flagPolyLineDisplayedOnly
-		   READ getFlagPolyLineDisplayed
-		   WRITE setFlagPolyLineDisplayed
-		   NOTIFY flagPolyLineDisplayedChanged)
-	Q_PROPERTY(int polyLineThickness
-		   READ getPolyLineThickness
-		   WRITE setPolyLineThickness
-		   NOTIFY polyLineThicknessChanged)
-	Q_PROPERTY(bool flagUseLightPollutionFromDatabase
-		   READ getFlagUseLightPollutionFromDatabase
-		   WRITE setFlagUseLightPollutionFromDatabase
-		   NOTIFY flagUseLightPollutionFromDatabaseChanged)
-	Q_PROPERTY(bool flagLandscapeAutoSelection
-		   READ getFlagLandscapeAutoSelection
-		   WRITE setFlagLandscapeAutoSelection
-		   NOTIFY flagLandscapeAutoSelectionChanged)
-	Q_PROPERTY(bool flagLandscapeSetsLocation
-		   READ getFlagLandscapeSetsLocation
-		   WRITE setFlagLandscapeSetsLocation
-		   NOTIFY flagLandscapeSetsLocationChanged)
-	Q_PROPERTY(bool flagLandscapeUseMinimalBrightness
-		   READ getFlagLandscapeUseMinimalBrightness
-		   WRITE setFlagLandscapeUseMinimalBrightness
-		   NOTIFY flagLandscapeUseMinimalBrightnessChanged)
-	Q_PROPERTY(bool flagLandscapeSetsMinimalBrightness
-		   READ getFlagLandscapeSetsMinimalBrightness
-		   WRITE setFlagLandscapeSetsMinimalBrightness
-		   NOTIFY flagLandscapeSetsMinimalBrightnessChanged)
-	Q_PROPERTY(double defaultMinimalBrightness
-		   READ getDefaultMinimalBrightness
-		   WRITE setDefaultMinimalBrightness
-		   NOTIFY defaultMinimalBrightnessChanged)
-	Q_PROPERTY(bool flagEnvironmentAutoEnabling
-		   READ getFlagEnvironmentAutoEnable
-		   WRITE setFlagEnvironmentAutoEnable
-		   NOTIFY setFlagEnvironmentAutoEnableChanged)
-	Q_PROPERTY(QString currentLandscapeID
-		   READ getCurrentLandscapeID
-		   WRITE setCurrentLandscapeID
-		   NOTIFY currentLandscapeChanged)
-	Q_PROPERTY(QStringList allLandscapeNames
-		   READ getAllLandscapeNames)
-	Q_PROPERTY(QString currentLandscapeName
-		   READ getCurrentLandscapeName
-		   WRITE setCurrentLandscapeName
-		   NOTIFY currentLandscapeChanged)
-	Q_PROPERTY(QString currentLandscapeHtmlDescription
-		   READ getCurrentLandscapeHtmlDescription
-		   NOTIFY currentLandscapeChanged)
-	Q_PROPERTY(QString defaultLandscapeID
-		   READ getDefaultLandscapeID
-		   WRITE setDefaultLandscapeID
-		   NOTIFY defaultLandscapeChanged)
+//	Q_PROPERTY(bool atmosphereDisplayed
+//		   READ getFlagAtmosphere
+//		   WRITE setFlagAtmosphere
+//		   NOTIFY atmosphereDisplayedChanged)
+//	Q_PROPERTY(bool atmosphereNoScatter
+//		   READ getFlagAtmosphereNoScatter
+//		   WRITE setFlagAtmosphereNoScatter
+//		   NOTIFY atmosphereNoScatterChanged)
+//	Q_PROPERTY(bool cardinalPointsDisplayed
+//		   READ getFlagCardinalPoints
+//		   WRITE setFlagCardinalPoints
+//		   NOTIFY cardinalPointsDisplayedChanged)
+//	Q_PROPERTY(bool ordinalPointsDisplayed
+//		   READ getFlagOrdinalPoints
+//		   WRITE setFlagOrdinalPoints
+//		   NOTIFY ordinalPointsDisplayedChanged)
+//	Q_PROPERTY(bool ordinal16WRPointsDisplayed
+//		   READ getFlagOrdinal16WRPoints
+//		   WRITE setFlagOrdinal16WRPoints
+//		   NOTIFY ordinal16WRPointsDisplayedChanged)
+//	Q_PROPERTY(Vec3f cardinalPointsColor
+//		   READ getColorCardinalPoints
+//		   WRITE setColorCardinalPoints
+//		   NOTIFY cardinalPointsColorChanged)
+//	Q_PROPERTY(bool fogDisplayed
+//		   READ getFlagFog
+//		   WRITE setFlagFog
+//		   NOTIFY fogDisplayedChanged)
+//	Q_PROPERTY(bool landscapeDisplayed
+//		   READ getFlagLandscape
+//		   WRITE setFlagLandscape
+//		   NOTIFY landscapeDisplayedChanged)
+//	Q_PROPERTY(bool illuminationDisplayed
+//		   READ getFlagIllumination
+//		   WRITE setFlagIllumination
+//		   NOTIFY illuminationDisplayedChanged)
+//	Q_PROPERTY(bool labelsDisplayed
+//		   READ getFlagLabels
+//		   WRITE setFlagLabels
+//		   NOTIFY labelsDisplayedChanged)
+//	Q_PROPERTY(bool flagPolyLineDisplayedOnly
+//		   READ getFlagPolyLineDisplayed
+//		   WRITE setFlagPolyLineDisplayed
+//		   NOTIFY flagPolyLineDisplayedChanged)
+//	Q_PROPERTY(int polyLineThickness
+//		   READ getPolyLineThickness
+//		   WRITE setPolyLineThickness
+//		   NOTIFY polyLineThicknessChanged)
+//	Q_PROPERTY(bool flagUseLightPollutionFromDatabase
+//		   READ getFlagUseLightPollutionFromDatabase
+//		   WRITE setFlagUseLightPollutionFromDatabase
+//		   NOTIFY flagUseLightPollutionFromDatabaseChanged)
+//	Q_PROPERTY(bool flagLandscapeAutoSelection
+//		   READ getFlagLandscapeAutoSelection
+//		   WRITE setFlagLandscapeAutoSelection
+//		   NOTIFY flagLandscapeAutoSelectionChanged)
+//	Q_PROPERTY(bool flagLandscapeSetsLocation
+//		   READ getFlagLandscapeSetsLocation
+//		   WRITE setFlagLandscapeSetsLocation
+//		   NOTIFY flagLandscapeSetsLocationChanged)
+//	Q_PROPERTY(bool flagLandscapeUseMinimalBrightness
+//		   READ getFlagLandscapeUseMinimalBrightness
+//		   WRITE setFlagLandscapeUseMinimalBrightness
+//		   NOTIFY flagLandscapeUseMinimalBrightnessChanged)
+//	Q_PROPERTY(bool flagLandscapeSetsMinimalBrightness
+//		   READ getFlagLandscapeSetsMinimalBrightness
+//		   WRITE setFlagLandscapeSetsMinimalBrightness
+//		   NOTIFY flagLandscapeSetsMinimalBrightnessChanged)
+//	Q_PROPERTY(double defaultMinimalBrightness
+//		   READ getDefaultMinimalBrightness
+//		   WRITE setDefaultMinimalBrightness
+//		   NOTIFY defaultMinimalBrightnessChanged)
+//	Q_PROPERTY(bool flagEnvironmentAutoEnabling
+//		   READ getFlagEnvironmentAutoEnable
+//		   WRITE setFlagEnvironmentAutoEnable
+//		   NOTIFY setFlagEnvironmentAutoEnableChanged)
+//	Q_PROPERTY(QString currentLandscapeID
+//		   READ getCurrentLandscapeID
+//		   WRITE setCurrentLandscapeID
+//		   NOTIFY currentLandscapeChanged)
+//	Q_PROPERTY(QStringList allLandscapeNames
+//		   READ getAllLandscapeNames)
+//	Q_PROPERTY(QString currentLandscapeName
+//		   READ getCurrentLandscapeName
+//		   WRITE setCurrentLandscapeName
+//		   NOTIFY currentLandscapeChanged)
+//	Q_PROPERTY(QString currentLandscapeHtmlDescription
+//		   READ getCurrentLandscapeHtmlDescription
+//		   NOTIFY currentLandscapeChanged)
+//	Q_PROPERTY(QString defaultLandscapeID
+//		   READ getDefaultLandscapeID
+//		   WRITE setDefaultLandscapeID
+//		   NOTIFY defaultLandscapeChanged)
 
 public:
 	LandscapeMgr();
@@ -219,7 +219,7 @@ public:
 	virtual void draw(StelCore* core) Q_DECL_OVERRIDE;
 	//! Draw landscape graphics and cardinal points. This only will redraw a polygonal line (if defined), the gazetteer and the Cardinal points.
 	//! This can be called outside the usual call order, if any foreground has to be overdrawn, e.g. 3D sceneries.
-	void drawPolylineOnly(StelCore* core);
+    //void drawPolylineOnly(StelCore* core);
 
 	//! Update time-dependent state.
 	//! Includes:
@@ -231,7 +231,7 @@ public:
 	virtual void update(double deltaTime) Q_DECL_OVERRIDE;
 
 	//! Get the order in which this module will draw its objects relative to other modules.
-	virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
+    //virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
 
 	///////////////////////////////////////////////////////////////////////////
 	// Methods specific to the landscape manager
@@ -261,9 +261,9 @@ public slots:
 	//! Return the global landscape luminance [0..1], for being used e.g for setting eye adaptation.
 	//! It returns 1 if atmosphere drawing is on and no eclipse underway, 0 if atmosphere is switched off.
 	//! The actual brightness is of no concern here. You may use getAtmosphereAverageLuminance() for this.
-	float getLuminance() const;
+    //float getLuminance() const;
 	//! return average luminance [cd/m^2] of atmosphere. Expect 10 at sunset, 6400 in daylight, >0 in dark night.
-	float getAtmosphereAverageLuminance() const;
+    //float getAtmosphereAverageLuminance() const;
 
 	//! Override autocomputed value and set average luminance [cd/m^2] of atmosphere.  This is around 10 at sunset, 6400 in daylight, >0 in dark night.
 	//! Usually there is no need to call this, the luminance is properly computed. This is a function which can be
@@ -316,11 +316,11 @@ public slots:
 	//! @param id the ID of a landscape
 	//! @param replace true if existing landscape entry should be replaced (useful during development to reload after edit)
 	//! @return false if landscape could not be found, or if it already existed in cache and replace was false.
-	bool precacheLandscape(const QString& id, const bool replace=true);
+    //bool precacheLandscape(const QString& id, const bool replace=true);
 	//! Remove a landscape from the cache of landscapes.
 	//! @param id the ID of a landscape
 	//! @return false if landscape could not be found
-	bool removeCachedLandscape(const QString& id);
+    //bool removeCachedLandscape(const QString& id);
 	//! Set size of the landscape cache, in MB.
 	//! Default size is 100MB, or configured as [landscape/cache_size_mb] from config.ini.
 	//! The landscape sizes returned in Landscape::getMemorySize() are only approximate, but include image and texture sizes.
@@ -345,105 +345,105 @@ public slots:
 	//! Change the default landscape to the landscape with the ID specified.
 	//! @param id the ID of the landscape to use by default
 	//! @return false if the new landscape could not be set (e.g. no landscape of that ID was found). True on success.
-	bool setDefaultLandscapeID(const QString& id);
+    //bool setDefaultLandscapeID(const QString& id);
 
 	//! Return a pseudo HTML formatted string with all informations on the current landscape
-	QString getCurrentLandscapeHtmlDescription() const;
+    //QString getCurrentLandscapeHtmlDescription() const;
 
 	//! Return a pseudo HTML formatted string with information from description or ini file
 	QString getDescription() const;
 
-	//! Get flag for displaying Landscape.
-	bool getFlagLandscape() const;
-	//! Set flag for displaying Landscape.
-	void setFlagLandscape(const bool displayed);
+//	//! Get flag for displaying Landscape.
+//	bool getFlagLandscape() const;
+//	//! Set flag for displaying Landscape.
+//	void setFlagLandscape(const bool displayed);
 
-	//! Get whether the landscape is currently visible. If true, objects below landscape's limiting altitude limit can be omitted.
-	bool getIsLandscapeFullyVisible() const;
+//	//! Get whether the landscape is currently visible. If true, objects below landscape's limiting altitude limit can be omitted.
+//	bool getIsLandscapeFullyVisible() const;
 	//! Get the sine of current landscape's minimal altitude. Useful to construct bounding caps.
 	double getLandscapeSinMinAltitudeLimit() const;
 	
 	//! Get flag for displaying Fog.
-	bool getFlagFog() const;
+    //bool getFlagFog() const;
 	//! Set flag for displaying Fog.
-	void setFlagFog(const bool displayed);
+    //void setFlagFog(const bool displayed);
 	//! Get flag for displaying illumination layer
-	bool getFlagIllumination() const;
+    //bool getFlagIllumination() const;
 	//! Set flag for displaying illumination layer
-	void setFlagIllumination(const bool on);
+    //void setFlagIllumination(const bool on);
 	//! Get flag for displaying landscape labels
-	bool getFlagLabels() const;
-	//! Set flag for displaying landscape labels
-	void setFlagLabels(const bool on);
+//	bool getFlagLabels() const;
+//	//! Set flag for displaying landscape labels
+//	void setFlagLabels(const bool on);
 
 	//! Retrieve flag for rendering polygonal line (if one is defined)
-	bool getFlagPolyLineDisplayed() const {return flagPolyLineDisplayedOnly;}
-	//! Set flag for rendering polygonal line (if one is defined)
-	void setFlagPolyLineDisplayed(bool b) {if(b!=flagPolyLineDisplayedOnly){ flagPolyLineDisplayedOnly=b; emit flagPolyLineDisplayedChanged(b);}}
-	//! Retrieve thickness for rendering polygonal line (if one is defined)
-	int getPolyLineThickness() const {return polyLineThickness;}
-	//! Set thickness for rendering polygonal line (if one is defined)
-	void setPolyLineThickness(int thickness) {polyLineThickness=thickness; emit polyLineThicknessChanged(thickness);}
+//	bool getFlagPolyLineDisplayed() const {return flagPolyLineDisplayedOnly;}
+//	//! Set flag for rendering polygonal line (if one is defined)
+//	void setFlagPolyLineDisplayed(bool b) {if(b!=flagPolyLineDisplayedOnly){ flagPolyLineDisplayedOnly=b; emit flagPolyLineDisplayedChanged(b);}}
+//	//! Retrieve thickness for rendering polygonal line (if one is defined)
+//	int getPolyLineThickness() const {return polyLineThickness;}
+//	//! Set thickness for rendering polygonal line (if one is defined)
+//	void setPolyLineThickness(int thickness) {polyLineThickness=thickness; emit polyLineThicknessChanged(thickness);}
 
-	//! Return the value of the flag determining if a change of landscape will update the observer location.
-	bool getFlagLandscapeSetsLocation() const {return flagLandscapeSetsLocation;}
-	//! Set the value of the flag determining if a change of landscape will update the observer location.
-	void setFlagLandscapeSetsLocation(bool b) {if(b!=flagLandscapeSetsLocation){ flagLandscapeSetsLocation=b; emit flagLandscapeSetsLocationChanged(b);}}
+//	//! Return the value of the flag determining if a change of landscape will update the observer location.
+//	bool getFlagLandscapeSetsLocation() const {return flagLandscapeSetsLocation;}
+//	//! Set the value of the flag determining if a change of landscape will update the observer location.
+//	void setFlagLandscapeSetsLocation(bool b) {if(b!=flagLandscapeSetsLocation){ flagLandscapeSetsLocation=b; emit flagLandscapeSetsLocationChanged(b);}}
 
-	//! Return the value of the flag determining if a minimal brightness should be used to keep landscape visible.
-	bool getFlagLandscapeUseMinimalBrightness() const {return flagLandscapeUseMinimalBrightness; }
-	//! Set the value of the flag determining if a minimal brightness should be used to keep landscape visible.
-	void setFlagLandscapeUseMinimalBrightness(bool b) {if(b!=flagLandscapeUseMinimalBrightness){ flagLandscapeUseMinimalBrightness=b; emit flagLandscapeUseMinimalBrightnessChanged(b);}}
-	//! Return the value of the flag determining if the minimal brightness should be taken from landscape.ini
-	bool getFlagLandscapeSetsMinimalBrightness() const {return flagLandscapeSetsMinimalBrightness;}
-	//! Sets the value of the flag determining if the minimal brightness should be taken from landscape.ini
-	void setFlagLandscapeSetsMinimalBrightness(bool b) {if(b!=flagLandscapeSetsMinimalBrightness){ flagLandscapeSetsMinimalBrightness=b; emit flagLandscapeSetsMinimalBrightnessChanged(b);}}
-	//! Return the minimal brightness value of the landscape
-	double getDefaultMinimalBrightness() const {return defaultMinimalBrightness;}
-	//! Set the minimal brightness value of the landscape.
-	void setDefaultMinimalBrightness(const double b) {if(fabs(b-defaultMinimalBrightness)>0.0){ defaultMinimalBrightness=b; emit defaultMinimalBrightnessChanged(b);}}
-	//! Sets the value of the flag usage light pollution (and bortle index) from locations database.
-	void setFlagUseLightPollutionFromDatabase(const bool usage);
-	//! Return the value of flag usage light pollution (and bortle index) from locations database.
-	bool getFlagUseLightPollutionFromDatabase() const;
+//	//! Return the value of the flag determining if a minimal brightness should be used to keep landscape visible.
+//	bool getFlagLandscapeUseMinimalBrightness() const {return flagLandscapeUseMinimalBrightness; }
+//	//! Set the value of the flag determining if a minimal brightness should be used to keep landscape visible.
+//	void setFlagLandscapeUseMinimalBrightness(bool b) {if(b!=flagLandscapeUseMinimalBrightness){ flagLandscapeUseMinimalBrightness=b; emit flagLandscapeUseMinimalBrightnessChanged(b);}}
+//	//! Return the value of the flag determining if the minimal brightness should be taken from landscape.ini
+//	bool getFlagLandscapeSetsMinimalBrightness() const {return flagLandscapeSetsMinimalBrightness;}
+//	//! Sets the value of the flag determining if the minimal brightness should be taken from landscape.ini
+//	void setFlagLandscapeSetsMinimalBrightness(bool b) {if(b!=flagLandscapeSetsMinimalBrightness){ flagLandscapeSetsMinimalBrightness=b; emit flagLandscapeSetsMinimalBrightnessChanged(b);}}
+//	//! Return the minimal brightness value of the landscape
+//	double getDefaultMinimalBrightness() const {return defaultMinimalBrightness;}
+//	//! Set the minimal brightness value of the landscape.
+//	void setDefaultMinimalBrightness(const double b) {if(fabs(b-defaultMinimalBrightness)>0.0){ defaultMinimalBrightness=b; emit defaultMinimalBrightnessChanged(b);}}
+//	//! Sets the value of the flag usage light pollution (and bortle index) from locations database.
+//	void setFlagUseLightPollutionFromDatabase(const bool usage);
+//	//! Return the value of flag usage light pollution (and bortle index) from locations database.
+//	bool getFlagUseLightPollutionFromDatabase() const;
 
-	//! Get flag for displaying cardinal points (4-wind compass rose directions)
-	bool getFlagCardinalPoints() const;
-	//! Set flag for displaying cardinal points (4-wind compass rose directions)
-	void setFlagCardinalPoints(const bool displayed);
+//	//! Get flag for displaying cardinal points (4-wind compass rose directions)
+//	bool getFlagCardinalPoints() const;
+//	//! Set flag for displaying cardinal points (4-wind compass rose directions)
+//	void setFlagCardinalPoints(const bool displayed);
 
-	//! Get flag for displaying intercardinal (or ordinal) points (8-wind compass rose directions).
-	bool getFlagOrdinalPoints() const;
-	//! Set flag for displaying intercardinal (or ordinal) points (8-wind compass rose directions).
-	void setFlagOrdinalPoints(const bool displayed);
+//	//! Get flag for displaying intercardinal (or ordinal) points (8-wind compass rose directions).
+//	bool getFlagOrdinalPoints() const;
+//	//! Set flag for displaying intercardinal (or ordinal) points (8-wind compass rose directions).
+//	void setFlagOrdinalPoints(const bool displayed);
 
-	//! Get flag for displaying intercardinal (or ordinal) points (16-wind compass rose directions).
-	bool getFlagOrdinal16WRPoints() const;
-	//! Set flag for displaying intercardinal (or ordinal) points (16-wind compass rose directions).
-	void setFlagOrdinal16WRPoints(const bool displayed);
+//	//! Get flag for displaying intercardinal (or ordinal) points (16-wind compass rose directions).
+//	bool getFlagOrdinal16WRPoints() const;
+//	//! Set flag for displaying intercardinal (or ordinal) points (16-wind compass rose directions).
+//	void setFlagOrdinal16WRPoints(const bool displayed);
 
 	//! Get Cardinals Points color.
-	Vec3f getColorCardinalPoints() const;
-	//! Set Cardinals Points color.
-	void setColorCardinalPoints(const Vec3f& v);
+//	Vec3f getColorCardinalPoints() const;
+//	//! Set Cardinals Points color.
+//	void setColorCardinalPoints(const Vec3f& v);
 
 	//! Get flag for displaying Atmosphere.
-	bool getFlagAtmosphere() const;
+    //bool getFlagAtmosphere() const;
 	//! Set flag for displaying Atmosphere.
-	void setFlagAtmosphere(const bool displayed);
+    //void setFlagAtmosphere(const bool displayed);
 
-	//! Get flag for suppressing Atmosphere scatter (blue light) while displaying all other effects (refraction, extinction).
-	bool getFlagAtmosphereNoScatter() const;
-	//! Set flag for suppressing Atmosphere scatter (blue light) while displaying all other effects (refraction, extinction).
-	void setFlagAtmosphereNoScatter(const bool displayed);
+//	//! Get flag for suppressing Atmosphere scatter (blue light) while displaying all other effects (refraction, extinction).
+//	bool getFlagAtmosphereNoScatter() const;
+//	//! Set flag for suppressing Atmosphere scatter (blue light) while displaying all other effects (refraction, extinction).
+//	void setFlagAtmosphereNoScatter(const bool displayed);
 
 	//! Get current display intensity of atmosphere ([0..1], for smoother transitions)
-	float getAtmosphereFadeIntensity() const;
+    //float getAtmosphereFadeIntensity() const;
 
 	//! Get atmosphere fade duration in s.
-	float getAtmosphereFadeDuration() const;
+    //float getAtmosphereFadeDuration() const;
 	//! Set atmosphere fade duration in s.
-	void setAtmosphereFadeDuration(const float f);
+//	void setAtmosphereFadeDuration(const float f);
 
 	/*
 	//This method has been removed, use StelSkyDrawer::getBortleScaleIndex instead, or StelMainScriptAPI::getBortleScaleIndex in scripts
@@ -487,7 +487,7 @@ public slots:
 	//! @returns the installed landscape's identifier, or
 	//! an empty string on failure.
 	//! @todo Find a better way to pass error messages.
-	QString installLandscapeFromArchive(QString pathToSourceArchive, const bool display = false, const bool forAllUsers = false);
+    //QString installLandscapeFromArchive(QString pathToSourceArchive, const bool display = false, const bool forAllUsers = false);
 
 	/* GZ: leaving doc without the method confuses Doxygen. Commenting out completely.
 	//! Install a landscape from a directory.
@@ -533,84 +533,84 @@ public slots:
 	//! @param landscapeID an installed landscape's identifier (the folder name)
 	quint64 loadLandscapeSize(const QString landscapeID) const;
 
-	//! Get flag for autoselect of landscapes for planets.
-	bool getFlagLandscapeAutoSelection() const;
-	//! Set flag for autoselect of landscapes for planets.
-	void setFlagLandscapeAutoSelection(bool enableAutoSelect);
+//	//! Get flag for autoselect of landscapes for planets.
+//	bool getFlagLandscapeAutoSelection() const;
+//	//! Set flag for autoselect of landscapes for planets.
+//	void setFlagLandscapeAutoSelection(bool enableAutoSelect);
 
-	//! Get flag for auto-enable of atmospheres and landscapes for planets.
-	bool getFlagEnvironmentAutoEnable() const;
-	//! Set flag for auto-enable atmosphere and landscape for planets with atmospheres in location window
-	void setFlagEnvironmentAutoEnable(bool b);
+//	//! Get flag for auto-enable of atmospheres and landscapes for planets.
+//	bool getFlagEnvironmentAutoEnable() const;
+//	//! Set flag for auto-enable atmosphere and landscape for planets with atmospheres in location window
+//	void setFlagEnvironmentAutoEnable(bool b);
 
 	//! Forward opacity query to current landscape.
 	//! @param azalt direction of view line to sample in azaltimuth coordinates.
-	float getLandscapeOpacity(Vec3d azalt) const {return landscape->getOpacity(azalt);}
-	// This variant is required for scripting!
-	float getLandscapeOpacity(Vec3f azalt) const {return landscape->getOpacity(azalt.toVec3d());}
-	//! Forward opacity query to current landscape.
-	//! @param azimuth in degrees
-	//! @param altitude in degrees
-	float getLandscapeOpacity(float azimuth, float altitude) const {
-		Vec3d azalt;
-		StelUtils::spheToRect((180.0f-azimuth)*M_PI_180f, altitude*M_PI_180f, azalt);
-		return landscape->getOpacity(azalt);
-	}
+//	float getLandscapeOpacity(Vec3d azalt) const {return landscape->getOpacity(azalt);}
+//	// This variant is required for scripting!
+//	float getLandscapeOpacity(Vec3f azalt) const {return landscape->getOpacity(azalt.toVec3d());}
+//	//! Forward opacity query to current landscape.
+//	//! @param azimuth in degrees
+//	//! @param altitude in degrees
+//	float getLandscapeOpacity(float azimuth, float altitude) const {
+//		Vec3d azalt;
+//		StelUtils::spheToRect((180.0f-azimuth)*M_PI_180f, altitude*M_PI_180f, azalt);
+//		return landscape->getOpacity(azalt);
+//	}
 
 signals:
-	void atmosphereDisplayedChanged(const bool displayed);
-	void atmosphereNoScatterChanged(const bool noScatter);
-	void cardinalPointsDisplayedChanged(const bool displayed);
-	void ordinalPointsDisplayedChanged(const bool displayed);
-	void ordinal16WRPointsDisplayedChanged(const bool displayed);
-	void cardinalPointsColorChanged(const Vec3f & newColor) const;
-	void fogDisplayedChanged(const bool displayed);
-	void landscapeDisplayedChanged(const bool displayed);
-	void illuminationDisplayedChanged(const bool displayed);
-	void labelsDisplayedChanged(const bool displayed);
-	void flagPolyLineDisplayedChanged(const bool enabled);
-	void polyLineThicknessChanged(const int thickness);
-	void flagUseLightPollutionFromDatabaseChanged(const bool usage);
-	void flagLandscapeAutoSelectionChanged(const bool value);
-	void flagLandscapeSetsLocationChanged(const bool value);
-	void flagLandscapeUseMinimalBrightnessChanged(const bool value);
-	void flagLandscapeSetsMinimalBrightnessChanged(const bool value);
-	void defaultMinimalBrightnessChanged(const double value);
-	void setFlagEnvironmentAutoEnableChanged(const bool enabled);
+//	void atmosphereDisplayedChanged(const bool displayed);
+//	void atmosphereNoScatterChanged(const bool noScatter);
+//	void cardinalPointsDisplayedChanged(const bool displayed);
+//	void ordinalPointsDisplayedChanged(const bool displayed);
+//	void ordinal16WRPointsDisplayedChanged(const bool displayed);
+//	void cardinalPointsColorChanged(const Vec3f & newColor) const;
+//	void fogDisplayedChanged(const bool displayed);
+//	void landscapeDisplayedChanged(const bool displayed);
+//	void illuminationDisplayedChanged(const bool displayed);
+//	void labelsDisplayedChanged(const bool displayed);
+//	void flagPolyLineDisplayedChanged(const bool enabled);
+//	void polyLineThicknessChanged(const int thickness);
+//	void flagUseLightPollutionFromDatabaseChanged(const bool usage);
+//	void flagLandscapeAutoSelectionChanged(const bool value);
+//	void flagLandscapeSetsLocationChanged(const bool value);
+//	void flagLandscapeUseMinimalBrightnessChanged(const bool value);
+//	void flagLandscapeSetsMinimalBrightnessChanged(const bool value);
+//	void defaultMinimalBrightnessChanged(const double value);
+//	void setFlagEnvironmentAutoEnableChanged(const bool enabled);
 
-	//! Emitted whenever the default landscape is changed
-	//! @param id the landscape id of the new default landscape
-	void defaultLandscapeChanged(const QString& id);
+//	//! Emitted whenever the default landscape is changed
+//	//! @param id the landscape id of the new default landscape
+//	void defaultLandscapeChanged(const QString& id);
 
-	//! Emitted when a landscape has been installed or un-installed.
-	//! For example, it is used to update the list of landscapes in
-	//! the Sky and viewing options window (the ViewDialog class)
-	void landscapesChanged();
+//	//! Emitted when a landscape has been installed or un-installed.
+//	//! For example, it is used to update the list of landscapes in
+//	//! the Sky and viewing options window (the ViewDialog class)
+//	void landscapesChanged();
 
-	//! Emitted when installLandscapeFromArchive() can't read from, write to or
-	//! create a file or a directory.
-	//! (A way of moving the need for translatable error messages to the GUI.)
-	//! \param path path to the file or directory
-	void errorUnableToOpen(QString path);
-	//! Emitted when the file passed to installLandscapeFromArchive() is not a
-	//! ZIP archive or does not contain a valid landscape.
-	//! (A way of moving the need for translatable error messages to the GUI.)
-	void errorNotArchive();
-	//! Emitted when installLandscapeFromArchive() tries to install a landscape
-	//! with the same name or identifier as an already installed one.
-	//! (A way of moving the need for translatable error messages to the GUI.)
-	//! \param nameOrID the name or the identifier of the landscape
-	void errorNotUnique(QString nameOrID);
-	//! Emitted when removeLandscape() is unable to remove all the files of
-	//! a landscape.
-	//! (A way of moving the need for translatable error messages to the GUI.)
-	//! \param path the path to the landscape's directory
-	void errorRemoveManually(QString path);
+//	//! Emitted when installLandscapeFromArchive() can't read from, write to or
+//	//! create a file or a directory.
+//	//! (A way of moving the need for translatable error messages to the GUI.)
+//	//! \param path path to the file or directory
+//	void errorUnableToOpen(QString path);
+//	//! Emitted when the file passed to installLandscapeFromArchive() is not a
+//	//! ZIP archive or does not contain a valid landscape.
+//	//! (A way of moving the need for translatable error messages to the GUI.)
+//	void errorNotArchive();
+//	//! Emitted when installLandscapeFromArchive() tries to install a landscape
+//	//! with the same name or identifier as an already installed one.
+//	//! (A way of moving the need for translatable error messages to the GUI.)
+//	//! \param nameOrID the name or the identifier of the landscape
+//	void errorNotUnique(QString nameOrID);
+//	//! Emitted when removeLandscape() is unable to remove all the files of
+//	//! a landscape.
+//	//! (A way of moving the need for translatable error messages to the GUI.)
+//	//! \param path the path to the landscape's directory
+//	void errorRemoveManually(QString path);
 
-	//! Emitted when the current landscape was changed
-	//! \param currentLandscapeID the ID of the new landscape
-	//! \param currentLandscapeName the name of the new landscape
-	void currentLandscapeChanged(QString currentLandscapeID,QString currentLandscapeName);
+//	//! Emitted when the current landscape was changed
+//	//! \param currentLandscapeID the ID of the new landscape
+//	//! \param currentLandscapeName the name of the new landscape
+//	void currentLandscapeChanged(QString currentLandscapeID,QString currentLandscapeName);
 
 private slots:
 	//! Reacts to StelCore::locationChanged.
@@ -618,7 +618,7 @@ private slots:
 	void onTargetLocationChanged(const StelLocation &loc);
 
 	//! Translate labels to new language settings.
-	void updateI18n();
+    //void updateI18n();
 
 	void increaseLightPollution();
 	void reduceLightPollution();
@@ -626,7 +626,7 @@ private slots:
 
 private:
 	//! Get light pollution luminance level in cd/m².
-	float getAtmosphereLightPollutionLuminance() const;
+    //float getAtmosphereLightPollutionLuminance() const;
 	//! Set light pollution luminance level in cd/m².
 	void setAtmosphereLightPollutionLuminance(const float f);
 
@@ -647,26 +647,26 @@ private:
 	Landscape* oldLandscape;		// Used only during transitions to newly loaded landscape.
 
 	// Define whether the observer location is to be updated when the landscape is updated.
-	bool flagLandscapeSetsLocation;
+//	bool flagLandscapeSetsLocation;
 
-	bool flagLandscapeAutoSelection;
+//	bool flagLandscapeAutoSelection;
 
-	bool flagLightPollutionFromDatabase;
+//	bool flagLightPollutionFromDatabase;
 	bool atmosphereNoScatter; // true to suppress actual blue-sky rendering but keep refraction & extinction
 
 	//! control drawing of a Polygonal line, if one is defined.
-	bool flagPolyLineDisplayedOnly;
+    //bool flagPolyLineDisplayedOnly;
 	//! thickness of polygonal horizon line
-	int polyLineThickness;
+    //int polyLineThickness;
 
 	//! Indicate use of the default minimal brightness value specified in config.ini.
-	bool flagLandscapeUseMinimalBrightness;
+    //bool flagLandscapeUseMinimalBrightness;
 	//! A minimal brightness value to keep landscape visible.
-	double defaultMinimalBrightness;
+    //double defaultMinimalBrightness;
 	//! Indicate use of the minimal brightness value specified in the current landscape.ini, if present.
-	bool flagLandscapeSetsMinimalBrightness;
+    //bool flagLandscapeSetsMinimalBrightness;
 	//! Indicate auto-enable atmosphere and landscape for planets with atmospheres in location window
-	bool flagEnvironmentAutoEnabling;
+    //bool flagEnvironmentAutoEnabling;
 
 	//! The ID of the currently loaded landscape
 	QString currentLandscapeID;

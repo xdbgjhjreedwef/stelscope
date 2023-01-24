@@ -29,16 +29,16 @@
 #include <QUrl>
 #include <functional>
 
-#include "StelTexture.hpp"
+//#include "StelTexture.hpp"
 #include "VecMath.hpp"
-#include "StelFader.hpp"
+//#include "StelFader.hpp"
 
-class StelPainter;
+//class StelPainter;
 class HipsTile;
-class QNetworkReply;
+//class QNetworkReply;
 class SphericalCap;
 class HipsSurvey;
-class StelProgressController;
+//class StelProgressController;
 
 typedef QSharedPointer<HipsSurvey> HipsSurveyP;
 Q_DECLARE_METATYPE(HipsSurveyP)
@@ -48,12 +48,12 @@ class HipsSurvey : public QObject
 	friend class HipsMgr;
 	Q_OBJECT
 
-	Q_PROPERTY(QString url MEMBER url CONSTANT)
-	Q_PROPERTY(QJsonObject properties MEMBER properties NOTIFY propertiesChanged)
-	Q_PROPERTY(bool isLoading READ isLoading NOTIFY statusChanged)
-	Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
-	//! The name of the planet the survey is attached to, or empty if this is a skysurvey.
-	Q_PROPERTY(QString planet MEMBER planet)
+//	Q_PROPERTY(QString url MEMBER url CONSTANT)
+//	Q_PROPERTY(QJsonObject properties MEMBER properties NOTIFY propertiesChanged)
+//	Q_PROPERTY(bool isLoading READ isLoading NOTIFY statusChanged)
+//	Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
+//	//! The name of the planet the survey is attached to, or empty if this is a skysurvey.
+//	Q_PROPERTY(QString planet MEMBER planet)
 
 public:
 	typedef std::function<void(const QVector<Vec3d>& verts, const QVector<Vec2f>& tex,
@@ -69,7 +69,7 @@ public:
 
 	//! Define whether the survey should be visible.
 	void setVisible(bool value);
-	float getInterstate() const {return fader.getInterstate();}
+//	float getInterstate() const {return fader.getInterstate();}
 
 	//! Render the survey.
 	//! @param sPainter the painter to use.
@@ -77,7 +77,7 @@ public:
 	//!         surveys.  Should be set to 2 pi for sky surveys.
 	//! @param callback if set this will be called for each visible tile, and the callback should do it rendering
 	//!         itself.  If set to Q_NULLPTR, the function will draw the tiles using the default shader.
-	void draw(StelPainter* sPainter, double angle = 2.0 * M_PI, DrawCallback callback = Q_NULLPTR);
+    void draw(/*StelPainter* sPainter,*/ double angle = 2.0 * M_PI, DrawCallback callback = Q_NULLPTR);
 
 	//! Return the source URL of the survey.
 	const QString& getUrl() const {return url;}
@@ -96,7 +96,7 @@ signals:
 	void visibleChanged(bool);
 
 private:
-	LinearFader fader;
+    //LinearFader fader;
 	QString url;
 	QString hipsFrame = "equatorial";
 	QString planet;
@@ -105,32 +105,32 @@ private:
 	QCache<long int, HipsTile> tiles;
 	// reply to the initial download of the properties file and to the
 	// allsky texture.
-	QNetworkReply *networkReply = Q_NULLPTR;
+    //QNetworkReply *networkReply = Q_NULLPTR;
 
-	QImage allsky = QImage();
-	bool noAllsky = false;
+//	QImage allsky = QImage();
+//	bool noAllsky = false;
 
 	// Values from the property file.
 	QJsonObject properties;
 
 	// Used to show the loading progress.
-	StelProgressController* progressBar = Q_NULLPTR;
-	int nbVisibleTiles;
-	int nbLoadedTiles;
+    //StelProgressController* progressBar = Q_NULLPTR;
+//	int nbVisibleTiles;
+//	int nbLoadedTiles;
 
 
-	QString getTitle(void) const;
+    //QString getTitle(void) const;
 	QUrl getUrlFor(const QString& path) const;
 	int getPropertyInt(const QString& key, int fallback = 0);
-	bool getAllsky();
-	HipsTile* getTile(int order, int pix);
+    //bool getAllsky();
+    //HipsTile* getTile(int order, int pix);
 	// draw a single tile. observerVelocity (in the correct hipsFrame) is necessary for aberration correction. Set to 0 for no aberration correction.
-	void drawTile(int order, int pix, int drawOrder, int splitOrder, bool outside,
-				  const SphericalCap& viewportShape, StelPainter* sPainter, Vec3d observerVelocity, DrawCallback callback);
+//	void drawTile(int order, int pix, int drawOrder, int splitOrder, bool outside,
+//				  const SphericalCap& viewportShape, StelPainter* sPainter, Vec3d observerVelocity, DrawCallback callback);
 
 	// Fill the array for a given tile.
 	int fillArrays(int order, int pix, int drawOrder, int splitOrder,
-				   bool outside, StelPainter* sPainter, Vec3d observerVelocity,
+                   bool outside/*, StelPainter* sPainter*/, Vec3d observerVelocity,
 				   QVector<Vec3d>& verts, QVector<Vec2f>& tex, QVector<uint16_t>& indices);
 
 	void updateProgressBar(int nb, int total);

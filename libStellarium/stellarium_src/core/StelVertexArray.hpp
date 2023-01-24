@@ -72,7 +72,7 @@ struct StelVertexArray
 	inline Func foreachTriangle(Func func) const;
 
 	//! Create a copy of the array with all the triangles intersecting the projector discontinuity removed.
-	StelVertexArray removeDiscontinuousTriangles(const class StelProjector* prj) const;
+    StelVertexArray removeDiscontinuousTriangles() const;
 
 private:
 	// Below we define a few methods that are templated to be optimized according to different types of VertexArray :

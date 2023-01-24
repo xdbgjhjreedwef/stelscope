@@ -25,9 +25,11 @@
 #include "StelCore.hpp"
 #include "StarMgr.hpp"
 #include "Star.hpp"
-#include "StelSkyDrawer.hpp"
+//#include "StelSkyDrawer.hpp"
 #include "Planet.hpp"
 #include "StelUtils.hpp"
+
+#include "ZoneArray.hpp"
 
 #include <QString>
 
@@ -50,7 +52,7 @@ protected:
 	virtual QString getType(void) const Q_DECL_OVERRIDE {return STAR_TYPE;}
 
 	virtual QString getEnglishName(void) const Q_DECL_OVERRIDE {return QString();}
-	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE = 0;
+//	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE = 0;
 
 	//! StarWrapperBase supports the following InfoStringGroup flags <ul>
 	//! <li> Name
@@ -94,10 +96,10 @@ protected:
 			return v.toVec3d();
 		}
 	}
-	virtual Vec3f getInfoColor(void) const Q_DECL_OVERRIDE
-	{
-		return StelSkyDrawer::indexToColor(s->getBVIndex());
-	}
+//	virtual Vec3f getInfoColor(void) const Q_DECL_OVERRIDE
+//	{
+//		return StelSkyDrawer::indexToColor(s->getBVIndex());
+//	}
 	virtual float getVMagnitude(const StelCore* core) const Q_DECL_OVERRIDE
 	{
 		Q_UNUSED(core)
@@ -105,7 +107,7 @@ protected:
 	}
 	virtual float getBV(void) const  Q_DECL_OVERRIDE {return s->getBV();}
 	virtual QString getEnglishName(void) const Q_DECL_OVERRIDE {return QString();}
-	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE {return s->getNameI18n();}
+//	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE {return s->getNameI18n();}
 protected:
 	const SpecialZoneArray<Star> *const a;
 	const SpecialZoneData<Star> *const z;

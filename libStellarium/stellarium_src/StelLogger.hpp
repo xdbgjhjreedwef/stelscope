@@ -23,12 +23,13 @@
 #include <QString>
 #include <QFile>
 #include <QMutex>
+#include <libstellarium-global.h>
 
 //! @class StelLogger
 //! Class wit only static members used to manage logging for Stellarium.
 //! The debugLogHandler() method allow to defined it as a standard Qt messages handler
 //! which is then used by qDebug, qWarning and qFatal.
-class StelLogger
+class STELLARIUMSHARED_EXPORT StelLogger
 {
 public:
 	//! Create and initialize the log file.

@@ -20,18 +20,18 @@
 #ifndef STARMGR_HPP
 #define STARMGR_HPP
 
-#include <QFont>
+//#include <QFont>
 #include <QVariantMap>
 #include <QVector>
-#include "StelFader.hpp"
+//#include "StelFader.hpp"
 #include "StelObjectModule.hpp"
-#include "StelTextureTypes.hpp"
+//#include "StelTextureTypes.hpp"
 #include "StelProjectorType.hpp"
 
 class StelObject;
-class StelToneReproducer;
+//class StelToneReproducer;
 class StelProjector;
-class StelPainter;
+//class StelPainter;
 class QSettings;
 
 class ZoneArray;
@@ -72,6 +72,7 @@ typedef struct
 typedef QMap<StelObjectP, float> StelACStarData;
 typedef QPair<float, float> PMData;
 
+
 //! @class StarMgr
 //! Stores the star catalogue data.
 //! Used to render the stars themselves, as well as determine the color table
@@ -98,43 +99,43 @@ typedef QPair<float, float> PMData;
 class StarMgr : public StelObjectModule
 {
 	Q_OBJECT
-	Q_PROPERTY(bool flagStarsDisplayed
-		   READ getFlagStars
-		   WRITE setFlagStars
-		   NOTIFY starsDisplayedChanged)
-	Q_PROPERTY(bool flagLabelsDisplayed
-		   READ getFlagLabels
-		   WRITE setFlagLabels
-		   NOTIFY starLabelsDisplayedChanged)
-	Q_PROPERTY(double labelsAmount
-		   READ getLabelsAmount
-		   WRITE setLabelsAmount
-		   NOTIFY labelsAmountChanged)
-	Q_PROPERTY(bool flagAdditionalNamesDisplayed
-		   READ getFlagAdditionalNames
-		   WRITE setFlagAdditionalNames
-		   NOTIFY flagAdditionalNamesDisplayedChanged
-		   )
-	Q_PROPERTY(bool flagDesignationLabels
-		   READ getDesignationUsage
-		   WRITE setDesignationUsage
-		   NOTIFY designationUsageChanged
-		   )
-	Q_PROPERTY(bool flagDblStarsDesignation
-		   READ getFlagDblStarsDesignation
-		   WRITE setFlagDblStarsDesignation
-		   NOTIFY flagDblStarsDesignationChanged
-		   )
-	Q_PROPERTY(bool flagVarStarsDesignation
-		   READ getFlagVarStarsDesignation
-		   WRITE setFlagVarStarsDesignation
-		   NOTIFY flagVarStarsDesignationChanged
-		   )
-	Q_PROPERTY(bool flagHIPDesignation
-		   READ getFlagHIPDesignation
-		   WRITE setFlagHIPDesignation
-		   NOTIFY flagHIPDesignationChanged
-		   )
+//	Q_PROPERTY(bool flagStarsDisplayed
+//		   READ getFlagStars
+//		   WRITE setFlagStars
+//		   NOTIFY starsDisplayedChanged)
+//	Q_PROPERTY(bool flagLabelsDisplayed
+//		   READ getFlagLabels
+//		   WRITE setFlagLabels
+//		   NOTIFY starLabelsDisplayedChanged)
+//	Q_PROPERTY(double labelsAmount
+//		   READ getLabelsAmount
+//		   WRITE setLabelsAmount
+//		   NOTIFY labelsAmountChanged)
+//	Q_PROPERTY(bool flagAdditionalNamesDisplayed
+//		   READ getFlagAdditionalNames
+//		   WRITE setFlagAdditionalNames
+//		   NOTIFY flagAdditionalNamesDisplayedChanged
+//		   )
+//	Q_PROPERTY(bool flagDesignationLabels
+//		   READ getDesignationUsage
+//		   WRITE setDesignationUsage
+//		   NOTIFY designationUsageChanged
+//		   )
+//	Q_PROPERTY(bool flagDblStarsDesignation
+//		   READ getFlagDblStarsDesignation
+//		   WRITE setFlagDblStarsDesignation
+//		   NOTIFY flagDblStarsDesignationChanged
+//		   )
+//	Q_PROPERTY(bool flagVarStarsDesignation
+//		   READ getFlagVarStarsDesignation
+//		   WRITE setFlagVarStarsDesignation
+//		   NOTIFY flagVarStarsDesignationChanged
+//		   )
+//	Q_PROPERTY(bool flagHIPDesignation
+//		   READ getFlagHIPDesignation
+//		   WRITE setFlagHIPDesignation
+//		   NOTIFY flagHIPDesignationChanged
+//		   )
 
 public:
 	StarMgr(void);
@@ -156,20 +157,24 @@ public:
 
 	//! Update any time-dependent features.
 	//! Includes fading in and out stars and labels when they are turned on and off.
-	virtual void update(double deltaTime) Q_DECL_OVERRIDE {labelsFader.update(static_cast<int>(deltaTime*1000)); starsFader.update(static_cast<int>(deltaTime*1000));}
+    virtual void update(double deltaTime) Q_DECL_OVERRIDE
+    //{labelsFader.update(static_cast<int>(deltaTime*1000)); starsFader.update(static_cast<int>(deltaTime*1000));}
+    {/*TODO: some stuff instead of labels?*/}
 
 	//! Used to determine the order in which the various StelModules are drawn.
-	virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
+    //virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
 
 	///////////////////////////////////////////////////////////////////////////
 	// Methods defined in StelObjectModule class
 	//! Return a list containing the stars located inside the limFov circle around position v
 	virtual QList<StelObjectP > searchAround(const Vec3d& v, double limitFov, const StelCore* core) const Q_DECL_OVERRIDE;
 
+    virtual QList<StelObjectP > allZobjects(const Vec3d &vv, const StelCore *core) const /*Q_DECL_OVERRIDE*/;
+
 	//! Return the matching Stars object's pointer if exists or Q_NULLPTR
 	//! @param nameI18n The case in-sensitive localized star common name or HIP/HP, SAO, HD, HR, GCVS or WDS number
 	//! catalog name (format can be HP1234 or HP 1234 or HIP 1234) or sci name
-	virtual StelObjectP searchByNameI18n(const QString& nameI18n) const Q_DECL_OVERRIDE;
+    //virtual StelObjectP searchByNameI18n(const QString& nameI18n) const Q_DECL_OVERRIDE;
 
 	//! Return the matching star if exists or Q_NULLPTR
 	//! @param name The case in-sensitive english star name
@@ -194,25 +199,25 @@ public slots:
 	///////////////////////////////////////////////////////////////////////////
 	// Methods callable from script and GUI
 	//! Set display flag for Stars.
-	void setFlagStars(bool b) {starsFader=b; emit starsDisplayedChanged(b);}
+    //void setFlagStars(bool b) {starsFader=b; emit starsDisplayedChanged(b);}
 	//! Get display flag for Stars
-	bool getFlagStars(void) const {return starsFader==true;}
+    //bool getFlagStars(void) const {return starsFader==true;}
 
 	//! Set display flag for Star names (labels).
-	void setFlagLabels(bool b) {labelsFader=b; emit starLabelsDisplayedChanged(b);}
+    //void setFlagLabels(bool b) {labelsFader=b; emit starLabelsDisplayedChanged(b);}
 	//! Get display flag for Star names (labels).
-	bool getFlagLabels(void) const {return labelsFader==true;}
+    //bool getFlagLabels(void) const {return labelsFader==true;}
 
 	//! Set the amount of star labels. The real amount is also proportional with FOV.
 	//! The limit is set in function of the stars magnitude
 	//! @param a the amount between 0 and 10. 0 is no labels, 10 is maximum of labels
-	void setLabelsAmount(double a) {if(!qFuzzyCompare(a,labelsAmount)){ labelsAmount=a; emit labelsAmountChanged(a);}}
+    //void setLabelsAmount(double a) {if(!qFuzzyCompare(a,labelsAmount)){ labelsAmount=a; emit labelsAmountChanged(a);}}
 	//! Get the amount of star labels. The real amount is also proportional with FOV.
 	//! @return the amount between 0 and 10. 0 is no labels, 10 is maximum of labels
-	double getLabelsAmount(void) const {return labelsAmount;}
+    //double getLabelsAmount(void) const {return labelsAmount;}
 
 	//! Define font size to use for star names display.
-	void setFontSize(int newFontSize);
+    //void setFontSize(int newFontSize);
 
 	//! Show scientific or catalog names on stars without common names.
 	static void setFlagSciNames(bool f) {flagSciNames = f;}
@@ -277,9 +282,9 @@ public:
 
 	//! Get the (translated) scientific name for a double star with a specified
 	//! Hipparcos catalogue number.
-	//! @param hip The Hipparcos number of star
+    //! @param hip The Hipparcos number of star
 	//! @return translated scientific name of double star
-	static QString getWdsName(int hip);
+    static QString getWdsName(int hip);
 
 	//! Get the (English) common name for a star with a specified
 	//! Hipparcos catalogue number.
@@ -404,12 +409,12 @@ public:
 
 private slots:
 	//! Translate text.
-	void updateI18n();
+    //void updateI18n();
 
 	//! Called when the sky culture is updated.
 	//! Loads common and scientific names of stars for a given sky culture.
 	//! @param skyCultureDir the name of the directory containing the sky culture to use.
-	void updateSkyCulture(const QString& skyCultureDir);
+    //void updateSkyCulture(const QString& skyCultureDir);
 
 	//! increase artificial cutoff magnitude slightly (can be linked to an action/hotkey)
 	void increaseStarsMagnitudeLimit();
@@ -471,7 +476,7 @@ private:
 	void loadData(QVariantMap starsConfigFile);
 
 	//! Draw a nice animated pointer around the object.
-	void drawPointer(StelPainter& sPainter, const StelCore* core);
+    //void drawPointer(StelPainter& sPainter, const StelCore* core);
 
 	void populateHipparcosLists();
 	void populateStarsDesignations();
@@ -480,15 +485,15 @@ private:
 	QList<StelObjectP> hipparcosStars, carbonStars, bariumStars;
 	QList<QMap<StelObjectP, float>> doubleHipStars, variableHipStars, algolTypeStars, classicalCepheidsTypeStars, hipStarsHighPM;
 
-	LinearFader labelsFader;
-	LinearFader starsFader;
+    //LinearFader labelsFader;
+    //LinearFader starsFader;
 
-	bool flagStarName;	
-	double labelsAmount;
-	bool gravityLabel;
+    //bool flagStarName;
+    //double labelsAmount;
+    //bool gravityLabel;
 
-	int maxGeodesicGridLevel;
-	int lastMaxSearchLevel;
+    int maxGeodesicGridLevel;
+    int lastMaxSearchLevel;
 	
 	// A ZoneArray per grid level
 	QVector<ZoneArray*> gridLevels;
@@ -539,7 +544,7 @@ private:
 
 	static QHash<int, QString> referenceMap;
 
-	QFont starFont;
+    //QFont starFont;
 	static bool flagSciNames;
 	static bool flagAdditionalStarNames;
 	static bool flagDesignations;
@@ -547,7 +552,7 @@ private:
 	static bool flagVarStarsDesignation;
 	static bool flagHIPDesignation;
 
-	StelTextureSP texPointer;		// The selection pointer texture
+    //StelTextureSP texPointer;		// The selection pointer texture
 
 	class StelObjectMgr* objectMgr;
 

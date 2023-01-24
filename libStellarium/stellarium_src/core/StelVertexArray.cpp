@@ -18,9 +18,9 @@
  */
 
 #include "StelVertexArray.hpp"
-#include "StelProjector.hpp"
+//#include "StelProjector.hpp"
 
-StelVertexArray StelVertexArray::removeDiscontinuousTriangles(const StelProjector* prj) const
+StelVertexArray StelVertexArray::removeDiscontinuousTriangles(/*const StelProjector* prj*/) const
 {
 	StelVertexArray ret = *this;
 
@@ -34,13 +34,15 @@ StelVertexArray StelVertexArray::removeDiscontinuousTriangles(const StelProjecto
 				ret.indices.resize(0);
 				for (int i = 0; i < indicesOrig.size(); i += 3)
 				{
-					if (prj->intersectViewportDiscontinuity(vertex.at(indicesOrig.at(i)), vertex.at(indicesOrig.at(i+1))) ||
-							prj->intersectViewportDiscontinuity(vertex.at(indicesOrig.at(i+1)), vertex.at(indicesOrig.at(i+2))) ||
-							prj->intersectViewportDiscontinuity(vertex.at(indicesOrig.at(i+2)), vertex.at(indicesOrig.at(i))))
+//NOTE: bad prj check
+
+                    //					if (prj->intersectViewportDiscontinuity(vertex.at(indicesOrig.at(i)), vertex.at(indicesOrig.at(i+1))) ||
+//							prj->intersectViewportDiscontinuity(vertex.at(indicesOrig.at(i+1)), vertex.at(indicesOrig.at(i+2))) ||
+//							prj->intersectViewportDiscontinuity(vertex.at(indicesOrig.at(i+2)), vertex.at(indicesOrig.at(i))))
 					{
 						// We have a discontinuity.
 					}
-					else
+//					else
 					{
 						ret.indices << indicesOrig.at(i) << indicesOrig.at(i+1) << indicesOrig.at(i+2);
 					}
@@ -65,13 +67,14 @@ StelVertexArray StelVertexArray::removeDiscontinuousTriangles(const StelProjecto
 				limit = static_cast<unsigned short int>(vertex.size());
 				for (unsigned short int i = 2; i < limit; ++i)
 				{
-					if (prj->intersectViewportDiscontinuity(vertex[i], vertex[i-1]) ||
-							prj->intersectViewportDiscontinuity(vertex[i-1], vertex[i-2]) ||
-							prj->intersectViewportDiscontinuity(vertex[i-2], vertex[i]))
+//NOTE: bad prj check
+                    //					if (prj->intersectViewportDiscontinuity(vertex[i], vertex[i-1]) ||
+//							prj->intersectViewportDiscontinuity(vertex[i-1], vertex[i-2]) ||
+//							prj->intersectViewportDiscontinuity(vertex[i-2], vertex[i]))
 					{
 						// We have a discontinuity.
 					}
-					else
+//					else
 					{
 						if (i % 2 == 0)
 							ret.indices << i-2 << i-1 << i;
@@ -86,14 +89,15 @@ StelVertexArray StelVertexArray::removeDiscontinuousTriangles(const StelProjecto
 				limit = static_cast<unsigned short int>(vertex.size());
 				for (unsigned short int i = 0; i < limit; i += 3)
 				{
-					if (prj->intersectViewportDiscontinuity(vertex.at(i), vertex.at(i+1)) ||
-							prj->intersectViewportDiscontinuity(vertex.at(i+1), vertex.at(i+2)) ||
-							prj->intersectViewportDiscontinuity(vertex.at(i+2), vertex.at(i)))
-					{
-						// We have a discontinuity.
-					}
-					else
-					{
+                    //NOTE: bad prj check
+//					if (prj->intersectViewportDiscontinuity(vertex.at(i), vertex.at(i+1)) ||
+//							prj->intersectViewportDiscontinuity(vertex.at(i+1), vertex.at(i+2)) ||
+//							prj->intersectViewportDiscontinuity(vertex.at(i+2), vertex.at(i)))
+//					{
+//						// We have a discontinuity.
+//					}
+//					else
+                    {
 						ret.indices << i << i+1 << i+2;
 					}
 				}

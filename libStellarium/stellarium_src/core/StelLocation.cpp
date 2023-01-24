@@ -18,7 +18,8 @@
 
 #include "StelLocation.hpp"
 #include "StelLocationMgr.hpp"
-#include "StelLocaleMgr.hpp"
+//#include "StelLocaleMgr.hpp"
+#include "StelCore.hpp"
 #include "StelUtils.hpp"
 #include "StelModuleMgr.hpp"
 #include "StelApp.hpp"

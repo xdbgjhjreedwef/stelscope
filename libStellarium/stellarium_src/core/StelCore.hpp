@@ -24,18 +24,31 @@
 #include "StelProjector.hpp"
 #include "StelProjectorType.hpp"
 #include "StelLocation.hpp"
-#include "StelSkyDrawer.hpp"
+//#include "StelSkyDrawer.hpp"
 #include "StelPropertyMgr.hpp"
 #include <QString>
 #include <QStringList>
 #include <QTime>
 #include <QPair>
+#include <libstellarium-global.h>
 
-class StelToneReproducer;
-class StelSkyDrawer;
+//class StelToneReproducer;
+//class StelSkyDrawer;
 class StelGeodesicGrid;
-class StelMovementMgr;
+//class StelMovementMgr;
 class StelObserver;
+class Refraction;
+class Extinction;
+
+//! Contains the 2 parameters necessary to draw a star on screen.
+//! the radius and luminance of the star halo texture.
+#define MAX_LINEAR_RADIUS 8.f
+struct RCMag
+{
+    float radius;
+    float luminance;
+};
+
 
 //! @class StelCore
 //! Main class for Stellarium core processing.
@@ -46,24 +59,24 @@ class StelObserver;
 //! in the future they may be more, allowing for example to display
 //! several independent views of the sky at the same time.
 //! @author Fabien Chereau, Matthew Gates, Georg Zotti
-class StelCore : public QObject
+class STELLARIUMSHARED_EXPORT StelCore : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(bool flipHorz READ getFlipHorz WRITE setFlipHorz NOTIFY flipHorzChanged)
-	Q_PROPERTY(bool flipVert READ getFlipVert WRITE setFlipVert NOTIFY flipVertChanged)
-	Q_PROPERTY(bool flagUseNutation READ getUseNutation WRITE setUseNutation NOTIFY flagUseNutationChanged)
-	Q_PROPERTY(bool flagUseAberration READ getUseAberration WRITE setUseAberration NOTIFY flagUseAberrationChanged)
-	Q_PROPERTY(double aberrationFactor READ getAberrationFactor WRITE setAberrationFactor NOTIFY aberrationFactorChanged)
-	Q_PROPERTY(bool flagUseTopocentricCoordinates READ getUseTopocentricCoordinates WRITE setUseTopocentricCoordinates NOTIFY flagUseTopocentricCoordinatesChanged)
-	Q_PROPERTY(ProjectionType currentProjectionType READ getCurrentProjectionType WRITE setCurrentProjectionType NOTIFY currentProjectionTypeChanged)
-	//! This is just another way to access the projection type, by string instead of enum
-	Q_PROPERTY(QString currentProjectionTypeKey READ getCurrentProjectionTypeKey WRITE setCurrentProjectionTypeKey NOTIFY currentProjectionTypeKeyChanged STORED false)
-	//! Read-only property returning the localized projection name
-	Q_PROPERTY(QString currentProjectionNameI18n READ getCurrentProjectionNameI18n NOTIFY currentProjectionNameI18nChanged STORED false)
-	Q_PROPERTY(bool flagGravityLabels READ getFlagGravityLabels WRITE setFlagGravityLabels NOTIFY flagGravityLabelsChanged)
-	Q_PROPERTY(QString currentTimeZone READ getCurrentTimeZone WRITE setCurrentTimeZone NOTIFY currentTimeZoneChanged)
-	Q_PROPERTY(bool flagUseCTZ READ getUseCustomTimeZone WRITE setUseCustomTimeZone NOTIFY useCustomTimeZoneChanged)
-	Q_PROPERTY(bool flagUseDST READ getUseDST WRITE setUseDST NOTIFY flagUseDSTChanged)
+//	Q_PROPERTY(bool flipHorz READ getFlipHorz WRITE setFlipHorz NOTIFY flipHorzChanged)
+//	Q_PROPERTY(bool flipVert READ getFlipVert WRITE setFlipVert NOTIFY flipVertChanged)
+//	Q_PROPERTY(bool flagUseNutation READ getUseNutation WRITE setUseNutation NOTIFY flagUseNutationChanged)
+//	Q_PROPERTY(bool flagUseAberration READ getUseAberration WRITE setUseAberration NOTIFY flagUseAberrationChanged)
+//	Q_PROPERTY(double aberrationFactor READ getAberrationFactor WRITE setAberrationFactor NOTIFY aberrationFactorChanged)
+//	Q_PROPERTY(bool flagUseTopocentricCoordinates READ getUseTopocentricCoordinates WRITE setUseTopocentricCoordinates NOTIFY flagUseTopocentricCoordinatesChanged)
+//	Q_PROPERTY(ProjectionType currentProjectionType READ getCurrentProjectionType WRITE setCurrentProjectionType NOTIFY currentProjectionTypeChanged)
+//	//! This is just another way to access the projection type, by string instead of enum
+//	Q_PROPERTY(QString currentProjectionTypeKey READ getCurrentProjectionTypeKey WRITE setCurrentProjectionTypeKey NOTIFY currentProjectionTypeKeyChanged STORED false)
+//	//! Read-only property returning the localized projection name
+//	Q_PROPERTY(QString currentProjectionNameI18n READ getCurrentProjectionNameI18n NOTIFY currentProjectionNameI18nChanged STORED false)
+//	Q_PROPERTY(bool flagGravityLabels READ getFlagGravityLabels WRITE setFlagGravityLabels NOTIFY flagGravityLabelsChanged)
+//	Q_PROPERTY(QString currentTimeZone READ getCurrentTimeZone WRITE setCurrentTimeZone NOTIFY currentTimeZoneChanged)
+//	Q_PROPERTY(bool flagUseCTZ READ getUseCustomTimeZone WRITE setUseCustomTimeZone NOTIFY useCustomTimeZoneChanged)
+//	Q_PROPERTY(bool flagUseDST READ getUseDST WRITE setUseDST NOTIFY flagUseDSTChanged)
 
 public:
 	//! @enum FrameType
@@ -153,7 +166,7 @@ public:
 	};
 	Q_ENUM(DeltaTAlgorithm)
 
-	StelCore();
+    StelCore();
 	virtual ~StelCore() Q_DECL_OVERRIDE;
 
 	//! Init and load all main core components.
@@ -164,43 +177,43 @@ public:
 	void update(double deltaTime);
 
 	//! Handle the resizing of the window
-	void windowHasBeenResized(qreal x, qreal y, qreal width, qreal height);
+    //void windowHasBeenResized(qreal x, qreal y, qreal width, qreal height);
 
 	//! Update core state before drawing modules.
-	void preDraw();
+    //void preDraw();
 
 	//! Update core state after drawing modules.
-	void postDraw();
+    //void postDraw();
 
 	//! Get a new instance of a simple 2d projection. This projection cannot be used to project or unproject but
 	//! only for 2d painting
-	StelProjectorP getProjection2d() const;
+//	StelProjectorP getProjection2d() const;
 
-	//! Get a new instance of projector using a modelview transformation corresponding to the given frame.
-	//! If not specified the refraction effect is included if atmosphere is on.
-	StelProjectorP getProjection(FrameType frameType, RefractionMode refractionMode=RefractionAuto) const;
+//	//! Get a new instance of projector using a modelview transformation corresponding to the given frame.
+//	//! If not specified the refraction effect is included if atmosphere is on.
+//	StelProjectorP getProjection(FrameType frameType, RefractionMode refractionMode=RefractionAuto) const;
 
-	//! Get a new instance of projector using the given modelview transformation.
-	//! If not specified the projection used is the one currently used as default.
-	StelProjectorP getProjection(StelProjector::ModelViewTranformP modelViewTransform, ProjectionType projType=static_cast<ProjectionType>(1000)) const;
+//	//! Get a new instance of projector using the given modelview transformation.
+//	//! If not specified the projection used is the one currently used as default.
+//	StelProjectorP getProjection(StelProjector::ModelViewTranformP modelViewTransform, ProjectionType projType=static_cast<ProjectionType>(1000)) const;
 
 	//! Get the current tone reproducer used in the core.
-	StelToneReproducer* getToneReproducer(){return toneReproducer;}
+//	StelToneReproducer* getToneReproducer(){return toneReproducer;}
 	//! Get the current tone reproducer used in the core.
-	const StelToneReproducer* getToneReproducer() const{return toneReproducer;}
+//	const StelToneReproducer* getToneReproducer() const{return toneReproducer;}
 
 	//! Get the current StelSkyDrawer used in the core.
-	StelSkyDrawer* getSkyDrawer(){return skyDrawer;}
+//	StelSkyDrawer* getSkyDrawer(){return skyDrawer;}
 	//! Get the current StelSkyDrawer used in the core.
-	const StelSkyDrawer* getSkyDrawer() const{return skyDrawer;}
+//	const StelSkyDrawer* getSkyDrawer() const{return skyDrawer;}
 
 	//! Get an instance of StelGeodesicGrid which is garanteed to allow for at least maxLevel levels
-	const StelGeodesicGrid* getGeodesicGrid(int maxLevel) const;
+    const StelGeodesicGrid* getGeodesicGrid(int maxLevel) const;
 
 	//! Get the instance of movement manager.
-	StelMovementMgr* getMovementMgr(){return movementMgr;}
+//	StelMovementMgr* getMovementMgr(){return movementMgr;}
 	//! Get the const instance of movement manager.
-	const StelMovementMgr* getMovementMgr() const{return movementMgr;}
+//	const StelMovementMgr* getMovementMgr() const{return movementMgr;}
 
 	//! Set the near and far clipping planes.
 	void setClippingPlanes(double znear, double zfar){
@@ -213,10 +226,10 @@ public:
 	}
 
 	//! Get the translated projection name from its TypeKey for the current locale.
-	QString projectionTypeKeyToNameI18n(const QString& key) const;
+    //QString projectionTypeKeyToNameI18n(const QString& key) const;
 
 	//! Get the projection TypeKey from its translated name for the current locale.
-	QString projectionNameI18nToTypeKey(const QString& nameI18n) const;
+    //QString projectionNameI18nToTypeKey(const QString& nameI18n) const;
 
 	//! Get the current set of parameters.
 	StelProjector::StelProjectorParams getCurrentStelProjectorParams() const;
@@ -320,7 +333,7 @@ public:
 	//! Replaces the current observer. StelCore assumes ownership of the observer.
 	void setObserver(StelObserver* obs);
 
-	SphericalCap getVisibleSkyArea() const;
+    //SphericalCap getVisibleSkyArea() const;
 
 	// Conversion in standard Julian time format
 	static const double JD_SECOND;
@@ -362,7 +375,7 @@ public:
 	//! Get the default Mapping used by the Projection
 	QString getDefaultProjectionTypeKey(void) const;
 
-	Vec3d getMouseJ2000Pos(void) const;
+    //Vec3d getMouseJ2000Pos(void) const;
 
 public slots:
 	//! Smoothly move the observer to the given location
@@ -381,7 +394,7 @@ public slots:
 	//! Set the current ProjectionType to use from its key
 	void setCurrentProjectionTypeKey(QString type);
 
-	QString getCurrentProjectionNameI18n() const;
+    //QString getCurrentProjectionNameI18n() const;
 
 	//! Get the list of all the available projections
 	QStringList getAllProjectionTypeKeys() const;
@@ -402,11 +415,11 @@ public slots:
 
 	//! Set the flag with decides whether to arrage labels so that
 	//! they are aligned with the bottom of a 2d screen, or a 3d dome.
-	void setFlagGravityLabels(bool gravity);
+    //void setFlagGravityLabels(bool gravity);
 	//! return whether dome-aligned labels are in use
-	bool getFlagGravityLabels() const;
+    ////bool getFlagGravityLabels() const;
 	//! Set the offset rotation angle in degree to apply to gravity text (only if gravityLabels is set to false).
-	void setDefaultAngleForGravityText(float a);
+    //void setDefaultAngleForGravityText(float a);
 	//! Set the horizontal flip status.
 	//! @param flip The new value (true = flipped, false = unflipped).
 	void setFlipHorz(bool flip);
@@ -423,26 +436,26 @@ public slots:
 	// Vertical offset should even be available for animation, so at last with property mechanism.
 	//! Get current value for horizontal viewport offset [-50...50]
 	//! An offset of 50 percent means projective image center is on the right screen border
-	double getViewportHorizontalOffset(void) const;
-	//! Set horizontal viewport offset. Argument will be clamped to be inside [-50...50]
-	//! An offset of 50 percent means projective image center is on the right screen border
-	//! Animation is available via StelMovementMgr::moveViewport()
-	void setViewportHorizontalOffset(double newOffsetPct);
-	//! Get current value for vertical viewport offset [-50...50]
-	//! An offset of 50 percent means projective image center is on the upper screen border
-	double getViewportVerticalOffset(void) const;
-	//! Set vertical viewport offset. Argument will be clamped to be inside [-50...50]
-	//! An offset of 50 percent means projective image center is on the upper screen border
-	//! Setting to a negative value will move the visible horizon down, this may be desired esp. in cylindrical projection.
-	//! Animation is available via StelMovementMgr::moveViewport()
-	void setViewportVerticalOffset(double newOffsetPct);
-	// Set both viewport offsets. Arguments will be clamped to be inside [-50...50]. I (GZ) hope this will avoid some of the shaking.
-	void setViewportOffset(double newHorizontalOffsetPct, double newVerticalOffsetPct);
+//	double getViewportHorizontalOffset(void) const;
+//	//! Set horizontal viewport offset. Argument will be clamped to be inside [-50...50]
+//	//! An offset of 50 percent means projective image center is on the right screen border
+//	//! Animation is available via StelMovementMgr::moveViewport()
+//	void setViewportHorizontalOffset(double newOffsetPct);
+//	//! Get current value for vertical viewport offset [-50...50]
+//	//! An offset of 50 percent means projective image center is on the upper screen border
+//	double getViewportVerticalOffset(void) const;
+//	//! Set vertical viewport offset. Argument will be clamped to be inside [-50...50]
+//	//! An offset of 50 percent means projective image center is on the upper screen border
+//	//! Setting to a negative value will move the visible horizon down, this may be desired esp. in cylindrical projection.
+//	//! Animation is available via StelMovementMgr::moveViewport()
+//	void setViewportVerticalOffset(double newOffsetPct);
+//	// Set both viewport offsets. Arguments will be clamped to be inside [-50...50]. I (GZ) hope this will avoid some of the shaking.
+//	void setViewportOffset(double newHorizontalOffsetPct, double newVerticalOffsetPct);
 
-	//! Can be used in specialized setups, intended e.g. for multi-projector installations with edge blending.
-	//! @param stretch [default 1] enlarge to stretch image to non-square pixels. A minimum value of 0.001 is enforced.
-	//! @note This only influences the projected content. Things like ScreenImages keep square pixels.
-	void setViewportStretch(float stretch);
+//	//! Can be used in specialized setups, intended e.g. for multi-projector installations with edge blending.
+//	//! @param stretch [default 1] enlarge to stretch image to non-square pixels. A minimum value of 0.001 is enforced.
+//	//! @note This only influences the projected content. Things like ScreenImages keep square pixels.
+//	void setViewportStretch(float stretch);
 
 	//! Get the location used by default at startup
 	QString getDefaultLocationID() const;
@@ -519,22 +532,22 @@ public slots:
 	//! @return whether nutation is currently used.
 	bool getUseNutation() const {return flagUseNutation;}
 	//! Set whether you want computation and simulation of nutation (a slight wobble of Earth's axis, just a few arcseconds).
-	void setUseNutation(bool use) { if (flagUseNutation != use) { flagUseNutation=use; emit flagUseNutationChanged(use); }}
+    void setUseNutation(bool use) { if (flagUseNutation != use) { flagUseNutation=use; /*emit flagUseNutationChanged(use);*/ }}
 
 	//! @return whether aberration is currently used.
 	bool getUseAberration() const {return flagUseAberration;}
 	//! Set whether you want computation and simulation of aberration (a slight wobble of stellar positions due to finite speed of light, about 20 arcseconds when observing from earth).
-	void setUseAberration(bool use) { if (flagUseAberration != use) { flagUseAberration=use; emit flagUseAberrationChanged(use); }}
+    void setUseAberration(bool use) { if (flagUseAberration != use) { flagUseAberration=use; /*emit flagUseAberrationChanged(use);*/ }}
 
 	//! @return aberration factor. 1 is realistic simulation, but higher values may be useful for didactic purposes.
 	double getAberrationFactor() const {return aberrationFactor;}
 	//! Set aberration factor. Values are clamped to 0...5. (Values above 5 cause graphical problems.)
-	void setAberrationFactor(double factor) { if (!fuzzyEquals(aberrationFactor, factor)) { aberrationFactor=qBound(0.,factor, 5.); emit aberrationFactorChanged(factor); }}
+    void setAberrationFactor(double factor) { if (!fuzzyEquals(aberrationFactor, factor)) { aberrationFactor=qBound(0.,factor, 5.); /*emit aberrationFactorChanged(factor);*/ }}
 
 	//! @return whether topocentric coordinates are currently used.
 	bool getUseTopocentricCoordinates() const {return flagUseTopocentricCoordinates;}
 	//! Set whether you want computation and simulation of nutation (a slight wobble of Earth's axis, just a few arcseconds).
-	void setUseTopocentricCoordinates(bool use) { if (flagUseTopocentricCoordinates!= use) { flagUseTopocentricCoordinates=use; emit flagUseTopocentricCoordinatesChanged(use); }}
+    void setUseTopocentricCoordinates(bool use) { if (flagUseTopocentricCoordinates!= use) { flagUseTopocentricCoordinates=use; /*emit flagUseTopocentricCoordinatesChanged(use);*/ }}
 
 	//! Return the preset sky time in JD
 	double getPresetSkyTime() const;
@@ -678,7 +691,7 @@ public slots:
 	//! Subtract one draconic month to the simulation time.
 	void subtractDraconicMonth();
 
-	//! Subtract one anomalistic month to the simulation time.
+    //! Subtract one anomalistic month to	limitMagnitude(-100.f),
 	void subtractAnomalisticMonth();
 	//! Subtract one anomalistic year to the simulation time.
 	void subtractAnomalisticYear();
@@ -715,7 +728,7 @@ public slots:
 
 	//! Move the observer to the selected object. This will only do something if
 	//! the selected object is of the correct type - i.e. a planet.
-	void moveObserverToSelected();
+//	void moveObserverToSelected();
 
 	//! Set central year for custom equation for calculation of DeltaT
 	//! @param y the year, e.g. 1820
@@ -776,67 +789,122 @@ public slots:
 	//! Converts magnitude/arcsec² to luminance in cd/m².
 	static float mpsasToLuminance(const float mag) { return 10.8e4f*std::pow(10.f, -0.4f*mag); }
 
+    //NOTE: from SkyDrawer
+    //! Informing the drawer whether atmosphere is displayed.
+    //! This is used to avoid twinkling/simulate extinction/refraction.
+    void setFlagHasAtmosphere(bool b) {flagHasAtmosphere=b;}
+    bool getFlagHasAtmosphere() const {return flagHasAtmosphere;}
+    //! Get the current valid extinction computation object.
+    const Extinction& getExtinction() const {return *extinction;}
+    //! Get the current valid refraction computation object.
+    const Refraction& getRefraction() const {return *refraction;}
+    //! Get the magnitude of the currently faintest visible point source
+    //! It depends on the zoom level, on the eye adapation and on the point source rendering parameters
+    //! @return the limit V mag at which a point source will be displayed
+    float getLimitMagnitude() const {return limitMagnitude;}
+
+    //! Toggle the application of user-defined star magnitude limit.
+    //! If enabled, stars fainter than the magnitude set with
+    //! setCustomStarMagnitudeLimit() will not be displayed.
+    void setFlagStarMagnitudeLimit(bool b) {if(b!=flagStarMagnitudeLimit){ flagStarMagnitudeLimit = b;}}
+    //! @return true if the user-defined star magnitude limit is in force.
+    bool getFlagStarMagnitudeLimit() const {return flagStarMagnitudeLimit;}
+    //! Toggle the application of user-defined deep-sky object magnitude limit.
+    //! If enabled, deep-sky objects fainter than the magnitude set with
+    //! setCustomNebulaMagnitudeLimit() will not be displayed.
+    void setFlagNebulaMagnitudeLimit(bool b) {if(b!=flagNebulaMagnitudeLimit){ flagNebulaMagnitudeLimit = b;}}
+    //! @return true if the user-defined nebula magnitude limit is in force.
+    bool getFlagNebulaMagnitudeLimit() const {return flagNebulaMagnitudeLimit;}
+    //! Toggle the application of user-defined solar system object magnitude limit.
+    //! If enabled, planets, planetary moons, asteroids (KBO, ...) and comets fainter than the magnitude set with
+    //! setCustomPlanetMagnitudeLimit() will not be displayed.
+    void setFlagPlanetMagnitudeLimit(bool b) {if(b!=flagPlanetMagnitudeLimit){ flagPlanetMagnitudeLimit = b;}}
+    //! @return true if the user-defined nebula magnitude limit is in force.
+    bool getFlagPlanetMagnitudeLimit() const {return flagPlanetMagnitudeLimit;}
+
+    //! Get the value used for forced star magnitude limiting.
+    double getCustomStarMagnitudeLimit() const {return customStarMagLimit;}
+    //! Sets a lower limit for star magnitudes (anything fainter is ignored).
+    //! In force only if flagStarMagnitudeLimit is set.
+    void setCustomStarMagnitudeLimit(double limit) { customStarMagLimit=limit;}
+    //! Get the value used for forced nebula magnitude limiting.
+    double getCustomNebulaMagnitudeLimit() const {return customNebulaMagLimit;}
+    //! Sets a lower limit for nebula magnitudes (anything fainter is ignored).
+    //! In force only if flagNebulaMagnitudeLimit is set.
+    void setCustomNebulaMagnitudeLimit(double limit) { customNebulaMagLimit=limit;}
+    //! Get the value used for forced solar system object magnitude limiting.
+    double getCustomPlanetMagnitudeLimit() const {return customPlanetMagLimit;}
+    //! Sets a lower limit for solar system object magnitudes (anything fainter is ignored).
+    //! In force only if flagPlanetMagnitudeLimit is set.
+    void setCustomPlanetMagnitudeLimit(double limit) { customPlanetMagLimit=limit;}
+
+    //! Get the luminance of the faintest visible object (e.g. RGB<0.05)
+    //! It depends on the zoom level, on the eye adapation and on the point source rendering parameters
+    //! @return the limit V luminance at which an object will be visible
+    float getLimitLuminance() const {return limitLuminance;}
+
+    bool computeRCMag(float mag, RCMag* rcMag) const;
+
 signals:
 	//! This signal is emitted when the observer location has changed.
-	void locationChanged(const StelLocation&);
-	//! This signal is emitted whenever the targetted location changes
-	void targetLocationChanged(const StelLocation&);
-	//! This signal is emitted when the current timezone name is changed.
-	void currentTimeZoneChanged(const QString& tz);
-	//! This signal is emitted when custom timezone use is activated (true) or deactivated (false).
-	void useCustomTimeZoneChanged(const bool b);
-	//! This signal is emitted when daylight saving time is enabled or disabled.
-	void flagUseDSTChanged(const bool b);
-	//! This signal is emitted when the time rate has changed
-	void timeRateChanged(double rate);
-	//! This signal is emitted whenever the time is re-synced.
-	//! This happens whenever the internal jDay is changed through setJDay/setMJDay and similar,
-	//! and whenever the time rate changes.
-	void timeSyncOccurred(double jDay);
-	//! This signal is emitted when the date has changed.
-	void dateChanged();
-	//! This signal can be emitted when e.g. the date has changed in a way that planet trails or similar things should better be reset.
-	//! TODO: Currently the signal is not used. Think of the proper way to apply it.
-	void dateChangedForTrails();
-	//! This signal is emitted when the date has changed for a month.
-	void dateChangedForMonth();
-	//! This signal is emitted when the date has changed by one year.
-	void dateChangedByYear();
-	//! This signal indicates a horizontal display flip
-	void flipHorzChanged(bool b);
-	//! This signal indicates a vertical display flip
-	void flipVertChanged(bool b);
-	//! This signal indicates a switch in use of nutation
-	void flagUseNutationChanged(bool b);
-	//! This signal indicates a switch in use of aberration
-	void flagUseAberrationChanged(bool b);
-	//! This signal indicates a change in aberration exaggeration factor
-	void aberrationFactorChanged(double val);
-	//! This signal indicates a switch in use of topocentric coordinates
-	void flagUseTopocentricCoordinatesChanged(bool b);
-	//! Emitted whenever the projection type changes
-	void currentProjectionTypeChanged(StelCore::ProjectionType newType);
-	//! Emitted whenever the projection type changes
-	void currentProjectionTypeKeyChanged(const QString& newValue);
-	//! Emitted whenever the projection type changes
-	void currentProjectionNameI18nChanged(const QString& newValue);
-	//! Emitted when gravity label use is changed
-	void flagGravityLabelsChanged(bool gravity);
-	//! Emitted when button "Save settings" is pushed
-	void configurationDataSaved();
-	void updateSearchLists();
+//	void locationChanged(const StelLocation&);
+//	//! This signal is emitted whenever the targetted location changes
+//	void targetLocationChanged(const StelLocation&);
+//	//! This signal is emitted when the current timezone name is changed.
+//	void currentTimeZoneChanged(const QString& tz);
+//	//! This signal is emitted when custom timezone use is activated (true) or deactivated (false).
+//	void useCustomTimeZoneChanged(const bool b);
+//	//! This signal is emitted when daylight saving time is enabled or disabled.
+//	void flagUseDSTChanged(const bool b);
+//	//! This signal is emitted when the time rate has changed
+//	void timeRateChanged(double rate);
+//	//! This signal is emitted whenever the time is re-synced.
+//	//! This happens whenever the internal jDay is changed through setJDay/setMJDay and similar,
+//	//! and whenever the time rate changes.
+//	void timeSyncOccurred(double jDay);
+//	//! This signal is emitted when the date has changed.
+//	void dateChanged();
+//	//! This signal can be emitted when e.g. the date has changed in a way that planet trails or similar things should better be reset.
+//	//! TODO: Currently the signal is not used. Think of the proper way to apply it.
+//	void dateChangedForTrails();
+//	//! This signal is emitted when the date has changed for a month.
+//	void dateChangedForMonth();
+//	//! This signal is emitted when the date has changed by one year.
+//	void dateChangedByYear();
+//	//! This signal indicates a horizontal display flip
+//	void flipHorzChanged(bool b);
+//	void flipVertChanged(bool b);
+//	//! This signal indicates a switch in use of nutation
+//	void flagUseNutationChanged(bool b);
+//	//! This signal indicates a switch in use of aberration
+//	void flagUseAberrationChanged(bool b);
+//	//! This signal indicates a change in aberration exaggeration factor
+//	void aberrationFactorChanged(double val);
+//	//! This signal indicates a switch in use of topocentric coordinates
+//	void flagUseTopocentricCoordinatesChanged(bool b);
+//	//! Emitted whenever the projection type changes
+//	void currentProjectionTypeChanged(StelCore::ProjectionType newType);
+//	//! Emitted whenever the projection type changes
+//	void currentProjectionTypeKeyChanged(const QString& newValue);
+//	//! Emitted whenever the projection type changes
+//	void currentProjectionNameI18nChanged(const QString& newValue);
+//	//! Emitted when gravity label use is changed
+//	void flagGravityLabelsChanged(bool gravity);
+//	//! Emitted when button "Save settings" is pushed
+//	void configurationDataSaved();
+//	void updateSearchLists();
 
 private slots:
 	//! Call this whenever latitude changes. I.e., just connect it to the locationChanged() signal.
 	void updateFixedEquatorialTransformMatrices();
 private:
-	StelToneReproducer* toneReproducer;		// Tones conversion between stellarium world and display device
-	StelSkyDrawer* skyDrawer;
-	StelMovementMgr* movementMgr;		// Manage vision movements
+//	StelToneReproducer* toneReproducer;		// Tones conversion between stellarium world and display device
+//	StelSkyDrawer* skyDrawer;
+//	StelMovementMgr* movementMgr;		// Manage vision movements
 	StelPropertyMgr* propMgr;
 
 	// Manage geodesic grid
-	mutable StelGeodesicGrid* geodesicGrid;
+    mutable StelGeodesicGrid* geodesicGrid;
 
 	// The currently used projection type
 	ProjectionType currentProjectionType;
@@ -851,7 +919,7 @@ private:
 	//! The rarely updated frame transform between AltAz and Fixed Equatorial is set in updateFixedEquatorialTransformMatrices() instead.
 	void updateTransformMatrices();
 	void updateTime(double deltaTime);
-	void updateMaximumFov();
+    //void updateMaximumFov();
 	void resetSync();
 
 	void registerMathMetaTypes();
@@ -872,7 +940,15 @@ private:
 	Mat4d matJ2000ToAltAz;
 	Mat4d matAltAzToJ2000;
 
-	Mat4d matAltAzModelView;           // Modelview matrix for observer-centric altazimuthal drawing
+    Mat4d matAltAzModelView;          	//! Controls the application of the user-defined star magnitude limit.
+    //! @see customStarMagnitudeLimit
+    bool flagStarMagnitudeLimit;
+    //! Controls the application of the user-defined nebula magnitude limit.
+    //! @see customNebulaMagnitudeLimit
+    bool flagNebulaMagnitudeLimit;
+    //! Controls the application of the user-defined planet magnitude limit.
+    //! @see customPlanetMagnitudeLimit
+    bool flagPlanetMagnitudeLimit; // Modelview matrix for observer-centric altazimuthal drawing
 	Mat4d invertMatAltAzModelView;     // Inverted modelview matrix for observer-centric altazimuthal drawing
 
 	// Position variables
@@ -923,6 +999,32 @@ private:
 	bool de441Available; // ephem file found
 	bool de440Active;    // available and user-activated.
 	bool de441Active;    // available and user-activated.
+
+    Extinction *extinction;
+    Refraction *refraction;
+
+    //! Informing the drawer whether atmosphere is displayed.
+    //! This is used to avoid twinkling/simulate extinction/refraction.
+    bool flagHasAtmosphere;
+
+    //! User-defined magnitude limit for stars.
+    //! Interpreted as a lower limit - stars fainter than this value will not be displayed.
+    //! Used if flagStarMagnitudeLimit is true.
+    double customStarMagLimit;
+    //! User-defined magnitude limit for deep-sky objects.
+    //! Interpreted as a lower limit - nebulae fainter than this value will not be displayed.
+    //! Used if flagNebulaMagnitudeLimit is true.
+    double customNebulaMagLimit;
+    //! User-defined magnitude limit for solar system objects.
+    //! Interpreted as a lower limit - planets fainter than this value will not be displayed.
+    //! Used if flagPlanetMagnitudeLimit is true.
+    double customPlanetMagLimit;
+    //! Current magnitude limit for point sources
+    float limitMagnitude;
+
+    //! Current magnitude luminance
+    float limitLuminance;
+
 };
 
 #endif // STELCORE_HPP

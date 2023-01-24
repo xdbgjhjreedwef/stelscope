@@ -40,7 +40,7 @@ class StelObject : public StelRegionObject
 public:
 	//! Used as named bitfield flags as specifiers to
 	//! filter results of getInfoString. The precise definition of these should
-	//! be documented in the getInfoString documentation for the derived classes
+    //! be documented in the getInfoString documentation for the derived classes
 	//! for all specifiers which are defined in that derivative.
 	//! Use InfoStringGroup instead.
 	enum InfoStringGroupFlags
@@ -94,11 +94,11 @@ public:
 
 	//! Default implementation of the getRegion method.
 	//! Return the spatial region of the object.
-	virtual SphericalRegionP getRegion() const Q_DECL_OVERRIDE {return SphericalRegionP(new SphericalPoint(getJ2000EquatorialPos(Q_NULLPTR)));}
+    //virtual SphericalRegionP getRegion() const Q_DECL_OVERRIDE {return SphericalRegionP(new SphericalPoint(getJ2000EquatorialPos(Q_NULLPTR)));}
 
 	//! Default implementation of the getPointInRegion method.
 	//! Return the J2000 Equatorial Position of the object.
-	virtual Vec3d getPointInRegion() const Q_DECL_OVERRIDE {return getJ2000EquatorialPos(Q_NULLPTR);}
+    //virtual Vec3d getPointInRegion() const Q_DECL_OVERRIDE {return getJ2000EquatorialPos(Q_NULLPTR);}
 	
 	//! Write I18n information about the object in QString.
 	//! @param core the StelCore object to use
@@ -174,7 +174,7 @@ public:
 	virtual QString getEnglishName() const = 0;
 
 	//! Return translated object's name
-	virtual QString getNameI18n() const = 0;
+    //virtual QString getNameI18n() const = 0;
 
 	//! Get observer-centered equatorial coordinates at equinox J2000
 	virtual Vec3d getJ2000EquatorialPos(const StelCore* core) const = 0;
@@ -251,23 +251,23 @@ public:
 
 	//! Return a priority value which is used to discriminate objects by priority
 	//! As for magnitudes, the lower is the higher priority
-	virtual float getSelectPriority(const StelCore*) const;
+    //virtual float getSelectPriority(const StelCore*) const;
 
 	//! Get a color used to display info about the object
-	virtual Vec3f getInfoColor() const {return Vec3f(1.f,1.f,1.f);}
+    //virtual Vec3f getInfoColor() const {return Vec3f(1.f,1.f,1.f);}
 
 	//! Return the best FOV in degree to use for a close view of the object
-	virtual double getCloseViewFov(const StelCore*) const {return 10.;}
+    //virtual double getCloseViewFov(const StelCore*) const {return 10.;}
 
 	//! Return the best FOV in degree to use for a global view of the object satellite system (if there are satellites)
-	virtual double getSatellitesFov(const StelCore*) const {return -1.;}
-	virtual double getParentSatellitesFov(const StelCore*) const {return -1.;}
+    //virtual double getSatellitesFov(const StelCore*) const {return -1.;}
+    //virtual double getParentSatellitesFov(const StelCore*) const {return -1.;}
 
 	//! Return the angular radius of a circle containing the object as seen from the observer
 	//! with the circle center assumed to be at getJ2000EquatorialPos().
 	//! @return radius in degree. This value is the apparent angular size of the object, and is independent of the current FOV.
 	//! @note The default implementation just returns zero.
-	virtual double getAngularRadius(const StelCore* core) const {Q_UNUSED(core) Q_ASSERT(0); return 0;}
+    virtual double getAngularRadius(const StelCore* core) const {Q_UNUSED(core) /*Q_ASSERT(0);*/ return 0;}
 
 	//! Return airmass value for the object (for atmosphere-dependent calculations)
 	//! @param core

@@ -19,7 +19,7 @@
 #ifndef STELREGIONOBJECT_HPP
 #define STELREGIONOBJECT_HPP
 
-#include "StelSphereGeometry.hpp"
+//#include "StelSphereGeometry.hpp"
 
 #include <QSharedPointer>
 
@@ -33,10 +33,10 @@ public:
 	virtual ~StelRegionObject(void) {}
 
 	//! Return the spatial region of the object.
-	virtual SphericalRegionP getRegion() const=0;
+    //virtual SphericalRegionP getRegion() const=0;
 	
 	//! Return the spatial region of the object.
-	virtual Vec3d getPointInRegion() const=0;
+    //virtual Vec3d getPointInRegion() const=0;
 };
 
 //! @typedef StelRegionObjectP

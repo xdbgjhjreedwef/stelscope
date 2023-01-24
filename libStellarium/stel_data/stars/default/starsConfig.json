@@ -1,0 +1,120 @@
+{
+    "catalogs": [
+        {
+            "checked": true,
+            "checksum": "f29bcdca4ef0e945988ff609f7fa9e6a",
+            "count": 0.005,
+            "fileName": "stars_0_0v0_8.cat",
+            "id": "stars0",
+            "magRange": [
+                -2,
+                6
+            ],
+            "sizeMb": 0.1
+        },
+        {
+            "checked": true,
+            "checksum": "cdffa5b38b1de9eb53272176921861d2",
+            "count": 0.022,
+            "fileName": "stars_1_0v0_8.cat",
+            "id": "stars1",
+            "magRange": [
+                6,
+                7.5
+            ],
+            "sizeMb": 0.6
+        },
+        {
+            "checked": true,
+            "checksum": "ac72fe8e402ded1fdf0d66fb603a7675",
+            "count": 0.15,
+            "fileName": "stars_2_0v0_8.cat",
+            "id": "stars2",
+            "magRange": [
+                7.5,
+                9
+            ],
+            "sizeMb": 4.1
+        },
+        {
+            "checked": true,
+            "checksum": "9dc01a4cb2fb797b7e193da45c6cfe85",
+            "count": 0.43,
+            "fileName": "stars_3_1v0_4.cat",
+            "id": "stars3",
+            "magRange": [
+                9,
+                10.5
+            ],
+            "sizeMb": 4.1
+        },
+        {
+            "checked": true,
+            "checksum": "ac67dc390f9d414d61b1db76a5b820e9",
+            "count": 1.7,
+            "fileName": "stars_4_1v0_2.cat",
+            "id": "stars4",
+            "magRange": [
+                10.5,
+                12
+            ],
+            "sizeMb": 17,
+            "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_4_1v0_2.cat"
+        },
+        {
+            "checked": true,
+            "checksum": "50e798428d9402766805da5cf0e8e819",
+            "count": 7.1,
+            "fileName": "stars_5_2v0_1.cat",
+            "id": "stars5",
+            "magRange": [
+                12,
+                13.5
+            ],
+            "sizeMb": 41,
+            "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_5_2v0_1.cat"
+        },
+        {
+            "checked": true,
+            "checksum": "3005959bf7baca36d266def2fecf36d3",
+            "count": 24.7,
+            "fileName": "stars_6_2v0_1.cat",
+            "id": "stars6",
+            "magRange": [
+                13.5,
+                15
+            ],
+            "sizeMb": 142,
+            "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_6_2v0_1.cat"
+        },
+        {
+            "checked": true,
+            "checksum": "15f856fb4c7830a71cb8d60e1decc387",
+            "count": 50.8,
+            "fileName": "stars_7_2v0_1.cat",
+            "id": "stars7",
+            "magRange": [
+                15,
+                16.5
+            ],
+            "sizeMb": 292,
+            "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_7_2v0_1.cat"
+        },
+        {
+            "checked": true,
+            "checksum": "9e2e362022824c60d7e4d94ef8c3af12",
+            "count": 92.3,
+            "fileName": "stars_8_2v0_1.cat",
+            "id": "stars8",
+            "magRange": [
+                16.5,
+                18
+            ],
+            "sizeMb": 534,
+            "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_8_2v0_1.cat"
+        }
+    ],
+    "hipComponentsIdsFile": "stars_hip_cids_0v0_0.cat",
+    "hipSpectralFile": "stars_hip_sp_0v0_4.cat",
+    "version": 12
+}

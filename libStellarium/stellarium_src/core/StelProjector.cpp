@@ -18,7 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA  02110-1335, USA.
  */
 
-#include "StelTranslator.hpp"
+//#include "StelTranslator.hpp"
+//NOTE: _q replaced with qstring
 
 #include "StelProjector.hpp"
 #include "StelProjectorClasses.hpp"
@@ -107,92 +108,92 @@ StelProjector::StelProjectorMaskType StelProjector::stringToMaskType(const QStri
 
 void StelProjector::init(const StelProjectorParams& params)
 {
-	devicePixelsPerPixel = params.devicePixelsPerPixel;
+    //devicePixelsPerPixel = params.devicePixelsPerPixel;
 	maskType = params.maskType;
 	zNear = params.zNear;
 	oneOverZNearMinusZFar = 1./(zNear-params.zFar);
-	viewportCenterOffset = params.viewportCenterOffset;
-	viewportXywh = params.viewportXywh;
-	viewportXywh[0] *= devicePixelsPerPixel;
-	viewportXywh[1] *= devicePixelsPerPixel;
-	viewportXywh[2] *= devicePixelsPerPixel;
-	viewportXywh[3] *= devicePixelsPerPixel;
-	viewportCenter = params.viewportCenter;
-	viewportCenter *= devicePixelsPerPixel;
+//	viewportCenterOffset = params.viewportCenterOffset;
+//	viewportXywh = params.viewportXywh;
+//	viewportXywh[0] *= devicePixelsPerPixel;
+//	viewportXywh[1] *= devicePixelsPerPixel;
+//	viewportXywh[2] *= devicePixelsPerPixel;
+//	viewportXywh[3] *= devicePixelsPerPixel;
+//	viewportCenter = params.viewportCenter;
+//	viewportCenter *= devicePixelsPerPixel;
 	gravityLabels = params.gravityLabels;
 	defaultAngleForGravityText = params.defaultAngleForGravityText;
 	flipHorz = params.flipHorz ? -1.f : 1.f;
 	flipVert = params.flipVert ? -1.f : 1.f;
-	viewportFovDiameter = params.viewportFovDiameter * devicePixelsPerPixel;
-	pixelPerRad = 0.5f * static_cast<float>(viewportFovDiameter) / fovToViewScalingFactor(params.fov*(static_cast<float>(M_PI)/360.f));
-	widthStretch = params.widthStretch;
-	computeBoundingCap();
+    //viewportFovDiameter = params.viewportFovDiameter * devicePixelsPerPixel;
+    //pixelPerRad = 0.5f * static_cast<float>(viewportFovDiameter) / fovToViewScalingFactor(params.fov*(static_cast<float>(M_PI)/360.f));
+    //widthStretch = params.widthStretch;
+    //computeBoundingCap();
 }
 
-QString StelProjector::getHtmlSummary() const
-{
-	return QString("<h3>%1</h3><p>%2</p><b>%3</b>%4°").arg(getNameI18(), getDescriptionI18(), q_("Maximum FOV: "), QString::number(static_cast<double>(getMaxFov())));
-}
+//QString StelProjector::getHtmlSummary() const
+//{
+//	return QString("<h3>%1</h3><p>%2</p><b>%3</b>%4°").arg(getNameI18(), getDescriptionI18(), q_("Maximum FOV: "), QString::number(static_cast<double>(getMaxFov())));
+//}
 
-bool StelProjector::intersectViewportDiscontinuity(const Vec3d& p1, const Vec3d& p2) const
-{
-	if (hasDiscontinuity()==false)
-		return false;
-	Vec3d v1(p1);
-	modelViewTransform->forward(v1);
-	Vec3d v2(p2);
-	modelViewTransform->forward(v2);
-	return intersectViewportDiscontinuityInternal(v1, v2);
-}
+//bool StelProjector::intersectViewportDiscontinuity(const Vec3d& p1, const Vec3d& p2) const
+//{
+//	if (hasDiscontinuity()==false)
+//		return false;
+//	Vec3d v1(p1);
+//	modelViewTransform->forward(v1);
+//	Vec3d v2(p2);
+//	modelViewTransform->forward(v2);
+//	return intersectViewportDiscontinuityInternal(v1, v2);
+//}
 
-bool StelProjector::intersectViewportDiscontinuity(const SphericalCap& cap) const
-{
-	if (hasDiscontinuity()==false)
-		return false;
-	Vec3d v1(cap.n);
-	modelViewTransform->forward(v1);
-	return intersectViewportDiscontinuityInternal(v1, cap.d);
-}
+//bool StelProjector::intersectViewportDiscontinuity(const SphericalCap& cap) const
+//{
+//	if (hasDiscontinuity()==false)
+//		return false;
+//	Vec3d v1(cap.n);
+//	modelViewTransform->forward(v1);
+//	return intersectViewportDiscontinuityInternal(v1, cap.d);
+//}
 
 bool StelProjector::getFlagGravityLabels() const
 {
 	return gravityLabels;
 }
 
-const Vec4i& StelProjector::getViewport() const
-{
-	return viewportXywh;
-}
+//const Vec4i& StelProjector::getViewport() const
+//{
+//	return viewportXywh;
+//}
 
-Vector2<qreal> StelProjector::getViewportCenter() const
-{
-	return Vector2<qreal>(viewportCenter[0]-viewportXywh[0],viewportCenter[1]-viewportXywh[1]);
-}
+//Vector2<qreal> StelProjector::getViewportCenter() const
+//{
+//	return Vector2<qreal>(viewportCenter[0]-viewportXywh[0],viewportCenter[1]-viewportXywh[1]);
+//}
 
-Vector2<qreal> StelProjector::getViewportCenterOffset() const
-{
-	return viewportCenterOffset;
-}
+//Vector2<qreal> StelProjector::getViewportCenterOffset() const
+//{
+//	return viewportCenterOffset;
+//}
 
-int StelProjector::getViewportPosX() const
-{
-	return viewportXywh[0];
-}
+//int StelProjector::getViewportPosX() const
+//{
+//	return viewportXywh[0];
+//}
 
-int StelProjector::getViewportPosY() const
-{
-	return viewportXywh[1];
-}
+//int StelProjector::getViewportPosY() const
+//{
+//	return viewportXywh[1];
+//}
 
-int StelProjector::getViewportWidth() const
-{
-	return viewportXywh[2];
-}
+//int StelProjector::getViewportWidth() const
+//{
+//	return viewportXywh[2];
+//}
 
-int StelProjector::getViewportHeight() const
-{
-	return viewportXywh[3];
-}
+//int StelProjector::getViewportHeight() const
+//{
+//	return viewportXywh[3];
+//}
 
 
 
@@ -200,281 +201,288 @@ int StelProjector::getViewportHeight() const
  Return a convex polygon on the sphere which includes the viewport in the
  current frame
 *************************************************************************/
-SphericalRegionP StelProjector::getViewportConvexPolygon(float marginX, float marginY) const
-{
-	Vec3d e0, e1, e2, e3;
-	const Vec4i& vp = viewportXywh;
-	bool ok = unProject(static_cast<double>(vp[0]-marginX),static_cast<double>(vp[1]-marginY),e0);
-	ok &= unProject(static_cast<double>(vp[0]+vp[2]+marginX),static_cast<double>(vp[1]-marginY),e1);
-	ok &= unProject(static_cast<double>(vp[0]+vp[2]+marginX),static_cast<double>(vp[1]+vp[3]+marginY),e2);
-	ok &= unProject(static_cast<double>(vp[0]-marginX),static_cast<double>(vp[1]+vp[3]+marginY),e3);
-	if (!ok)
-	{
-		// Special case for handling degenerated cases, use full sky.
-		//qDebug() << "!ok";
-		return SphericalRegionP(reinterpret_cast<SphericalRegion*>(new AllSkySphericalRegion()));
-	}
-	e0.normalize();
-	e1.normalize();
-	e2.normalize();
-	e3.normalize();
-	if (needGlFrontFaceCW())
-	{
-		Vec3d v = e0;
-		e0 = e3;
-		e3 = v;
-		v = e1;
-		e1 = e2;
-		e2 = v;
-	}
-	const double d = e3*((e2-e3)^(e1-e3));
-	if (d > 0)
-	{
-		SphericalConvexPolygon* res = new SphericalConvexPolygon(e0, e1, e2, e3);
-		if (res->checkValid())
-		{
-			return SphericalRegionP(res);
-		}
-		//qDebug() << "!valid";
-		delete res;
-	}
-	//return SphericalRegionP((SphericalRegion*)(new AllSkySphericalRegion()));
-	const SphericalCap& hp = getBoundingCap();
-	return SphericalRegionP(new SphericalCap(hp));
-}
+//SphericalRegionP StelProjector::getViewportConvexPolygon(float marginX, float marginY) const
+//{
+//	Vec3d e0, e1, e2, e3;
+//	//const Vec4i& vp = viewportXywh;
+//	bool ok = unProject(static_cast<double>(vp[0]-marginX),static_cast<double>(vp[1]-marginY),e0);
+//	ok &= unProject(static_cast<double>(vp[0]+vp[2]+marginX),static_cast<double>(vp[1]-marginY),e1);
+//	ok &= unProject(static_cast<double>(vp[0]+vp[2]+marginX),static_cast<double>(vp[1]+vp[3]+marginY),e2);
+//	ok &= unProject(static_cast<double>(vp[0]-marginX),static_cast<double>(vp[1]+vp[3]+marginY),e3);
+//	if (!ok)
+//	{
+//		// Special case for handling degenerated cases, use full sky.
+//		//qDebug() << "!ok";
+//		return SphericalRegionP(reinterpret_cast<SphericalRegion*>(new AllSkySphericalRegion()));
+//	}
+//	e0.normalize();
+//	e1.normalize();
+//	e2.normalize();
+//	e3.normalize();
+//	if (needGlFrontFaceCW())
+//	{
+//		Vec3d v = e0;
+//		e0 = e3;
+//		e3 = v;
+//		v = e1;
+//		e1 = e2;
+//		e2 = v;
+//	}
+//	const double d = e3*((e2-e3)^(e1-e3));
+//	if (d > 0)
+//	{
+//		SphericalConvexPolygon* res = new SphericalConvexPolygon(e0, e1, e2, e3);
+//		if (res->checkValid())
+//		{
+//			return SphericalRegionP(res);
+//		}
+//		//qDebug() << "!valid";
+//		delete res;
+//	}
+//	//return SphericalRegionP((SphericalRegion*)(new AllSkySphericalRegion()));
+//	const SphericalCap& hp = getBoundingCap();
+//	return SphericalRegionP(new SphericalCap(hp));
+//}
 
-const SphericalCap& StelProjector::getBoundingCap() const
-{
-	return boundingCap;
-}
+//const SphericalCap& StelProjector::getBoundingCap() const
+//{
+//	return boundingCap;
+//}
 
-float StelProjector::getPixelPerRadAtCenter() const
-{
-	return pixelPerRad;
-}
+//float StelProjector::getPixelPerRadAtCenter() const
+//{
+//	return pixelPerRad;
+//}
 
 //! Get the current FOV diameter in degrees
-float StelProjector::getFov() const {
-	return 360.f/static_cast<float>(M_PI)*viewScalingFactorToFov(0.5f*static_cast<float>(viewportFovDiameter)/pixelPerRad);
-}
+//float StelProjector::getFov() const {
+//	return 360.f/static_cast<float>(M_PI)*viewScalingFactorToFov(0.5f*static_cast<float>(viewportFovDiameter)/pixelPerRad);
+//}
 
 //! Get whether front faces need to be oriented in the clockwise direction
-bool StelProjector::needGlFrontFaceCW() const
-{
-	return (flipHorz*flipVert < 0.f);
-}
+//bool StelProjector::needGlFrontFaceCW() const
+//{
+//	return (flipHorz*flipVert < 0.f);
+//}
 
-bool StelProjector::checkInViewport(const Vec3d& pos) const
-{
-	return (pos[1]>=viewportXywh[1] && pos[0]>=viewportXywh[0] &&
-		pos[1]<=(viewportXywh[1] + viewportXywh[3]) && pos[0]<=(viewportXywh[0] + viewportXywh[2]));
-}
+//bool StelProjector::checkInViewport(const Vec3d& pos) const
+//{
+//	return (pos[1]>=viewportXywh[1] && pos[0]>=viewportXywh[0] &&
+//		pos[1]<=(viewportXywh[1] + viewportXywh[3]) && pos[0]<=(viewportXywh[0] + viewportXywh[2]));
+//}
 
-//! Check to see if a 2d position is inside the viewport.
-//! TODO Optimize by storing viewportXywh[1] + viewportXywh[3] and viewportXywh[0] + viewportXywh[2] already computed
-bool StelProjector::checkInViewport(const Vec3f& pos) const
-{
-	return (pos[1]>=viewportXywh[1] && pos[0]>=viewportXywh[0] &&
-		pos[1]<=(viewportXywh[1] + viewportXywh[3]) && pos[0]<=(viewportXywh[0] + viewportXywh[2]));
-}
+////! Check to see if a 2d position is inside the viewport.
+////! TODO Optimize by storing viewportXywh[1] + viewportXywh[3] and viewportXywh[0] + viewportXywh[2] already computed
+//bool StelProjector::checkInViewport(const Vec3f& pos) const
+//{
+//	return (pos[1]>=viewportXywh[1] && pos[0]>=viewportXywh[0] &&
+//		pos[1]<=(viewportXywh[1] + viewportXywh[3]) && pos[0]<=(viewportXywh[0] + viewportXywh[2]));
+//}
 
 //! Return the position where the 2 2D point p1 and p2 cross the viewport edge
 //! P1 must be inside the viewport and P2 outside (check with checkInViewport() before calling this method)
-Vec3d StelProjector::viewPortIntersect(const Vec3d& p1, const Vec3d& p2) const
-{
-	Vec3d v1=p1;
-	Vec3d v2=p2;
-	Vec3d v;
-	for (int i=0;i<8;++i)
-	{
-		v=(v1+v2)*0.5;
-		if (!checkInViewport(v))
-			v2=v;
-		else
-			v1=v;
-	}
-	return v;
-}
+//Vec3d StelProjector::viewPortIntersect(const Vec3d& p1, const Vec3d& p2) const
+//{
+//	Vec3d v1=p1;
+//	Vec3d v2=p2;	//! Get the horizontal viewport offset in pixels.
+//int getViewportPosX() const;
+////! Get the vertical viewport offset in pixels.
+//int getViewportPosY() const;
+////! Get the viewport width in pixels.
+//int getViewportWidth() const;
+////! Get the viewport height in pixels.
+//int getViewportHeight() const;
+//	Vec3d v;
+//	for (int i=0;i<8;++i)
+//	{
+//		v=(v1+v2)*0.5;
+//		if (!checkInViewport(v))
+//			v2=v;
+//		else
+//			v1=v;
+//	}
+//	return v;
+//}
 
-bool StelProjector::project(const Vec3d& v, Vec3d& win) const
-{
-	win = v;
-	return projectInPlace(win);
-}
+//bool StelProjector::project(const Vec3d& v, Vec3d& win) const
+//{
+//	win = v;
+//	return projectInPlace(win);
+//}
 
-bool StelProjector::project(const Vec3f& v, Vec3f& win) const
-{
-	win = v;
-	return projectInPlace(win);
-}
+//bool StelProjector::project(const Vec3f& v, Vec3f& win) const
+//{
+//	win = v;
+//	return projectInPlace(win);
+//}
 
-bool StelProjector::project(const Vec3d& v, Vec3f& win) const
-{
-	Vec3d wind = v;
-	bool res= projectInPlace(wind);
-	win = wind.toVec3f();
-	return res;
-}
+//bool StelProjector::project(const Vec3d& v, Vec3f& win) const
+//{
+//	Vec3d wind = v;
+//	bool res= projectInPlace(wind);
+//	win = wind.toVec3f();
+//	return res;
+//}
 
-void StelProjector::project(int n, const Vec3d* in, Vec3f* out)
-{
-	Vec3d v;
-	for (int i = 0; i < n; ++i, ++out)
-	{
-		v = in[i];
-		modelViewTransform->forward(v);
-		out->set(static_cast<float>(v[0]), static_cast<float>(v[1]), static_cast<float>(v[2]));
-		forward(*out);
-		out->set(static_cast<float>(viewportCenter[0]) + flipHorz * pixelPerRad * (*out)[0],
-			static_cast<float>(viewportCenter[1]) + flipVert * pixelPerRad * (*out)[1],
-			static_cast<float>((static_cast<double>((*out)[2]) - zNear) * oneOverZNearMinusZFar));
-	}
-}
+//void StelProjector::project(int n, const Vec3d* in, Vec3f* out)
+//{
+//	Vec3d v;
+//	for (int i = 0; i < n; ++i, ++out)
+//	{
+//		v = in[i];
+//		modelViewTransform->forward(v);
+//		out->set(static_cast<float>(v[0]), static_cast<float>(v[1]), static_cast<float>(v[2]));
+//		forward(*out);
+//		out->set(static_cast<float>(viewportCenter[0]) + flipHorz * pixelPerRad * (*out)[0],
+//			static_cast<float>(viewportCenter[1]) + flipVert * pixelPerRad * (*out)[1],
+//			static_cast<float>((static_cast<double>((*out)[2]) - zNear) * oneOverZNearMinusZFar));
+//	}
+//}
 
-void StelProjector::project(int n, const Vec3f* in, Vec3f* out)
-{
-	for (int i = 0; i < n; ++i, ++out)
-	{
-		*out=in[i];
-		modelViewTransform->forward(*out);
-		forward(*out);
-		out->set(static_cast<float>(viewportCenter[0]) + flipHorz * pixelPerRad * (*out)[0],
-			static_cast<float>(viewportCenter[1]) + flipVert * pixelPerRad * (*out)[1],
-			static_cast<float>((static_cast<double>((*out)[2]) - zNear) * oneOverZNearMinusZFar));
-	}
-}
+//void StelProjector::project(int n, const Vec3f* in, Vec3f* out)
+//{
+//	for (int i = 0; i < n; ++i, ++out)
+//	{
+//		*out=in[i];
+//		modelViewTransform->forward(*out);
+//		forward(*out);
+//		out->set(static_cast<float>(viewportCenter[0]) + flipHorz * pixelPerRad * (*out)[0],
+//			static_cast<float>(viewportCenter[1]) + flipVert * pixelPerRad * (*out)[1],
+//			static_cast<float>((static_cast<double>((*out)[2]) - zNear) * oneOverZNearMinusZFar));
+//	}
+//}
 
-bool StelProjector::projectInPlace(Vec3d& vd) const
-{
-	modelViewTransform->forward(vd);
-	Vec3f v= vd.toVec3f();
-	const bool rval = forward(v);
-	// very important: even when the projected point comes from an
-	// invisible region of the sky (rval=false), we must finish
-	// reprojecting, so that OpenGL can successfully eliminate
-	// polygons by culling.
-	vd[0] = viewportCenter[0] + static_cast<double>(flipHorz * pixelPerRad * v[0]);
-	vd[1] = viewportCenter[1] + static_cast<double>(flipVert * pixelPerRad * v[1]);
-	vd[2] = (static_cast<double>(v[2]) - zNear) * oneOverZNearMinusZFar;
-	return rval;
-}
+//bool StelProjector::projectInPlace(Vec3d& vd) const
+//{
+//	modelViewTransform->forward(vd);
+//	Vec3f v= vd.toVec3f();
+//	const bool rval = forward(v);
+//	// very important: even when the projected point comes from an
+//	// invisible region of the sky (rval=false), we must finish
+//	// reprojecting, so that OpenGL can successfully eliminate
+//	// polygons by culling.
+//	vd[0] = viewportCenter[0] + static_cast<double>(flipHorz * pixelPerRad * v[0]);
+//	vd[1] = viewportCenter[1] + static_cast<double>(flipVert * pixelPerRad * v[1]);
+//	vd[2] = (static_cast<double>(v[2]) - zNear) * oneOverZNearMinusZFar;
+//	return rval;
+//}
 
-bool StelProjector::projectInPlace(Vec3f& v) const
-{
-	modelViewTransform->forward(v);
-	const bool rval = forward(v);
-	// very important: even when the projected point comes from an
-	// invisible region of the sky (rval=false), we must finish
-	// reprojecting, so that OpenGl can successfully eliminate
-	// polygons by culling.
-	v[0] = static_cast<float>(viewportCenter[0]) + flipHorz * pixelPerRad * v[0];
-	v[1] = static_cast<float>(viewportCenter[1]) + flipVert * pixelPerRad * v[1];
-	v[2] = static_cast<float>((static_cast<double>(v[2]) - zNear) * oneOverZNearMinusZFar);
-	return rval;
-}
-
-//! Project the vector v from the current frame into the viewport.
-//! @param v the direction vector in the current frame. Does not need to be normalized.
-//! @param win the projected vector in the viewport 2D frame. win[0] and win[1] are in screen pixels, win[2] is unused.
-//! @return true if the projected point is inside the viewport.
-bool StelProjector::projectCheck(const Vec3d& v, Vec3d& win) const
-{
-	return (project(v, win) && checkInViewport(win));
-}
+//bool StelProjector::projectInPlace(Vec3f& v) const
+//{
+//	modelViewTransform->forward(v);
+//	const bool rval = forward(v);
+//	// very important: even when the projected point comes from an
+//	// invisible region of the sky (rval=false), we must finish
+//	// reprojecting, so that OpenGl can successfully eliminate
+//	// polygons by culling.
+//	v[0] = static_cast<float>(viewportCenter[0]) + flipHorz * pixelPerRad * v[0];
+//	v[1] = static_cast<float>(viewportCenter[1]) + flipVert * pixelPerRad * v[1];
+//	v[2] = static_cast<float>((static_cast<double>(v[2]) - zNear) * oneOverZNearMinusZFar);
+//	return rval;
+//}
 
 //! Project the vector v from the current frame into the viewport.
 //! @param v the direction vector in the current frame. Does not need to be normalized.
 //! @param win the projected vector in the viewport 2D frame. win[0] and win[1] are in screen pixels, win[2] is unused.
-//! @return true if the projected point is inside the viewport.
-bool StelProjector::projectCheck(const Vec3f& v, Vec3f& win) const
-{
-	return (project(v, win) && checkInViewport(win));
-}
+////! @return true if the projected point is inside the viewport.
+//bool StelProjector::projectCheck(const Vec3d& v, Vec3d& win) const
+//{
+//	return (project(v, win) && checkInViewport(win));
+//}
+
+////! Project the vector v from the current frame into the viewport.
+////! @param v the direction vector in the current frame. Does not need to be normalized.
+////! @param win the projected vector in the viewport 2D frame. win[0] and win[1] are in screen pixels, win[2] is unused.
+////! @return true if the projected point is inside the viewport.
+//bool StelProjector::projectCheck(const Vec3f& v, Vec3f& win) const
+//{
+//	return (project(v, win) && checkInViewport(win));
+//}
 
 //! Project the vector v from the viewport frame into the current frame.
 //! @param win the vector in the viewport 2D frame. win[0] and win[1] are in screen pixels, win[2] is unused.
 //! @param v the unprojected direction vector in the current frame.
-//! @return true if the projected coordinate is valid.
-bool StelProjector::unProject(const Vec3d& win, Vec3d& v) const
-{
-	return unProject(win[0], win[1], v);
-}
+////! @return true if the projected coordinate is valid.
+//bool StelProjector::unProject(const Vec3d& win, Vec3d& v) const
+//{
+//	return unProject(win[0], win[1], v);
+//}
 
-void StelProjector::computeBoundingCap()
-{
-	bool ok = unProject(static_cast<double>(viewportXywh[0]+0.5f*viewportXywh[2]), static_cast<double>(viewportXywh[1]+0.5f*viewportXywh[3]), boundingCap.n);
-	// The central point should be at a valid position by definition.
-	// When center is offset, this assumption may not hold however.
-	Q_ASSERT(ok || (viewportCenterOffset.lengthSquared()>0) );
-	const bool needNormalization = fabs(boundingCap.n.lengthSquared()-1.)>0.00000001;
+//void StelProjector::computeBoundingCap()
+//{
+//	bool ok = unProject(static_cast<double>(viewportXywh[0]+0.5f*viewportXywh[2]), static_cast<double>(viewportXywh[1]+0.5f*viewportXywh[3]), boundingCap.n);
+//	// The central point should be at a valid position by definition.
+//	// When center is offset, this assumption may not hold however.
+//	Q_ASSERT(ok || (viewportCenterOffset.lengthSquared()>0) );
+//	const bool needNormalization = fabs(boundingCap.n.lengthSquared()-1.)>0.00000001;
 
-	// Now need to determine the aperture
-	Vec3d e0,e1,e2,e3,e4,e5;
-	const Vec4i& vp = viewportXywh;
-	ok &= unProject(vp[0],vp[1],e0);               // e0: bottom left
-	ok &= unProject(vp[0]+vp[2],vp[1],e1);         // e1: bottom right
-	ok &= unProject(vp[0]+vp[2],vp[1]+vp[3],e2);   // e2: top right
-	ok &= unProject(vp[0],vp[1]+vp[3],e3);         // e3: top left
-	ok &= unProject(vp[0],vp[1]+vp[3]/2,e4);       // e4: left center
-	ok &= unProject(vp[0]+vp[2],vp[1]+vp[3]/2,e5); // e5: right center
-	if (!ok)
-	{
-		// Some points were in invalid positions, use full sky.
-		boundingCap.d = -1.;
-		boundingCap.n.set(1,0,0);
-		return;
-	}
-	if (needNormalization)
-	{
-		boundingCap.n.normalize();
-		e0.normalize();
-		e1.normalize();
-		e2.normalize();
-		e3.normalize();
-		e4.normalize();
-		e5.normalize();
-	}
-	boundingCap.d = boundingCap.n*e0;
-	double h = boundingCap.n*e1;
-	if (boundingCap.d > h)
-		boundingCap.d=h;
-	h = boundingCap.n*e2;
-	if (boundingCap.d > h)
-		boundingCap.d=h;
-	h = boundingCap.n*e3;
-	if (boundingCap.d > h)
-		boundingCap.d=h;
-	h = boundingCap.n*e4;
-	if (boundingCap.d > h)
-		boundingCap.d=h;
-	h = boundingCap.n*e5;
-	if (boundingCap.d > h)
-		boundingCap.d=h;
-}
+//	// Now need to determine the aperture
+//	Vec3d e0,e1,e2,e3,e4,e5;
+//	const Vec4i& vp = viewportXywh;
+//	ok &= unProject(vp[0],vp[1],e0);               // e0: bottom left
+//	ok &= unProject(vp[0]+vp[2],vp[1],e1);         // e1: bottom right
+//	ok &= unProject(vp[0]+vp[2],vp[1]+vp[3],e2);   // e2: top right
+//	ok &= unProject(vp[0],vp[1]+vp[3],e3);         // e3: top left
+//	ok &= unProject(vp[0],vp[1]+vp[3]/2,e4);       // e4: left center
+//	ok &= unProject(vp[0]+vp[2],vp[1]+vp[3]/2,e5); // e5: right center
+//	if (!ok)
+//	{
+//		// Some points were in invalid positions, use full sky.
+//		boundingCap.d = -1.;
+//		boundingCap.n.set(1,0,0);
+//		return;
+//	}
+//	if (needNormalization)
+//	{
+//		boundingCap.n.normalize();
+//		e0.normalize();
+//		e1.normalize();
+//		e2.normalize();
+//		e3.normalize();
+//		e4.normalize();
+//		e5.normalize();
+//	}
+//	boundingCap.d = boundingCap.n*e0;
+//	double h = boundingCap.n*e1;
+//	if (boundingCap.d > h)
+//		boundingCap.d=h;
+//	h = boundingCap.n*e2;
+//	if (boundingCap.d > h)
+//		boundingCap.d=h;
+//	h = boundingCap.n*e3;
+//	if (boundingCap.d > h)
+//		boundingCap.d=h;
+//	h = boundingCap.n*e4;
+//	if (boundingCap.d > h)
+//		boundingCap.d=h;
+//	h = boundingCap.n*e5;
+//	if (boundingCap.d > h)
+//		boundingCap.d=h;
+//}
 
-/*************************************************************************
- Project the vector v from the viewport frame into the current frame
-*************************************************************************/
-bool StelProjector::unProject(double x, double y, Vec3d &v) const
-{
-	v[0] = static_cast<double>(flipHorz * static_cast<float>(x - viewportCenter[0]) / pixelPerRad);
-	v[1] = static_cast<double>(flipVert * static_cast<float>(y - viewportCenter[1]) / pixelPerRad);
-	v[2] = 0;
-	const bool rval = backward(v);
-	// Even when the reprojected point comes from a region of the screen,
-	// where nothing is projected to (rval=false), we finish reprojecting.
-	// This looks good for atmosphere rendering, and it helps avoiding
-	// discontinuities when dragging around with the mouse.
+///*************************************************************************
+// Project the vector v from the viewport frame into the current frame
+//*************************************************************************/
+//bool StelProjector::unProject(double x, double y, Vec3d &v) const
+//{
+//	v[0] = static_cast<double>(flipHorz * static_cast<float>(x - viewportCenter[0]) / pixelPerRad);
+//	v[1] = static_cast<double>(flipVert * static_cast<float>(y - viewportCenter[1]) / pixelPerRad);
+//	v[2] = 0;
+//	const bool rval = backward(v);
+//	// Even when the reprojected point comes from a region of the screen,
+//	// where nothing is projected to (rval=false), we finish reprojecting.
+//	// This looks good for atmosphere rendering, and it helps avoiding
+//	// discontinuities when dragging around with the mouse.
 
-	modelViewTransform->backward(v);
-	return rval;
-}
+//	modelViewTransform->backward(v);
+//	return rval;
+//}
 
-bool StelProjector::projectLineCheck(const Vec3d& v1, Vec3d& win1, const Vec3d& v2, Vec3d& win2) const
+//bool StelProjector::projectLineCheck(const Vec3d& v1, Vec3d& win1, const Vec3d& v2, Vec3d& win2) const
 
-{
-	return project(v1, win1) && project(v2, win2) && (checkInViewport(win1) || checkInViewport(win2));
-}
+//{
+//	return project(v1, win1) && project(v2, win2) && (checkInViewport(win1) || checkInViewport(win2));
+//}
 
 //! Get the current model view matrix.
 StelProjector::ModelViewTranformP StelProjector::getModelViewTransform() const
@@ -482,11 +490,11 @@ StelProjector::ModelViewTranformP StelProjector::getModelViewTransform() const
 	return modelViewTransform;
 }
 
-//! Get the current projection matrix.
-Mat4f StelProjector::getProjectionMatrix() const
-{
-	return Mat4f(2.f/viewportXywh[2], 0, 0, 0, 0, 2.f/viewportXywh[3], 0, 0, 0, 0, -1., 0., -(2.f*viewportXywh[0] + viewportXywh[2])/viewportXywh[2], -(2.f*viewportXywh[1] + viewportXywh[3])/viewportXywh[3], 0, 1);
-}
+////! Get the current projection matrix.
+//Mat4f StelProjector::getProjectionMatrix() const
+//{
+//	return Mat4f(2.f/viewportXywh[2], 0, 0, 0, 0, 2.f/viewportXywh[3], 0, 0, 0, 0, -1., 0., -(2.f*viewportXywh[0] + viewportXywh[2])/viewportXywh[2], -(2.f*viewportXywh[1] + viewportXywh[3])/viewportXywh[3], 0, 1);
+//}
 
 StelProjector::StelProjectorMaskType StelProjector::getMaskType(void) const
 {

@@ -22,6 +22,8 @@
 
 #include <QSharedPointer>
 
+#include <libstellarium-global.h>
+
 //! Special version of QSharedPointer which by default doesn't delete the referenced pointer when
 //! the reference count reaches 0.
 template <class T> class QSharedPointerNoDelete : public QSharedPointer<T>
@@ -41,7 +43,7 @@ class StelObject;
 
 //! @typedef StelObjectP
 //! Intrusive pointer used to manage StelObject with smart pointers
-typedef QSharedPointerNoDelete<StelObject> StelObjectP;
+typedef QSharedPointerNoDelete<StelObject> STELLARIUMSHARED_EXPORT StelObjectP;
 
 Q_DECLARE_METATYPE(StelObjectP)
 

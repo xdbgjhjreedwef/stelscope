@@ -1,0 +1,44 @@
+hips_release_date    = 2020-03-03T02:15Z
+obs_collection       = SWIFT_BAT_FLUX
+#isColored           = true
+hips_tile_format     = png
+hips_frame           = equatorial
+creator_did          = ivo://JAXA/P/SWIFT_BAT_FLUX
+creator              = JAXA/ISAS DARTS (Satoshi NAKAHIRA and Takanori SAKAMOTO)
+hips_copyright       = public
+obs_title            = Swift-BAT 70-month all-sray hard X-ray survey image
+obs_description      = Swift-BAT seudo-color images from 2004 December to 2010 September
+obs_ack              = Swift-BAT team
+prov_progenitor      = RGB images are created from Swift-BAT data, where R is 14-24 keV, G is 24-50 keV and B is 50-194 keV.
+bib_reference        = 2013ApJS..207...19B
+bib_reference_url    = http://adsabs.harvard.edu/abs/2013ApJS..207...19B
+obs_copyright        = Swift data archive
+obs_copyright_url    = http://swift.gsfc.nasa.gov/sdc/swift_acknowledge.html
+t_min                = 53355
+t_max                = 55469
+obs_regime           = X-ray
+em_min               = 6.4e-12
+em_max               = 8.9e-11
+hips_builder         = Aladin/HipsGen v11.016
+hips_version         = 1.4
+hips_creation_date   = 2015/04/17 07:39:43
+hips_order           = 6
+hips_tile_width      = 512
+hips_status          = public mirror unclonable
+hips_hierarchy       = mean
+hips_pixel_scale     = 0.001789
+dataproduct_type     = image
+moc_sky_fraction     = 1
+hipsgen_date         = 2016-03-15T13:17Z
+hipsgen_params       = out=swift_bat_flux ivorn=ivo://JAXA/P/SWIFT_BAT_FLUX UPDATE
+#hips_creator        = HiPS creator (institute or person)
+#hips_master_url     = ex: http://yourHipsServer/null
+hipsgen_date_1       = 2016-10-25T07:17Z
+hipsgen_params_1     = out=swift_bat_flux ivorn=ivo://JAXA/P/SWIFT_BAT_FLUX UPDATE
+hips_initial_fov     = 58.63230142835039
+hips_initial_ra      = 0
+hips_initial_dec     = +0
+hips_order_min       = 0
+dataproduct_subtype  = color
+hipsgen_date_2       = 2020-03-03T02:15Z
+hipsgen_params_2     = out=swift_bat_flux UPDATE

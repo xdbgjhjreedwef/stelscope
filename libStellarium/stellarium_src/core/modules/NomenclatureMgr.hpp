@@ -22,10 +22,10 @@
 
 #include "StelObjectModule.hpp"
 #include "StelObject.hpp"
-#include "StelTextureTypes.hpp"
+//#include "StelTextureTypes.hpp"
 #include "NomenclatureItem.hpp"
 
-#include <QFont>
+//#include <QFont>
 #include <QMultiHash>
 
 class StelPainter;
@@ -36,18 +36,18 @@ typedef QSharedPointer<NomenclatureItem> NomenclatureItemP;
 class NomenclatureMgr : public StelObjectModule
 {
 	Q_OBJECT	
-	Q_PROPERTY(bool nomenclatureDisplayed
-		   READ getFlagLabels
-		   WRITE setFlagLabels
-		   NOTIFY nomenclatureDisplayedChanged)
-	Q_PROPERTY(bool localNomenclatureHided
-		   READ getFlagHideLocalNomenclature
-		   WRITE setFlagHideLocalNomenclature
-		   NOTIFY localNomenclatureHidingChanged)
-	Q_PROPERTY(Vec3f nomenclatureColor
-		   READ getColor
-		   WRITE setColor
-		   NOTIFY nomenclatureColorChanged)
+//	Q_PROPERTY(bool nomenclatureDisplayed
+//		   READ getFlagLabels
+//		   WRITE setFlagLabels
+//		   NOTIFY nomenclatureDisplayedChanged)
+//	Q_PROPERTY(bool localNomenclatureHided
+//		   READ getFlagHideLocalNomenclature
+//		   WRITE setFlagHideLocalNomenclature
+//		   NOTIFY localNomenclatureHidingChanged)
+//	Q_PROPERTY(Vec3f nomenclatureColor
+//		   READ getColor
+//		   WRITE setColor
+//		   NOTIFY nomenclatureColorChanged)
 
 public:
 	NomenclatureMgr();
@@ -57,10 +57,10 @@ public:
 	// Methods defined in the StelModule class
 	virtual void init() Q_DECL_OVERRIDE;
 	virtual void deinit() Q_DECL_OVERRIDE;
-	virtual void update(double deltaTime) Q_DECL_OVERRIDE {NomenclatureItem::labelsFader.update(static_cast<int>(deltaTime*1000));}
+    virtual void update(double deltaTime) Q_DECL_OVERRIDE {/*NomenclatureItem::labelsFader.update(static_cast<int>(deltaTime*1000));*/}
 	virtual void draw(StelCore* core) Q_DECL_OVERRIDE;
 	virtual void drawPointer(StelCore* core, StelPainter& painter);
-	virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
+//	virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
 
 	///////////////////////////////////////////////////////////////////////////
 	// Methods defined in StelObjectModule class
@@ -73,7 +73,7 @@ public:
 
 	//! Return the matching satellite object's pointer if exists or Q_NULLPTR.
 	//! @param nameI18n The case in-sensitive localized NomenclatureItem name
-	virtual StelObjectP searchByNameI18n(const QString& nameI18n) const Q_DECL_OVERRIDE;
+    //virtual StelObjectP searchByNameI18n(const QString& nameI18n) const Q_DECL_OVERRIDE;
 
 	//! Return the matching satellite if exists or Q_NULLPTR.
 	//! @param name The case in-sensitive english NomenclatureItem name
@@ -99,34 +99,34 @@ public slots:
 	//! // example of usage in scripts
 	//! NomenclatureMgr.setColor(Vec3f(1.0,0.0,0.0));
 	//! @endcode
-	void setColor(const Vec3f& c);
+    //void setColor(const Vec3f& c);
 	//! Get the current color used to draw nomenclature items.
 	//! @return current color
-	const Vec3f& getColor(void) const;
+    //const Vec3f& getColor(void) const;
 
 	//! Set flag which determines if nomenclature labels are drawn or hidden.
-	void setFlagLabels(bool b);
-	//! Get the current value of the flag which determines if nomenclature labels are drawn or hidden.
-	bool getFlagLabels() const;
+//	void setFlagLabels(bool b);
+//	//! Get the current value of the flag which determines if nomenclature labels are drawn or hidden.
+//	bool getFlagLabels() const;
 
-	//! Set flag which determines if nomenclature labels are drawn or hidden on the celestial body of observer.
-	void setFlagHideLocalNomenclature(bool b);
-	//! Get the current value of the flag which determines if nomenclature labels are drawn or hidden on the celestial body of observer.
-	bool getFlagHideLocalNomenclature() const;
+//	//! Set flag which determines if nomenclature labels are drawn or hidden on the celestial body of observer.
+//	void setFlagHideLocalNomenclature(bool b);
+//	//! Get the current value of the flag which determines if nomenclature labels are drawn or hidden on the celestial body of observer.
+//	bool getFlagHideLocalNomenclature() const;
 
 	//! Translate nomenclature names.
-	void updateI18n();
+//	void updateI18n();
 
 	void updateNomenclatureData();
 
 signals:
-	void nomenclatureDisplayedChanged(bool b);
-	void localNomenclatureHidingChanged(bool b);
-	void nomenclatureColorChanged(const Vec3f & color) const;
+//	void nomenclatureDisplayedChanged(bool b);
+//	void localNomenclatureHidingChanged(bool b);
+//	void nomenclatureColorChanged(const Vec3f & color) const;
 
 private slots:
 	//! Connect from StelApp to reflect font size change.
-	void setFontSize(int size){font.setPixelSize(size);}
+//	void setFontSize(int size){font.setPixelSize(size);}
 
 private:
 	SolarSystem* ssystem;
@@ -137,9 +137,9 @@ private:
 	void loadSpecialNomenclature();
 
 	// Font used for displaying our text
-	QFont font;
+    //QFont font;
 	QSettings* conf;
-	StelTextureSP texPointer;	
+//	StelTextureSP texPointer;
 	QMultiHash<PlanetP, NomenclatureItemP> nomenclatureItems;
 };
 

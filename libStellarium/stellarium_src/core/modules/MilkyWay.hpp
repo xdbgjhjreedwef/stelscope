@@ -22,29 +22,29 @@
 
 #include "StelModule.hpp"
 #include "VecMath.hpp"
-#include "StelTextureTypes.hpp"
+//#include "StelTextureTypes.hpp"
 
 //! @class MilkyWay 
 //! Manages the displaying of the Milky Way.
 class MilkyWay : public StelModule
 {
 	Q_OBJECT
-	Q_PROPERTY(bool flagMilkyWayDisplayed
-		   READ getFlagShow
-		   WRITE setFlagShow
-		   NOTIFY milkyWayDisplayedChanged)
-	Q_PROPERTY(double intensity
-		   READ getIntensity
-		   WRITE setIntensity
-		   NOTIFY intensityChanged)
-	Q_PROPERTY(Vec3f color
-		   READ getColor
-		   WRITE setColor
-		   NOTIFY colorChanged)
-	Q_PROPERTY(double saturation
-		   READ getSaturation
-		   WRITE setSaturation
-		   NOTIFY saturationChanged)
+//	Q_PROPERTY(bool flagMilkyWayDisplayed
+//		   READ getFlagShow
+//		   WRITE setFlagShow
+//		   NOTIFY milkyWayDisplayedChanged)
+//	Q_PROPERTY(double intensity
+//		   READ getIntensity
+//		   WRITE setIntensity
+//		   NOTIFY intensityChanged)
+//	Q_PROPERTY(Vec3f color
+//		   READ getColor
+//		   WRITE setColor
+//		   NOTIFY colorChanged)
+//	Q_PROPERTY(double saturation
+//		   READ getSaturation
+//		   WRITE setSaturation
+//		   NOTIFY saturationChanged)
 public:
 	MilkyWay();
 	virtual ~MilkyWay() Q_DECL_OVERRIDE;
@@ -65,35 +65,35 @@ public:
 	
 	//! actionDraw returns 1 (because this is background, very early drawing).
 	//! Other actions return 0 for no action.
-	virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
+    //virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 	// Setter and getters
 public slots:
-	//! Get Milky Way intensity (brightness).
-	double getIntensity() const {return intensity;}
-	//! Set Milky Way intensity. Default value: 1.
-	void setIntensity(double aintensity) {if(!qFuzzyCompare(aintensity, intensity)){ intensity = aintensity; emit intensityChanged(intensity); }}
+//	//! Get Milky Way intensity (brightness).
+//	double getIntensity() const {return intensity;}
+//	//! Set Milky Way intensity. Default value: 1.
+//	void setIntensity(double aintensity) {if(!qFuzzyCompare(aintensity, intensity)){ intensity = aintensity; emit intensityChanged(intensity); }}
 
-	//! Get Milky Way saturation (color strength).
-	double getSaturation()const {return saturation;}
-	//! Set Milky Way saturation (color strength).
-	void setSaturation(double sat) {if(!qFuzzyCompare(sat, saturation)){ saturation = sat; emit saturationChanged(saturation); }}
+//	//! Get Milky Way saturation (color strength).
+//	double getSaturation()const {return saturation;}
+//	//! Set Milky Way saturation (color strength).
+//	void setSaturation(double sat) {if(!qFuzzyCompare(sat, saturation)){ saturation = sat; emit saturationChanged(saturation); }}
 
 	//! Get the color used for rendering the Milky Way. It is modulated by intensity, light pollution and atmospheric extinction.
-	Vec3f getColor() const {return color;}
+    //Vec3f getColor() const {return color;}
 	//! Sets the color to use for rendering the Milky Way
 	//! @param c The color to use for rendering the Milky Way. Default (1.0, 1.0, 1.0)
 	//! @code
 	//! // example of usage in scripts
 	//! MilkyWay.setColor(Vec3f(0.7,1.0,0.8));
-	//! @endcode
-	void setColor(const Vec3f& c) {if (c!=color) { color=c; emit colorChanged(c);}}
+//	//! @endcode
+//	void setColor(const Vec3f& c) {if (c!=color) { color=c; emit colorChanged(c);}}
 	
-	//! Sets whether to show the Milky Way
-	void setFlagShow(bool b);
-	//! Gets whether the Milky Way is displayed
-	bool getFlagShow(void) const;
+//	//! Sets whether to show the Milky Way
+//	void setFlagShow(bool b);
+//	//! Gets whether the Milky Way is displayed
+//	bool getFlagShow(void) const;
 
 signals:
 	void milkyWayDisplayedChanged(const bool displayed);
@@ -102,17 +102,17 @@ signals:
 	void colorChanged(Vec3f color);
 
 private:
-	StelTextureSP tex;
-	Vec3f color; // global color
-	double intensity;
-	double intensityFovScale; // like for constellations: reduce brightness when zooming in.
-	double intensityMinFov;
-	double intensityMaxFov;
-	class LinearFader* fader;
-	double saturation = 1.0;
+    //StelTextureSP tex;
+    //Vec3f color; // global color
+//	double intensity;
+//	double intensityFovScale; // like for constellations: reduce brightness when zooming in.
+//	double intensityMinFov;
+//	double intensityMaxFov;
+//    class LinearFader* fader;
+//	double saturation = 1.0;
 
-	struct StelVertexArray* vertexArray;
-	struct StelVertexArray* vertexArrayNoAberration;
+//	struct StelVertexArray* vertexArray;
+//	struct StelVertexArray* vertexArrayNoAberration;
 };
 
 #endif // MILKYWAY_HPP

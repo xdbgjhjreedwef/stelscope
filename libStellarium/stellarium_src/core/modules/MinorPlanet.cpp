@@ -26,9 +26,9 @@
 #include "StelCore.hpp"
 #include "StelObserver.hpp"
 
-#include "StelTexture.hpp"
-#include "StelTextureMgr.hpp"
-#include "StelTranslator.hpp"
+//#include "StelTexture.hpp"
+//#include "StelTextureMgr.hpp"
+//#include "StelTranslator.hpp"
 #include "StelUtils.hpp"
 #include "StelFileMgr.hpp"
 #include "RefractionExtinction.hpp"
@@ -39,24 +39,24 @@
 #include <QElapsedTimer>
 
 MinorPlanet::MinorPlanet(const QString& englishName,
-			 double radius,
-			 double oblateness,
-			 Vec3f halocolor,
-			 float albedo,
-			 float roughness,
-			 const QString& atexMapName,
-			 const QString& anormalMapName,
-			 const QString& aobjModelName,
-			 posFuncType coordFunc,
-			 KeplerOrbit* orbitPtr,
-			 OsculatingFunctType *osculatingFunc,
-			 bool acloseOrbit,
-			 bool hidden,
-			 const QString &pTypeStr)
+             double radius,
+             double oblateness,
+             //Vec3f halocolor,
+             float albedo,
+             float roughness,
+             const QString& atexMapName,
+             const QString& anormalMapName,
+             const QString& aobjModelName,
+             posFuncType coordFunc,
+             KeplerOrbit* orbitPtr,
+             OsculatingFunctType *osculatingFunc,
+             bool acloseOrbit,
+             bool hidden,
+             const QString &pTypeStr)
 	: Planet (englishName,
 		  radius,
 		  oblateness,
-		  halocolor,
+          //halocolor,
 		  albedo,
 		  roughness,
 		  atexMapName,
@@ -142,10 +142,10 @@ QString MinorPlanet::getEnglishName() const
 	return (minorPlanetNumber ? QString("(%1) %2").arg(minorPlanetNumber).arg(englishName) : englishName);
 }
 
-QString MinorPlanet::getNameI18n() const
-{
-	return (minorPlanetNumber ?  QString("(%1) %2").arg(minorPlanetNumber).arg(nameI18) : nameI18);
-}
+//QString MinorPlanet::getNameI18n() const
+//{
+//	return (minorPlanetNumber ?  QString("(%1) %2").arg(minorPlanetNumber).arg(nameI18) : nameI18);
+//}
 
 QString MinorPlanet::getInfoStringName(const StelCore *core, const InfoStringGroup& flags) const
 {
@@ -154,14 +154,14 @@ QString MinorPlanet::getInfoStringName(const StelCore *core, const InfoStringGro
 	QTextStream oss(&str);
 
 	oss << "<h2>";
-	if (nameIsProvisionalDesignation)
+    //if (nameIsProvisionalDesignation)
 	{
 		if (minorPlanetNumber)
 			oss << QString("(%1) ").arg(minorPlanetNumber);
 		oss << provisionalDesignationHtml;
 	}
-	else
-		oss << getNameI18n();  // UI translation can differ from sky translation
+//	else
+//		oss << getNameI18n();  // UI translation can differ from sky translation
 	oss.setRealNumberNotation(QTextStream::FixedNotation);
 	oss.setRealNumberPrecision(1);
 	if (sphereScale != 1.)
@@ -169,7 +169,7 @@ QString MinorPlanet::getInfoStringName(const StelCore *core, const InfoStringGro
 	oss << "</h2>";
 	if (!nameIsProvisionalDesignation && !provisionalDesignationHtml.isEmpty())
 	{
-		oss << QString(q_("Provisional designation: %1")).arg(provisionalDesignationHtml);
+        oss << QString(("Provisional designation: %1")).arg(provisionalDesignationHtml);
 		oss << "<br>";
 	}
 	return str;
@@ -179,7 +179,7 @@ QString MinorPlanet::getInfoStringExtraMag(const StelCore *core, const InfoStrin
 {
 	Q_UNUSED(core)
 	if (flags&Extra && b_v<99.f)
-		return QString("%1: <b>%2</b><br/>").arg(q_("Color Index (B-V)"), QString::number(b_v, 'f', 2));
+        return QString("%1: <b>%2</b><br/>").arg(("Color Index (B-V)"), QString::number(b_v, 'f', 2));
 	else
 		return "";
 }
@@ -194,13 +194,13 @@ QString MinorPlanet::getInfoStringExtra(const StelCore *core, const InfoStringGr
 		if (!specT.isEmpty())
 		{
 			// TRANSLATORS: Tholen spectral taxonomic classification of asteroids
-			oss << QString("%1: %2<br/>").arg(q_("Tholen spectral type"), specT);
+            oss << QString("%1: %2<br/>").arg(("Tholen spectral type"), specT);
 		}
 
 		if (!specB.isEmpty())
 		{
 			// TRANSLATORS: SMASSII spectral taxonomic classification of asteroids
-			oss << QString("%1: %2<br/>").arg(q_("SMASSII spectral type"), specB);
+            oss << QString("%1: %2<br/>").arg(("SMASSII spectral type"), specB);
 		}
 	}
 	return str;
@@ -244,14 +244,14 @@ float MinorPlanet::getVMagnitude(const StelCore* core) const
 	return apparentMagnitude;
 }
 
-void MinorPlanet::translateName(const StelTranslator &translator)
-{
-	nameI18 = translator.qtranslate(properName, "minor planet");
-	if (englishName.endsWith('*'))
-	{
-		nameI18.append('*');
-	}
-}
+//void MinorPlanet::translateName(const StelTranslator &translator)
+//{
+//	nameI18 = translator.qtranslate(properName, "minor planet");
+//	if (englishName.endsWith('*'))
+//	{
+//		nameI18.append('*');
+//	}
+//}
 
 QString MinorPlanet::renderProvisionalDesignationinHtml(QString plainTextName)
 {

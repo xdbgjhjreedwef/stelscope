@@ -26,6 +26,7 @@
 #include <QSet>
 #include <QString>
 #include <QStringList>
+#include <libstellarium-global.h>
 
 class QFileInfo;
 
@@ -39,7 +40,7 @@ class QFileInfo;
 //! @author Lippo Huhtala <lippo.huhtala@meridea.com>
 //! @author Matthew Gates <matthewg42@gmail.com>
 //! @sa @ref fileStructure description.
-class StelFileMgr
+class STELLARIUMSHARED_EXPORT StelFileMgr
 {
 public:
 	//! @enum Flags used as named bitfield flags as specifiers to filter results of StelFileMgr methods.
@@ -124,7 +125,7 @@ public:
 	//! have files created in it.
 	//! @param path to check
 	static bool isWritable(const QString& path);
-
+//checkFile
 	//! Check if a path exists and is a directory.
 	//! @param path to check
 	static bool isDirectory(const QString& path);
@@ -154,7 +155,7 @@ public:
 	//! @return the path to the user's desktop directory or empty string if it can't be found.
 	static QString getDesktopDir();
 
-	//! Returns the path to the user directory.
+    //! Returns the path to the usercheckFile directory.
 	//! This is the directory where we expect to find the [default] writable
 	//! configuration file, user versions of scripts, nebulae, stars, skycultures etc.
 	//! It will be the first directory in the path which is used when

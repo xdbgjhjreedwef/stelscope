@@ -21,8 +21,8 @@
 #include "StelUtils.hpp"
 #include "SolarSystem.hpp"
 #include "Planet.hpp"
-#include "StelLocaleMgr.hpp"
-#include "StelTranslator.hpp"
+//#include "StelLocaleMgr.hpp"
+//#include "StelTranslator.hpp"
 #include "StelApp.hpp"
 #include "StelCore.hpp"
 
@@ -51,9 +51,43 @@ private:
 	const QString orig_name_i18n;
 };
 
+//Planet(const QString& englishName,
+//       double equatorialRadius,
+//       double oblateness,
+//       //Vec3f halocolor,
+//       float albedo,
+//       float roughness,
+//       const QString& texMapName,
+//       const QString& normalMapName,
+//       const QString& objModelName,
+//       posFuncType _coordFunc,
+//       Orbit *anOrbitPtr,
+//       OsculatingFunctType *osculatingFunc,
+//       bool closeOrbit,
+//       bool hidden,
+//       bool hasAtmosphere,
+//       bool hasHalo,
+//       const QString &pTypeStr);
+
 ArtificialPlanet::ArtificialPlanet(const PlanetP& orig) :
-		Planet("art", 0, 0, Vec3f(0,0,0), 0, 0, "", "", "", Q_NULLPTR, Q_NULLPTR, Q_NULLPTR, false, true, false, false, "artificial"),
-		dest(Q_NULLPTR), orig_name(orig->getEnglishName()), orig_name_i18n(orig->getNameI18n())
+        Planet("art",
+               0,
+               0,
+               /*Vec3f(0,0,0),*/
+               0,
+               0,
+               "",
+               "",
+               "",
+               Q_NULLPTR,
+               Q_NULLPTR,
+               Q_NULLPTR,
+               false,
+               true,
+               false,
+               false,
+               "artificial"),
+        dest(Q_NULLPTR), orig_name(orig->getEnglishName())
 {
 	// set parent = sun:
 	if (orig->getParent())
@@ -75,7 +109,7 @@ void ArtificialPlanet::setDest(const PlanetP& dest)
 {
 	ArtificialPlanet::dest = dest;
 	englishName = QString("%1->%2").arg(orig_name, dest->getEnglishName());
-	nameI18 = QString("%1->%2").arg(orig_name_i18n, dest->getNameI18n());
+    //nameI18 = QString("%1->%2").arg(orig_name_i18n, dest->getNameI18n());
 
 	// rotation:
 	const RotationElements &r(dest->getRotationElements());
@@ -285,23 +319,23 @@ bool SpaceShipObserver::update(double deltaTime)
 		LandscapeMgr* lmgr = GETSTELMODULE(LandscapeMgr);
 
 		// we have to avoid auto-select landscape in case the selected new landscape is on our target planet (true if landscape sets location). (LP:#1700199)
-		if ( (lmgr->getFlagLandscapeAutoSelection()) && !(lmgr->getFlagLandscapeSetsLocation()) )
-		{
-			QString pType = ss->getPlanetType(currentLocation.planetName);
-			// If we have a landscape for target planet then set it or check and use
-			// landscape type of target planet, otherwise use default landscape
-			if (lmgr->getAllLandscapeNames().indexOf(currentLocation.planetName)>0)
-				lmgr->setCurrentLandscapeName(currentLocation.planetName);
-			else if (lmgr->getAllLandscapeIDs().indexOf(pType)>0)
-				lmgr->setCurrentLandscapeID(pType);
-			else
-				lmgr->setCurrentLandscapeID(lmgr->getDefaultLandscapeID());
-		}
+//		if ( (lmgr->getFlagLandscapeAutoSelection()) && !(lmgr->getFlagLandscapeSetsLocation()) )
+//		{
+//			QString pType = ss->getPlanetType(currentLocation.planetName);
+//			// If we have a landscape for target planet then set it or check and use
+//			// landscape type of target planet, otherwise use default landscape
+//			if (lmgr->getAllLandscapeNames().indexOf(currentLocation.planetName)>0)
+//				lmgr->setCurrentLandscapeName(currentLocation.planetName);
+//			else if (lmgr->getAllLandscapeIDs().indexOf(pType)>0)
+//				lmgr->setCurrentLandscapeID(pType);
+//			else
+//				lmgr->setCurrentLandscapeID(lmgr->getDefaultLandscapeID());
+//		}
 	}
 	else
 	{
-		currentLocation.name = ss->searchByEnglishName(moveStartLocation.planetName)->getNameI18n() + " -> " +
-						      ss->searchByEnglishName(moveTargetLocation.planetName)->getNameI18n();
+//		currentLocation.name = ss->searchByEnglishName(moveStartLocation.planetName)->getNameI18n() + " -> " +
+//						      ss->searchByEnglishName(moveTargetLocation.planetName)->getNameI18n();
 		if (artificialPlanet)
 		{
 			// Update SpaceShip position

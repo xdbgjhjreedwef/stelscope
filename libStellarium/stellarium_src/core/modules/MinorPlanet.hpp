@@ -41,7 +41,7 @@ public:
 	MinorPlanet(const QString& englishName,
 		    double equatorialRadius,
 		    double oblateness,
-		    Vec3f halocolor,
+           // Vec3f halocolor,
 		    float albedo,
 		    float roughness,
 		    const QString& texMapName,
@@ -63,9 +63,9 @@ public:
 	virtual float getVMagnitude(const StelCore* core) const Q_DECL_OVERRIDE;
 	//! sets the nameI18 property with the appropriate translation.
 	//! Function overridden to handle the problem with name conflicts.
-	virtual void translateName(const StelTranslator& trans) Q_DECL_OVERRIDE;
+    //virtual void translateName(const StelTranslator& trans) Q_DECL_OVERRIDE;
 	virtual QString getEnglishName(void) const Q_DECL_OVERRIDE;
-	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE;
+    //virtual QString getNameI18n(void) const Q_DECL_OVERRIDE;
 
 	//! set the minor planet's number, if any.
 	//! The number should be specified as an additional parameter, as

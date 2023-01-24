@@ -134,10 +134,10 @@ private:
 	bool sideContains2D(const Vec3d& p, int sideNb) const;
 
 	//! Tesselate the contours per side, producing (in @var sides) a list of triangles subcontours according to the given rule.
-	void tesselate(TessWindingRule rule);
+//	void tesselate(TessWindingRule rule);
 
-	QVector<SubContour> tesselateOneSideLineLoop(struct GLUEStesselator* tess, int sidenb) const;
-	QVector<Vec3d> tesselateOneSideTriangles(struct GLUEStesselator* tess, int sidenb) const;
+//	QVector<SubContour> tesselateOneSideLineLoop(struct GLUEStesselator* tess, int sidenb) const;
+//	QVector<Vec3d> tesselateOneSideTriangles(struct GLUEStesselator* tess, int sidenb) const;
 	QVarLengthArray<QVector<SubContour>,8 > sides;
 
 	//! Update the content of both cached vertex arrays.

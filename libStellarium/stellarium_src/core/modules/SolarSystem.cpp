@@ -20,32 +20,32 @@
  */
 
 #include "SolarSystem.hpp"
-#include "StelTexture.hpp"
+//#include "StelTexture.hpp"
 #include "EphemWrapper.hpp"
 #include "Orbit.hpp"
 
 #include "StelProjector.hpp"
 #include "StelApp.hpp"
 #include "StelCore.hpp"
-#include "StelTextureMgr.hpp"
+//#include "StelTextureMgr.hpp"
 #include "StelObjectMgr.hpp"
-#include "StelLocaleMgr.hpp"
-#include "StelSkyCultureMgr.hpp"
+//#include "StelLocaleMgr.hpp"
+//#include "StelSkyCultureMgr.hpp"
 #include "StelFileMgr.hpp"
 #include "StelModuleMgr.hpp"
 #include "StelIniParser.hpp"
 #include "Planet.hpp"
 #include "MinorPlanet.hpp"
 #include "Comet.hpp"
-#include "StelMainView.hpp"
+//#include "StelMainView.hpp"
 
-#include "StelSkyDrawer.hpp"
+//#include "StelSkyDrawer.hpp"
 #include "StelUtils.hpp"
-#include "StelPainter.hpp"
-#include "TrailGroup.hpp"
+//#include "StelPainter.hpp"
+//#include "TrailGroup.hpp"
 #include "RefractionExtinction.hpp"
 
-#include "AstroCalcDialog.hpp"
+//#include "AstroCalcDialog.hpp"
 #include "StelObserver.hpp"
 
 #include <algorithm>
@@ -65,69 +65,69 @@
 SolarSystem::SolarSystem() : StelObjectModule()
 	, shadowPlanetCount(0)
 	, earthShadowEnlargementDanjon(false)
-	, flagMoonScale(false)
-	, moonScale(1.0)
-	, flagMinorBodyScale(false)
-	, minorBodyScale(1.0)
-	, flagPlanetScale(false)
-	, planetScale(1.0)
-	, flagSunScale(false)
-	, sunScale(1.0)
-	, labelsAmount(false)
-	, flagPermanentSolarCorona(true)
+//	, flagMoonScale(false)
+//	, moonScale(1.0)
+//	, flagMinorBodyScale(false)
+//	, minorBodyScale(1.0)
+//	, flagPlanetScale(false)
+//	, planetScale(1.0)
+//	, flagSunScale(false)
+//	, sunScale(1.0)
+    //, labelsAmount(false)
+    //, flagPermanentSolarCorona(true)
 	, flagOrbits(false)
 	, flagLightTravelTime(true)
-	, flagUseObjModels(false)
-	, flagShowObjSelfShadows(true)
-	, flagShow(false)
-	, flagPointer(false)
-	, flagNativePlanetNames(false)
-	, flagIsolatedTrails(true)
-	, numberIsolatedTrails(0)
-	, maxTrailPoints(5000)
-	, maxTrailTimeExtent(1)
-	, trailsThickness(1)
-	, flagIsolatedOrbits(true)
-	, flagPlanetsOrbitsOnly(false)
-	, ephemerisMarkersDisplayed(true)
-	, ephemerisDatesDisplayed(false)
-	, ephemerisMagnitudesDisplayed(false)
-	, ephemerisHorizontalCoordinates(false)
-	, ephemerisLineDisplayed(false)
-	, ephemerisAlwaysOn(false)
-	, ephemerisLineThickness(1)
-	, ephemerisSkipDataDisplayed(false)
-	, ephemerisSkipMarkersDisplayed(false)
+//	, flagUseObjModels(false)
+//	, flagShowObjSelfShadows(true)
+//	, flagShow(false)
+//	, flagPointer(false)
+//	, flagNativePlanetNames(false)
+//	, flagIsolatedTrails(true)
+//	, numberIsolatedTrails(0)
+//	, maxTrailPoints(5000)
+//	, maxTrailTimeExtent(1)
+//	, trailsThickness(1)
+//	, flagIsolatedOrbits(true)
+//	, flagPlanetsOrbitsOnly(false)
+//	, ephemerisMarkersDisplayed(true)
+//	, ephemerisDatesDisplayed(false)
+//	, ephemerisMagnitudesDisplayed(false)
+//	, ephemerisHorizontalCoordinates(false)
+//	, ephemerisLineDisplayed(false)
+//	, ephemerisAlwaysOn(false)
+//	, ephemerisLineThickness(1)
+//	, ephemerisSkipDataDisplayed(false)
+//	, ephemerisSkipMarkersDisplayed(false)
 	, ephemerisDataStep(1)
 	, ephemerisDataLimit(1)
 	, ephemerisSmartDatesDisplayed(true)
 	, ephemerisScaleMarkersDisplayed(false)
-	, ephemerisGenericMarkerColor(Vec3f(1.0f, 1.0f, 0.0f))
-	, ephemerisSecondaryMarkerColor(Vec3f(0.7f, 0.7f, 1.0f))
-	, ephemerisSelectedMarkerColor(Vec3f(1.0f, 0.7f, 0.0f))
-	, ephemerisMercuryMarkerColor(Vec3f(1.0f, 1.0f, 0.0f))
-	, ephemerisVenusMarkerColor(Vec3f(1.0f, 1.0f, 1.0f))
-	, ephemerisMarsMarkerColor(Vec3f(1.0f, 0.0f, 0.0f))
-	, ephemerisJupiterMarkerColor(Vec3f(0.3f, 1.0f, 1.0f))
-	, ephemerisSaturnMarkerColor(Vec3f(0.0f, 1.0f, 0.0f))
-	, allTrails(Q_NULLPTR)
+//	, ephemerisGenericMarkerColor(Vec3f(1.0f, 1.0f, 0.0f))
+//	, ephemerisSecondaryMarkerColor(Vec3f(0.7f, 0.7f, 1.0f))
+//	, ephemerisSelectedMarkerColor(Vec3f(1.0f, 0.7f, 0.0f))
+//	, ephemerisMercuryMarkerColor(Vec3f(1.0f, 1.0f, 0.0f))
+//	, ephemerisVenusMarkerColor(Vec3f(1.0f, 1.0f, 1.0f))
+//	, ephemerisMarsMarkerColor(Vec3f(1.0f, 0.0f, 0.0f))
+//	, ephemerisJupiterMarkerColor(Vec3f(0.3f, 1.0f, 1.0f))
+//	, ephemerisSaturnMarkerColor(Vec3f(0.0f, 1.0f, 0.0f))
+    //, allTrails(Q_NULLPTR)
 	, conf(StelApp::getInstance().getSettings())
 {
-	planetNameFont.setPixelSize(StelApp::getInstance().getScreenFontSize());
-	connect(&StelApp::getInstance(), SIGNAL(screenFontSizeChanged(int)), this, SLOT(setFontSize(int)));
+//	planetNameFont.setPixelSize(StelApp::getInstance().getScreenFontSize());
+    //connect(&StelApp::getInstance(), SIGNAL(screenFontSizeChanged(int)), this, SLOT(setFontSize(int)));
 	setObjectName("SolarSystem");
 }
 
-void SolarSystem::setFontSize(int newFontSize)
-{
-	planetNameFont.setPixelSize(newFontSize);
-}
+//void SolarSystem::setFontSize(int newFontSize)
+//{
+//	planetNameFont.setPixelSize(newFontSize);
+//}
 
 SolarSystem::~SolarSystem()
 {
 	// release selected:
-	selected.clear();
-	selectedSSO.clear();
+//	selected.clear();
+//	selectedSSO.clear();
 	for (auto* orb : qAsConst(orbits))
 	{
 		delete orb;
@@ -136,15 +136,15 @@ SolarSystem::~SolarSystem()
 	sun.clear();
 	moon.clear();
 	earth.clear();
-	Planet::hintCircleTex.clear();
-	Planet::texEarthShadow.clear();
+//	Planet::hintCircleTex.clear();
+//	Planet::texEarthShadow.clear();
 
-	texEphemerisMarker.clear();
-	texEphemerisCometMarker.clear();
-	texPointer.clear();
+//	texEphemerisMarker.clear();
+//	texEphemerisCometMarker.clear();
+//	texPointer.clear();
 
-	delete allTrails;
-	allTrails = Q_NULLPTR;
+//	delete allTrails;
+//	allTrails = Q_NULLPTR;
 
 	// Get rid of circular reference between the shared pointers which prevent proper destruction of the Planet objects.
 	for (const auto& p : qAsConst(systemPlanets))
@@ -153,8 +153,8 @@ SolarSystem::~SolarSystem()
 	}
 
 	//delete comet textures created in loadPlanets
-	Comet::comaTexture.clear();
-	Comet::tailTexture.clear();
+//	Comet::comaTexture.clear();
+//	Comet::tailTexture.clear();
 
 	//deinit of SolarSystem is NOT called at app end automatically
 	SolarSystem::deinit();
@@ -163,12 +163,12 @@ SolarSystem::~SolarSystem()
 /*************************************************************************
  Re-implementation of the getCallOrder method
 *************************************************************************/
-double SolarSystem::getCallOrder(StelModuleActionName actionName) const
-{
-	if (actionName==StelModule::ActionDraw)
-		return StelApp::getInstance().getModuleMgr().getModule("StarMgr")->getCallOrder(actionName)+10;
-	return 0;
-}
+//double SolarSystem::getCallOrder(StelModuleActionName actionName) const
+//{
+//	if (actionName==StelModule::ActionDraw)
+//		return StelApp::getInstance().getModuleMgr().getModule("StarMgr")->getCallOrder(actionName)+10;
+//	return 0;
+//}
 
 // Init and load the solar system data
 void SolarSystem::init()
@@ -182,39 +182,39 @@ void SolarSystem::init()
 	// for the first initialization Q_ASSERT that center is sun center (only impacts on light speed correction)	
 	computePositions(StelApp::getInstance().getCore()->getJDE(), getSun());
 
-	setSelected("");	// Fix a bug on macosX! Thanks Fumio!
-	setFlagDrawMoonHalo(conf->value("viewing/flag_draw_moon_halo", true).toBool());
-	setFlagDrawSunHalo(conf->value("viewing/flag_draw_sun_halo", true).toBool());
-	setFlagMoonScale(conf->value("viewing/flag_moon_scaled", conf->value("viewing/flag_init_moon_scaled", false).toBool()).toBool());  // name change
-	setMoonScale(conf->value("viewing/moon_scale", 4.0).toDouble());
-	setMinorBodyScale(conf->value("viewing/minorbodies_scale", 10.0).toDouble());
-	setFlagMinorBodyScale(conf->value("viewing/flag_minorbodies_scaled", false).toBool());
-	setFlagPlanetScale(conf->value("viewing/flag_planets_scaled", false).toBool());
-	setPlanetScale(conf->value("viewing/planets_scale", 150.0).toDouble());
-	setFlagSunScale(conf->value("viewing/flag_sun_scaled", false).toBool());
-	setSunScale(conf->value("viewing/sun_scale", 4.0).toDouble());
-	setFlagPlanets(conf->value("astro/flag_planets").toBool());
-	setFlagHints(conf->value("astro/flag_planets_hints").toBool());
-	setFlagLabels(conf->value("astro/flag_planets_labels", true).toBool());
-	setLabelsAmount(conf->value("astro/labels_amount", 3.).toDouble());
-	setFlagOrbits(conf->value("astro/flag_planets_orbits").toBool());
+//	setSelected("");	// Fix a bug on macosX! Thanks Fumio!
+//	setFlagDrawMoonHalo(conf->value("viewing/flag_draw_moon_halo", true).toBool());
+//	setFlagDrawSunHalo(conf->value("viewing/flag_draw_sun_halo", true).toBool());
+//	setFlagMoonScale(conf->value("viewing/flag_moon_scaled", conf->value("viewing/flag_init_moon_scaled", false).toBool()).toBool());  // name change
+//	setMoonScale(conf->value("viewing/moon_scale", 4.0).toDouble());
+//	setMinorBodyScale(conf->value("viewing/minorbodies_scale", 10.0).toDouble());
+//	setFlagMinorBodyScale(conf->value("viewing/flag_minorbodies_scaled", false).toBool());
+//	setFlagPlanetScale(conf->value("viewing/flag_planets_scaled", false).toBool());
+//	setPlanetScale(conf->value("viewing/planets_scale", 150.0).toDouble());
+//	setFlagSunScale(conf->value("viewing/flag_sun_scaled", false).toBool());
+//	setSunScale(conf->value("viewing/sun_scale", 4.0).toDouble());
+//	setFlagPlanets(conf->value("astro/flag_planets").toBool());
+//	setFlagHints(conf->value("astro/flag_planets_hints").toBool());
+//	setFlagLabels(conf->value("astro/flag_planets_labels", true).toBool());
+//	setLabelsAmount(conf->value("astro/labels_amount", 3.).toDouble());
+//	setFlagOrbits(conf->value("astro/flag_planets_orbits").toBool());
 	setFlagLightTravelTime(conf->value("astro/flag_light_travel_time", true).toBool());
-	setFlagUseObjModels(conf->value("astro/flag_use_obj_models", false).toBool());
-	setFlagShowObjSelfShadows(conf->value("astro/flag_show_obj_self_shadows", true).toBool());
-	setFlagPointer(conf->value("astro/flag_planets_pointers", true).toBool());
+//	setFlagUseObjModels(conf->value("astro/flag_use_obj_models", false).toBool());
+//	setFlagShowObjSelfShadows(conf->value("astro/flag_show_obj_self_shadows", true).toBool());
+//	setFlagPointer(conf->value("astro/flag_planets_pointers", true).toBool());
 	// Set the algorithm from Astronomical Almanac for computation of apparent magnitudes for
 	// planets in case  observer on the Earth by default
 	setApparentMagnitudeAlgorithmOnEarth(conf->value("astro/apparent_magnitude_algorithm", "Mallama2018").toString());
-	setFlagNativePlanetNames(conf->value("viewing/flag_planets_native_names", true).toBool());
+//	setFlagNativePlanetNames(conf->value("viewing/flag_planets_native_names", true).toBool());
 	// Is enabled the showing of isolated trails for selected objects only?
-	setFlagIsolatedTrails(conf->value("viewing/flag_isolated_trails", true).toBool());
-	setNumberIsolatedTrails(conf->value("viewing/number_isolated_trails", 1).toInt());
-	setMaxTrailPoints(conf->value("viewing/max_trail_points", 5000).toInt());
-	setMaxTrailTimeExtent(conf->value("viewing/max_trail_time_extent", 1).toInt());
-	setFlagIsolatedOrbits(conf->value("viewing/flag_isolated_orbits", true).toBool());
-	setFlagPlanetsOrbitsOnly(conf->value("viewing/flag_planets_orbits_only", false).toBool());
-	setFlagPermanentOrbits(conf->value("astro/flag_permanent_orbits", false).toBool());
-	setOrbitColorStyle(conf->value("astro/planets_orbits_color_style", "one_color").toString());
+//	setFlagIsolatedTrails(conf->value("viewing/flag_isolated_trails", true).toBool());
+//	setNumberIsolatedTrails(conf->value("viewing/number_isolated_trails", 1).toInt());
+//	setMaxTrailPoints(conf->value("viewing/max_trail_points", 5000).toInt());
+//	setMaxTrailTimeExtent(conf->value("viewing/max_trail_time_extent", 1).toInt());
+//	setFlagIsolatedOrbits(conf->value("viewing/flag_isolated_orbits", true).toBool());
+//	setFlagPlanetsOrbitsOnly(conf->value("viewing/flag_planets_orbits_only", false).toBool());
+//	setFlagPermanentOrbits(conf->value("astro/flag_permanent_orbits", false).toBool());
+//	setOrbitColorStyle(conf->value("astro/planets_orbits_color_style", "one_color").toString());
 
 	// Settings for calculation of position of Great Red Spot on Jupiter
 //	setFlagCustomGrsSettings(conf->value("astro/flag_grs_custom", false).toBool());
@@ -223,306 +223,306 @@ void SolarSystem::init()
 	setGrsJD(conf->value("astro/grs_jd", 2456901.5).toDouble());
 
 	setFlagEarthShadowEnlargementDanjon(conf->value("astro/shadow_enlargement_danjon", false).toBool());
-	setFlagPermanentSolarCorona(conf->value("viewing/flag_draw_sun_corona", true).toBool());
+//	setFlagPermanentSolarCorona(conf->value("viewing/flag_draw_sun_corona", true).toBool());
 
 	// Load colors from config file
-	QString defaultColor = conf->value("color/default_color").toString();
-	setLabelsColor(                    Vec3f(conf->value("color/planet_names_color", defaultColor).toString()));
-	setOrbitsColor(                    Vec3f(conf->value("color/sso_orbits_color", defaultColor).toString()));
-	setMajorPlanetsOrbitsColor(        Vec3f(conf->value("color/major_planet_orbits_color", "0.7,0.2,0.2").toString()));
-	setMoonsOrbitsColor(               Vec3f(conf->value("color/moon_orbits_color", "0.7,0.2,0.2").toString()));
-	setMinorPlanetsOrbitsColor(        Vec3f(conf->value("color/minor_planet_orbits_color", "0.7,0.5,0.5").toString()));
-	setDwarfPlanetsOrbitsColor(        Vec3f(conf->value("color/dwarf_planet_orbits_color", "0.7,0.5,0.5").toString()));
-	setCubewanosOrbitsColor(           Vec3f(conf->value("color/cubewano_orbits_color", "0.7,0.5,0.5").toString()));
-	setPlutinosOrbitsColor(            Vec3f(conf->value("color/plutino_orbits_color", "0.7,0.5,0.5").toString()));
-	setScatteredDiskObjectsOrbitsColor(Vec3f(conf->value("color/sdo_orbits_color", "0.7,0.5,0.5").toString()));
-	setOortCloudObjectsOrbitsColor(    Vec3f(conf->value("color/oco_orbits_color", "0.7,0.5,0.5").toString()));
-	setCometsOrbitsColor(              Vec3f(conf->value("color/comet_orbits_color", "0.7,0.8,0.8").toString()));
-	setSednoidsOrbitsColor(            Vec3f(conf->value("color/sednoid_orbits_color", "0.7,0.5,0.5").toString()));
-	setInterstellarOrbitsColor(        Vec3f(conf->value("color/interstellar_orbits_color", "1.0,0.6,1.0").toString()));
-	setMercuryOrbitColor(              Vec3f(conf->value("color/mercury_orbit_color", "0.5,0.5,0.5").toString()));
-	setVenusOrbitColor(                Vec3f(conf->value("color/venus_orbit_color", "0.9,0.9,0.7").toString()));
-	setEarthOrbitColor(                Vec3f(conf->value("color/earth_orbit_color", "0.0,0.0,1.0").toString()));
-	setMarsOrbitColor(                 Vec3f(conf->value("color/mars_orbit_color", "0.8,0.4,0.1").toString()));
-	setJupiterOrbitColor(              Vec3f(conf->value("color/jupiter_orbit_color", "1.0,0.6,0.0").toString()));
-	setSaturnOrbitColor(               Vec3f(conf->value("color/saturn_orbit_color", "1.0,0.8,0.0").toString()));
-	setUranusOrbitColor(               Vec3f(conf->value("color/uranus_orbit_color", "0.0,0.7,1.0").toString()));
-	setNeptuneOrbitColor(              Vec3f(conf->value("color/neptune_orbit_color", "0.0,0.3,1.0").toString()));
-	setTrailsColor(                    Vec3f(conf->value("color/object_trails_color", defaultColor).toString()));
-	setPointerColor(                   Vec3f(conf->value("color/planet_pointers_color", "1.0,0.3,0.3").toString()));
+//	QString defaultColor = conf->value("color/default_color").toString();
+//	setLabelsColor(                    Vec3f(conf->value("color/planet_names_color", defaultColor).toString()));
+//	setOrbitsColor(                    Vec3f(conf->value("color/sso_orbits_color", defaultColor).toString()));
+//	setMajorPlanetsOrbitsColor(        Vec3f(conf->value("color/major_planet_orbits_color", "0.7,0.2,0.2").toString()));
+//	setMoonsOrbitsColor(               Vec3f(conf->value("color/moon_orbits_color", "0.7,0.2,0.2").toString()));
+//	setMinorPlanetsOrbitsColor(        Vec3f(conf->value("color/minor_planet_orbits_color", "0.7,0.5,0.5").toString()));
+//	setDwarfPlanetsOrbitsColor(        Vec3f(conf->value("color/dwarf_planet_orbits_color", "0.7,0.5,0.5").toString()));
+//	setCubewanosOrbitsColor(           Vec3f(conf->value("color/cubewano_orbits_color", "0.7,0.5,0.5").toString()));
+//	setPlutinosOrbitsColor(            Vec3f(conf->value("color/plutino_orbits_color", "0.7,0.5,0.5").toString()));
+//	setScatteredDiskObjectsOrbitsColor(Vec3f(conf->value("color/sdo_orbits_color", "0.7,0.5,0.5").toString()));
+//	setOortCloudObjectsOrbitsColor(    Vec3f(conf->value("color/oco_orbits_color", "0.7,0.5,0.5").toString()));
+//	setCometsOrbitsColor(              Vec3f(conf->value("color/comet_orbits_color", "0.7,0.8,0.8").toString()));
+//	setSednoidsOrbitsColor(            Vec3f(conf->value("color/sednoid_orbits_color", "0.7,0.5,0.5").toString()));
+//	setInterstellarOrbitsColor(        Vec3f(conf->value("color/interstellar_orbits_color", "1.0,0.6,1.0").toString()));
+//	setMercuryOrbitColor(              Vec3f(conf->value("color/mercury_orbit_color", "0.5,0.5,0.5").toString()));
+//	setVenusOrbitColor(                Vec3f(conf->value("color/venus_orbit_color", "0.9,0.9,0.7").toString()));
+//	setEarthOrbitColor(                Vec3f(conf->value("color/earth_orbit_color", "0.0,0.0,1.0").toString()));
+//	setMarsOrbitColor(                 Vec3f(conf->value("color/mars_orbit_color", "0.8,0.4,0.1").toString()));
+//	setJupiterOrbitColor(              Vec3f(conf->value("color/jupiter_orbit_color", "1.0,0.6,0.0").toString()));
+//	setSaturnOrbitColor(               Vec3f(conf->value("color/saturn_orbit_color", "1.0,0.8,0.0").toString()));
+//	setUranusOrbitColor(               Vec3f(conf->value("color/uranus_orbit_color", "0.0,0.7,1.0").toString()));
+//	setNeptuneOrbitColor(              Vec3f(conf->value("color/neptune_orbit_color", "0.0,0.3,1.0").toString()));
+//	setTrailsColor(                    Vec3f(conf->value("color/object_trails_color", defaultColor).toString()));
+//	setPointerColor(                   Vec3f(conf->value("color/planet_pointers_color", "1.0,0.3,0.3").toString()));
 
 	// Ephemeris stuff
-	setFlagEphemerisMarkers(conf->value("astrocalc/flag_ephemeris_markers", true).toBool());
-	setFlagEphemerisAlwaysOn(conf->value("astrocalc/flag_ephemeris_alwayson", true).toBool());
-	setFlagEphemerisDates(conf->value("astrocalc/flag_ephemeris_dates", false).toBool());
-	setFlagEphemerisMagnitudes(conf->value("astrocalc/flag_ephemeris_magnitudes", false).toBool());
-	setFlagEphemerisHorizontalCoordinates(conf->value("astrocalc/flag_ephemeris_horizontal", false).toBool());
-	setFlagEphemerisLine(conf->value("astrocalc/flag_ephemeris_line", false).toBool());
-	setEphemerisLineThickness(conf->value("astrocalc/ephemeris_line_thickness", 1).toInt());
-	setFlagEphemerisSkipData(conf->value("astrocalc/flag_ephemeris_skip_data", false).toBool());
-	setFlagEphemerisSkipMarkers(conf->value("astrocalc/flag_ephemeris_skip_markers", false).toBool());
+//	setFlagEphemerisMarkers(conf->value("astrocalc/flag_ephemeris_markers", true).toBool());
+//	setFlagEphemerisAlwaysOn(conf->value("astrocalc/flag_ephemeris_alwayson", true).toBool());
+//	setFlagEphemerisDates(conf->value("astrocalc/flag_ephemeris_dates", false).toBool());
+//	setFlagEphemerisMagnitudes(conf->value("astrocalc/flag_ephemeris_magnitudes", false).toBool());
+//	setFlagEphemerisHorizontalCoordinates(conf->value("astrocalc/flag_ephemeris_horizontal", false).toBool());
+//	setFlagEphemerisLine(conf->value("astrocalc/flag_ephemeris_line", false).toBool());
+//	setEphemerisLineThickness(conf->value("astrocalc/ephemeris_line_thickness", 1).toInt());
+//	setFlagEphemerisSkipData(conf->value("astrocalc/flag_ephemeris_skip_data", false).toBool());
+//	setFlagEphemerisSkipMarkers(conf->value("astrocalc/flag_ephemeris_skip_markers", false).toBool());
 	setEphemerisDataStep(conf->value("astrocalc/ephemeris_data_step", 1).toInt());	
-	setFlagEphemerisSmartDates(conf->value("astrocalc/flag_ephemeris_smart_dates", true).toBool());
-	setFlagEphemerisScaleMarkers(conf->value("astrocalc/flag_ephemeris_scale_markers", false).toBool());
-	setEphemerisGenericMarkerColor( Vec3f(conf->value("color/ephemeris_generic_marker_color", "1.0,1.0,0.0").toString()));
-	setEphemerisSecondaryMarkerColor( Vec3f(conf->value("color/ephemeris_secondary_marker_color", "0.7,0.7,1.0").toString()));
-	setEphemerisSelectedMarkerColor(Vec3f(conf->value("color/ephemeris_selected_marker_color", "1.0,0.7,0.0").toString()));
-	setEphemerisMercuryMarkerColor( Vec3f(conf->value("color/ephemeris_mercury_marker_color", "1.0,1.0,0.0").toString()));
-	setEphemerisVenusMarkerColor(   Vec3f(conf->value("color/ephemeris_venus_marker_color", "1.0,1.0,1.0").toString()));
-	setEphemerisMarsMarkerColor(    Vec3f(conf->value("color/ephemeris_mars_marker_color", "1.0,0.0,0.0").toString()));
-	setEphemerisJupiterMarkerColor( Vec3f(conf->value("color/ephemeris_jupiter_marker_color", "0.3,1.0,1.0").toString()));
-	setEphemerisSaturnMarkerColor(  Vec3f(conf->value("color/ephemeris_saturn_marker_color", "0.0,1.0,0.0").toString()));
+//	setFlagEphemerisSmartDates(conf->value("astrocalc/flag_ephemeris_smart_dates", true).toBool());
+//	setFlagEphemerisScaleMarkers(conf->value("astrocalc/flag_ephemeris_scale_markers", false).toBool());
+//	setEphemerisGenericMarkerColor( Vec3f(conf->value("color/ephemeris_generic_marker_color", "1.0,1.0,0.0").toString()));
+//	setEphemerisSecondaryMarkerColor( Vec3f(conf->value("color/ephemeris_secondary_marker_color", "0.7,0.7,1.0").toString()));
+//	setEphemerisSelectedMarkerColor(Vec3f(conf->value("color/ephemeris_selected_marker_color", "1.0,0.7,0.0").toString()));
+//	setEphemerisMercuryMarkerColor( Vec3f(conf->value("color/ephemeris_mercury_marker_color", "1.0,1.0,0.0").toString()));
+//	setEphemerisVenusMarkerColor(   Vec3f(conf->value("color/ephemeris_venus_marker_color", "1.0,1.0,1.0").toString()));
+//	setEphemerisMarsMarkerColor(    Vec3f(conf->value("color/ephemeris_mars_marker_color", "1.0,0.0,0.0").toString()));
+//	setEphemerisJupiterMarkerColor( Vec3f(conf->value("color/ephemeris_jupiter_marker_color", "0.3,1.0,1.0").toString()));
+//	setEphemerisSaturnMarkerColor(  Vec3f(conf->value("color/ephemeris_saturn_marker_color", "0.0,1.0,0.0").toString()));
 
-	setOrbitsThickness(conf->value("astro/object_orbits_thickness", 1).toBool());
-	setTrailsThickness(conf->value("astro/object_trails_thickness", 1).toBool());
-	recreateTrails();
-	setFlagTrails(conf->value("astro/flag_object_trails", false).toBool());
+    //setOrbitsThickness(conf->value("astro/object_orbits_thickness", 1).toBool());
+    //setTrailsThickness(conf->value("astro/object_trails_thickness", 1).toBool());
+//	recreateTrails();
+//	setFlagTrails(conf->value("astro/flag_object_trails", false).toBool());
 
 	StelObjectMgr *objectManager = GETSTELMODULE(StelObjectMgr);
 	objectManager->registerStelObjectMgr(this);
-	connect(objectManager, SIGNAL(selectedObjectChanged(StelModule::StelModuleSelectAction)),
-		this, SLOT(selectedObjectChange(StelModule::StelModuleSelectAction)));
+//	connect(objectManager, SIGNAL(selectedObjectChanged(StelModule::StelModuleSelectAction)),
+//		this, SLOT(selectedObjectChange(StelModule::StelModuleSelectAction)));
 
-	texPointer = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/pointeur4.png");
-	texEphemerisMarker = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/disk.png");
-	texEphemerisCometMarker = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/cometIcon.png");
-	Planet::hintCircleTex = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/planet-indicator.png");
+//	texPointer = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/pointeur4.png");
+//	texEphemerisMarker = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/disk.png");
+//	texEphemerisCometMarker = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/cometIcon.png");
+//	Planet::hintCircleTex = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/planet-indicator.png");
 	
 	StelApp *app = &StelApp::getInstance();
-	connect(app, SIGNAL(languageChanged()), this, SLOT(updateI18n()));
-	connect(&app->getSkyCultureMgr(), SIGNAL(currentSkyCultureChanged(QString)), this, SLOT(updateSkyCulture(QString)));
-	connect(&StelMainView::getInstance(), SIGNAL(reloadShadersRequested()), this, SLOT(reloadShaders()));
+//	connect(app, SIGNAL(languageChanged()), this, SLOT(updateI18n()));
+//	connect(&app->getSkyCultureMgr(), SIGNAL(currentSkyCultureChanged(QString)), this, SLOT(updateSkyCulture(QString)));
+//	connect(&StelMainView::getInstance(), SIGNAL(reloadShadersRequested()), this, SLOT(reloadShaders()));
 	StelCore *core = app->getCore();
-	connect(core, SIGNAL(locationChanged(StelLocation)), this, SLOT(recreateTrails()));
-	connect(core, SIGNAL(dateChangedForTrails()), this, SLOT(recreateTrails()));
+//	connect(core, SIGNAL(locationChanged(StelLocation)), this, SLOT(recreateTrails()));
+//	connect(core, SIGNAL(dateChangedForTrails()), this, SLOT(recreateTrails()));
 
-	QString displayGroup = N_("Display Options");
-	addAction("actionShow_Planets", displayGroup, N_("Planets"), "planetsDisplayed", "P");
-	addAction("actionShow_Planets_Labels", displayGroup, N_("Planet labels"), "labelsDisplayed", "Alt+P");
-	addAction("actionShow_Planets_Orbits", displayGroup, N_("Planet orbits"), "flagOrbits", "O");
-	addAction("actionShow_Planets_Trails", displayGroup, N_("Planet trails"), "trailsDisplayed", "Shift+T");
-	addAction("actionShow_Planets_Trails_Reset", displayGroup, N_("Planet trails reset"), "recreateTrails()"); // No hotkey predefined.
-	//there is a small discrepancy in the GUI: "Show planet markers" actually means show planet hints
-	addAction("actionShow_Planets_Hints", displayGroup, N_("Planet markers"), "flagHints", "Ctrl+P");
-	addAction("actionShow_Planets_Pointers", displayGroup, N_("Planet selection marker"), "flagPointer", "Ctrl+Shift+P");
-	addAction("actionShow_Planets_EnlargeMoon", displayGroup, N_("Enlarge Moon"), "flagMoonScale");
-	addAction("actionShow_Planets_EnlargeMinor", displayGroup, N_("Enlarge minor bodies"), "flagMinorBodyScale");
-	addAction("actionShow_Planets_EnlargePlanets", displayGroup, N_("Enlarge Planets"), "flagPlanetScale");
-	addAction("actionShow_Planets_EnlargeSun", displayGroup, N_("Enlarge Sun"), "flagSunScale");
-	addAction("actionShow_Skyculture_NativePlanetNames", displayGroup, N_("Native planet names (from starlore)"), "flagNativePlanetNames", "Ctrl+Shift+N");
+    QString displayGroup = ("Display Options");
+//	addAction("actionShow_Planets", displayGroup, N_("Planets"), "planetsDisplayed", "P");
+//	addAction("actionShow_Planets_Labels", displayGroup, N_("Planet labels"), "labelsDisplayed", "Alt+P");
+//	addAction("actionShow_Planets_Orbits", displayGroup, N_("Planet orbits"), "flagOrbits", "O");
+//	addAction("actionShow_Planets_Trails", displayGroup, N_("Planet trails"), "trailsDisplayed", "Shift+T");
+//	addAction("actionShow_Planets_Trails_Reset", displayGroup, N_("Planet trails reset"), "recreateTrails()"); // No hotkey predefined.
+//	//there is a small discrepancy in the GUI: "Show planet markers" actually means show planet hints
+//	addAction("actionShow_Planets_Hints", displayGroup, N_("Planet markers"), "flagHints", "Ctrl+P");
+//	addAction("actionShow_Planets_Pointers", displayGroup, N_("Planet selection marker"), "flagPointer", "Ctrl+Shift+P");
+//	addAction("actionShow_Planets_EnlargeMoon", displayGroup, N_("Enlarge Moon"), "flagMoonScale");
+//	addAction("actionShow_Planets_EnlargeMinor", displayGroup, N_("Enlarge minor bodies"), "flagMinorBodyScale");
+//	addAction("actionShow_Planets_EnlargePlanets", displayGroup, N_("Enlarge Planets"), "flagPlanetScale");
+//	addAction("actionShow_Planets_EnlargeSun", displayGroup, N_("Enlarge Sun"), "flagSunScale");
+//	addAction("actionShow_Skyculture_NativePlanetNames", displayGroup, N_("Native planet names (from starlore)"), "flagNativePlanetNames", "Ctrl+Shift+N");
 
-	connect(StelApp::getInstance().getModule("HipsMgr"), SIGNAL(gotNewSurvey(HipsSurveyP)),
-			this, SLOT(onNewSurvey(HipsSurveyP)));
+//	connect(StelApp::getInstance().getModule("HipsMgr"), SIGNAL(gotNewSurvey(HipsSurveyP)),
+//			this, SLOT(onNewSurvey(HipsSurveyP)));
 
 	// Fill ephemeris dates
-	connect(this, SIGNAL(requestEphemerisVisualization()), this, SLOT(fillEphemerisDates()));
-	connect(this, SIGNAL(ephemerisDataStepChanged(int)), this, SLOT(fillEphemerisDates()));
-	connect(this, SIGNAL(ephemerisSkipDataChanged(bool)), this, SLOT(fillEphemerisDates()));
-	connect(this, SIGNAL(ephemerisSkipMarkersChanged(bool)), this, SLOT(fillEphemerisDates()));
-	connect(this, SIGNAL(ephemerisSmartDatesChanged(bool)), this, SLOT(fillEphemerisDates()));
+//	connect(this, SIGNAL(requestEphemerisVisualization()), this, SLOT(fillEphemerisDates()));
+//	connect(this, SIGNAL(ephemerisDataStepChanged(int)), this, SLOT(fillEphemerisDates()));
+//	connect(this, SIGNAL(ephemerisSkipDataChanged(bool)), this, SLOT(fillEphemerisDates()));
+//	connect(this, SIGNAL(ephemerisSkipMarkersChanged(bool)), this, SLOT(fillEphemerisDates()));
+//	connect(this, SIGNAL(ephemerisSmartDatesChanged(bool)), this, SLOT(fillEphemerisDates()));
 }
 
 void SolarSystem::deinit()
 {
-	Planet::deinitShader();
-	Planet::deinitFBO();
+//	Planet::deinitShader();
+//	Planet::deinitFBO();
 }
 
-void SolarSystem::resetTextures(const QString &planetName)
-{
-	if (planetName.isEmpty())
-	{
-		for (const auto& p : qAsConst(systemPlanets))
-		{
-			p->resetTextures();
-		}
-	}
-	else
-	{
-		PlanetP planet = searchByEnglishName(planetName);
-		if (!planet.isNull())
-			planet->resetTextures();
-	}
-}
+//void SolarSystem::resetTextures(const QString &planetName)
+//{
+//	if (planetName.isEmpty())
+//	{
+//		for (const auto& p : qAsConst(systemPlanets))
+//		{
+//			p->resetTextures();
+//		}
+//	}
+//	else
+//	{
+//		PlanetP planet = searchByEnglishName(planetName);
+//		if (!planet.isNull())
+//			planet->resetTextures();
+//	}
+//}
 
-void SolarSystem::setTextureForPlanet(const QString& planetName, const QString& texName)
-{
-	PlanetP planet = searchByEnglishName(planetName);
-	if (!planet.isNull())
-		planet->replaceTexture(texName);
-	else
-		qWarning() << "The planet" << planetName << "was not found. Please check the name.";
-}
+//void SolarSystem::setTextureForPlanet(const QString& planetName, const QString& texName)
+//{
+//	PlanetP planet = searchByEnglishName(planetName);
+//	if (!planet.isNull())
+//		planet->replaceTexture(texName);
+//	else
+//		qWarning() << "The planet" << planetName << "was not found. Please check the name.";
+//}
 
-void SolarSystem::recreateTrails()
-{
-	// Create a trail group containing all the planets orbiting the sun (not including satellites)
-	if (allTrails!=Q_NULLPTR)
-		delete allTrails;
-	allTrails = new TrailGroup(maxTrailTimeExtent * 365.f, maxTrailPoints);
+//void SolarSystem::recreateTrails()
+//{
+//	// Create a trail group containing all the planets orbiting the sun (not including satellites)
+//	if (allTrails!=Q_NULLPTR)
+//		delete allTrails;
+//	allTrails = new TrailGroup(maxTrailTimeExtent * 365.f, maxTrailPoints);
 
-	unsigned long cnt = static_cast<unsigned long>(selectedSSO.size());
-	if (cnt>0 && getFlagIsolatedTrails())
-	{
-		unsigned long limit = static_cast<unsigned long>(getNumberIsolatedTrails());
-		if (cnt<limit)
-			limit = cnt;
-		for (unsigned long i=0; i<limit; i++)
-		{
-			if (selectedSSO[cnt - i - 1]->getPlanetType() != Planet::isObserver)
-				allTrails->addObject(static_cast<QSharedPointer<StelObject>>(selectedSSO[cnt - i - 1]), &trailsColor);
-		}
-	}
-	else
-	{
-		for (const auto& p : qAsConst(getSun()->satellites))
-		{
-			if (p->getPlanetType() != Planet::isObserver)
-				allTrails->addObject(static_cast<QSharedPointer<StelObject>>(p), &trailsColor);
-		}
-		// Add moons of current planet
-		StelCore *core=StelApp::getInstance().getCore();
-		const StelObserver *obs=core->getCurrentObserver();
-		if (obs)
-		{
-			const QSharedPointer<Planet> planet=obs->getHomePlanet();
-			for (const auto& m : qAsConst(planet->satellites))
-				if (m->getPlanetType() != Planet::isObserver)
-					allTrails->addObject(static_cast<QSharedPointer<StelObject>>(m), &trailsColor);
-		}
-	}
-}
+//	unsigned long cnt = static_cast<unsigned long>(selectedSSO.size());
+//	if (cnt>0 && getFlagIsolatedTrails())
+//	{
+//		unsigned long limit = static_cast<unsigned long>(getNumberIsolatedTrails());
+//		if (cnt<limit)
+//			limit = cnt;
+//		for (unsigned long i=0; i<limit; i++)
+//		{
+//			if (selectedSSO[cnt - i - 1]->getPlanetType() != Planet::isObserver)
+//				allTrails->addObject(static_cast<QSharedPointer<StelObject>>(selectedSSO[cnt - i - 1]), &trailsColor);
+//		}
+//	}
+//	else
+//	{
+//		for (const auto& p : qAsConst(getSun()->satellites))
+//		{
+//			if (p->getPlanetType() != Planet::isObserver)
+//				allTrails->addObject(static_cast<QSharedPointer<StelObject>>(p), &trailsColor);
+//		}
+//		// Add moons of current planet
+//		StelCore *core=StelApp::getInstance().getCore();
+//		const StelObserver *obs=core->getCurrentObserver();
+//		if (obs)
+//		{
+//			const QSharedPointer<Planet> planet=obs->getHomePlanet();
+//			for (const auto& m : qAsConst(planet->satellites))
+//				if (m->getPlanetType() != Planet::isObserver)
+//					allTrails->addObject(static_cast<QSharedPointer<StelObject>>(m), &trailsColor);
+//		}
+//	}
+//}
 
 
-void SolarSystem::updateSkyCulture(const QString& skyCultureDir)
-{
-	planetNativeNamesMap.clear();
-	planetNativeNamesMeaningMap.clear();
+//void SolarSystem::updateSkyCulture(const QString& skyCultureDir)
+//{
+//	planetNativeNamesMap.clear();
+//	planetNativeNamesMeaningMap.clear();
 
-	QString namesFile = StelFileMgr::findFile("skycultures/" + skyCultureDir + "/planet_names.fab");
+//	QString namesFile = StelFileMgr::findFile("skycultures/" + skyCultureDir + "/planet_names.fab");
 
-	if (namesFile.isEmpty())
-	{
-		for (const auto& p : qAsConst(systemPlanets))
-		{
-			if (p->getPlanetType()==Planet::isPlanet || p->getPlanetType()==Planet::isMoon || p->getPlanetType()==Planet::isStar)
-			{
-				p->setNativeName("");
-				p->setNativeNameMeaning("");
-			}
-		}
-		updateI18n();
-		return;
-	}
+//	if (namesFile.isEmpty())
+//	{
+//		for (const auto& p : qAsConst(systemPlanets))
+//		{
+//			if (p->getPlanetType()==Planet::isPlanet || p->getPlanetType()==Planet::isMoon || p->getPlanetType()==Planet::isStar)
+//			{
+//				p->setNativeName("");
+//				p->setNativeNameMeaning("");
+//			}
+//		}
+//		updateI18n();
+//		return;
+//	}
 
-	// Open file
-	QFile planetNamesFile(namesFile);
-	if (!planetNamesFile.open(QIODevice::ReadOnly | QIODevice::Text))
-	{
-		qDebug() << " Cannot open file" << QDir::toNativeSeparators(namesFile);
-		return;
-	}
+//	// Open file
+//	QFile planetNamesFile(namesFile);
+//	if (!planetNamesFile.open(QIODevice::ReadOnly | QIODevice::Text))
+//	{
+//		qDebug() << " Cannot open file" << QDir::toNativeSeparators(namesFile);
+//		return;
+//	}
 
-	// Now parse the file
-	// lines to ignore which start with a # or are empty
-	QRegularExpression commentRx("^(\\s*#.*|\\s*)$");
+//	// Now parse the file
+//	// lines to ignore which start with a # or are empty
+//	QRegularExpression commentRx("^(\\s*#.*|\\s*)$");
 
-	// lines which look like records - we use the RE to extract the fields
-	// which will be available in recRx.capturedTexts()
-	QRegularExpression recRx("^\\s*(\\w+)\\s+\"(.+)\"\\s+_[(]\"(.+)\"[)]\\n");
+//	// lines which look like records - we use the RE to extract the fields
+//	// which will be available in recRx.capturedTexts()
+//	QRegularExpression recRx("^\\s*(\\w+)\\s+\"(.+)\"\\s+_[(]\"(.+)\"[)]\\n");
 
-	QString record, planetId, nativeName, nativeNameMeaning;
+//	QString record, planetId, nativeName, nativeNameMeaning;
 
-	// keep track of how many records we processed.
-	int totalRecords=0;
-	int readOk=0;
-	int lineNumber=0;
-	while (!planetNamesFile.atEnd())
-	{
-		record = QString::fromUtf8(planetNamesFile.readLine());
-		lineNumber++;
+//	// keep track of how many records we processed.
+//	int totalRecords=0;
+//	int readOk=0;
+//	int lineNumber=0;
+//	while (!planetNamesFile.atEnd())
+//	{
+//		record = QString::fromUtf8(planetNamesFile.readLine());
+//		lineNumber++;
 
-		// Skip comments
-		if (commentRx.match(record).hasMatch())
-			continue;
+//		// Skip comments
+//		if (commentRx.match(record).hasMatch())
+//			continue;
 
-		totalRecords++;
+//		totalRecords++;
 
-		QRegularExpressionMatch match=recRx.match(record);
-		if (!match.hasMatch())
-		{
-			qWarning() << "ERROR - cannot parse record at line" << lineNumber << "in planet names file" << QDir::toNativeSeparators(namesFile);
-		}
-		else
-		{
-			planetId          = match.captured(1).trimmed();
-			nativeName        = match.captured(2).trimmed();
-			nativeNameMeaning = match.captured(3).trimmed();
-			planetNativeNamesMap[planetId] = nativeName;
-			planetNativeNamesMeaningMap[planetId] = nativeNameMeaning;
-			readOk++;
-		}
-	}
-	planetNamesFile.close();
-	qDebug() << "Loaded" << readOk << "/" << totalRecords << "native names of planets";
+//		QRegularExpressionMatch match=recRx.match(record);
+//		if (!match.hasMatch())
+//		{
+//			qWarning() << "ERROR - cannot parse record at line" << lineNumber << "in planet names file" << QDir::toNativeSeparators(namesFile);
+//		}
+//		else
+//		{
+//			planetId          = match.captured(1).trimmed();
+//			nativeName        = match.captured(2).trimmed();
+//			nativeNameMeaning = match.captured(3).trimmed();
+//			planetNativeNamesMap[planetId] = nativeName;
+//			planetNativeNamesMeaningMap[planetId] = nativeNameMeaning;
+//			readOk++;
+//		}
+//	}
+//	planetNamesFile.close();
+//	qDebug() << "Loaded" << readOk << "/" << totalRecords << "native names of planets";
 
-	for (const auto& p : qAsConst(systemPlanets))
-	{
-		if (p->getPlanetType()==Planet::isPlanet || p->getPlanetType()==Planet::isMoon || p->getPlanetType()==Planet::isStar)
-		{
-			p->setNativeName(planetNativeNamesMap[p->getEnglishName()]);
-			p->setNativeNameMeaning(planetNativeNamesMeaningMap[p->getEnglishName()]);
-		}
-	}
+//	for (const auto& p : qAsConst(systemPlanets))
+//	{
+//		if (p->getPlanetType()==Planet::isPlanet || p->getPlanetType()==Planet::isMoon || p->getPlanetType()==Planet::isStar)
+//		{
+//			p->setNativeName(planetNativeNamesMap[p->getEnglishName()]);
+//			p->setNativeNameMeaning(planetNativeNamesMeaningMap[p->getEnglishName()]);
+//		}
+//	}
 
-	updateI18n();
-}
+//	updateI18n();
+//}
 
-void SolarSystem::reloadShaders()
-{
-	Planet::deinitShader();
-	Planet::initShader();
-}
+//void SolarSystem::reloadShaders()
+//{
+//	Planet::deinitShader();
+//	Planet::initShader();
+//}
 
-void SolarSystem::drawPointer(const StelCore* core)
-{
-	const StelProjectorP prj = core->getProjection(StelCore::FrameJ2000);
+//void SolarSystem::drawPointer(const StelCore* core)
+//{
+//	const StelProjectorP prj = core->getProjection(StelCore::FrameJ2000);
 
-	const QList<StelObjectP> newSelected = GETSTELMODULE(StelObjectMgr)->getSelectedObject("Planet");
-	if (!newSelected.empty())
-	{
-		const StelObjectP obj = newSelected[0];
-		Vec3d pos=obj->getJ2000EquatorialPos(core);
+//	const QList<StelObjectP> newSelected = GETSTELMODULE(StelObjectMgr)->getSelectedObject("Planet");
+//	if (!newSelected.empty())
+//	{
+//		const StelObjectP obj = newSelected[0];
+//		Vec3d pos=obj->getJ2000EquatorialPos(core);
 
-		Vec3f screenpos;
-		// Compute 2D pos and return if outside screen
-		if (!prj->project(pos, screenpos))
-			return;
+//		Vec3f screenpos;
+//		// Compute 2D pos and return if outside screen
+//		if (!prj->project(pos, screenpos))
+//			return;
 
-		StelPainter sPainter(prj);
-		sPainter.setColor(getPointerColor());
+//		StelPainter sPainter(prj);
+//		sPainter.setColor(getPointerColor());
 
-		float screenSize = static_cast<float>(obj->getAngularRadius(core))*prj->getPixelPerRadAtCenter()*M_PI_180f*2.f;
+//		float screenSize = static_cast<float>(obj->getAngularRadius(core))*prj->getPixelPerRadAtCenter()*M_PI_180f*2.f;
 		
-		const float scale = static_cast<float>(prj->getDevicePixelsPerPixel())*StelApp::getInstance().getGlobalScalingRatio();
-		screenSize+= scale * (45.f + 10.f*std::sin(2.f * static_cast<float>(StelApp::getInstance().getAnimationTime())));
+//		const float scale = static_cast<float>(prj->getDevicePixelsPerPixel())*StelApp::getInstance().getGlobalScalingRatio();
+//		screenSize+= scale * (45.f + 10.f*std::sin(2.f * static_cast<float>(StelApp::getInstance().getAnimationTime())));
 
-		texPointer->bind();
+//		texPointer->bind();
 
-		sPainter.setBlending(true);
+//		sPainter.setBlending(true);
 
-		screenSize*=0.5f;
-		const float angleBase = static_cast<float>(StelApp::getInstance().getAnimationTime()) * 10;
-		// We draw 4 instances of the sprite at the corners of the pointer
-		for (int i = 0; i < 4; ++i)
-		{
-			const float angle = angleBase + i * 90;
-			const float x = screenpos[0] + screenSize * cos(angle * M_PI_180f);
-			const float y = screenpos[1] + screenSize * sin(angle * M_PI_180f);
-			sPainter.drawSprite2dMode(x, y, 10, angle);
-		}
-	}
-}
+//		screenSize*=0.5f;
+//		const float angleBase = static_cast<float>(StelApp::getInstance().getAnimationTime()) * 10;
+//		// We draw 4 instances of the sprite at the corners of the pointer
+//		for (int i = 0; i < 4; ++i)
+//		{
+//			const float angle = angleBase + i * 90;
+//			const float x = screenpos[0] + screenSize * cos(angle * M_PI_180f);
+//			const float y = screenpos[1] + screenSize * sin(angle * M_PI_180f);
+//			sPainter.drawSprite2dMode(x, y, 10, angle);
+//		}
+//	}
+//}
 
 void keplerOrbitPosFunc(double jd,double xyz[3], double xyzdot[3], void* orbitPtr)
 {
@@ -613,15 +613,15 @@ void SolarSystem::loadPlanets()
 			shadowPlanetCount++;
 }
 
-unsigned char SolarSystem::BvToColorIndex(double bV)
-{
-	const double dBV = qBound(-500., static_cast<double>(bV)*1000.0, 3499.);
-	return static_cast<unsigned char>(floor(0.5+127.0*((500.0+dBV)/4000.0)));
-}
+//unsigned char SolarSystem::BvToColorIndex(double bV)
+//{
+//	const double dBV = qBound(-500., static_cast<double>(bV)*1000.0, 3499.);
+//	return static_cast<unsigned char>(floor(0.5+127.0*((500.0+dBV)/4000.0)));
+//}
 
 bool SolarSystem::loadPlanets(const QString& filePath)
 {
-	StelSkyDrawer* skyDrawer = StelApp::getInstance().getCore()->getSkyDrawer();
+    //StelSkyDrawer* skyDrawer = StelApp::getInstance().getCore()->getSkyDrawer();
 	qDebug() << "Loading from :"  << filePath;
 	QSettings pd(filePath, StelIniFormat);
 	if (pd.status() != QSettings::NoError)
@@ -966,6 +966,9 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 		// that have to pass most of it on to the Planet class
 		PlanetP newP;
 
+
+        //FIXME: could be empty!!!!
+
 		// New class objects, named "plutino", "cubewano", "dwarf planet", "SDO", "OCO", has properties
 		// similar to asteroids and we should calculate their positions like for asteroids. Dwarf planets
 		// have one exception: Pluto - as long as we use a special function for calculation of Pluto's orbit.
@@ -973,31 +976,31 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 		{
 			minorBodies << englishName;
 
-			Vec3f color = Vec3f(1.f, 1.f, 1.f);
-			const double bV = pd.value(secname+"/color_index_bv", 99.).toDouble();
-			if (bV<99.)
-				color = skyDrawer->indexToColor(BvToColorIndex(bV))*0.75f; // see ZoneArray.cpp:L490
-			else
-				color = Vec3f(pd.value(secname+"/color", "1.0,1.0,1.0").toString());
+//			//Vec3f color = Vec3f(1.f, 1.f, 1.f);
+//			const double bV = pd.value(secname+"/color_index_bv", 99.).toDouble();
+//			if (bV<99.)
+//				color = skyDrawer->indexToColor(BvToColorIndex(bV))*0.75f; // see ZoneArray.cpp:L490
+//			else
+//				color = Vec3f(pd.value(secname+"/color", "1.0,1.0,1.0").toString());
 
-			const bool hidden = pd.value(secname+"/hidden", false).toBool();
-			const QString normalMapName = ( hidden ? "" : englishName.toLower().append("_normals.png")); // no normal maps for invisible objects!
+            const bool hidden = pd.value(secname+"/hidden", false).toBool();
+            const QString normalMapName = ( hidden ? "" : englishName.toLower().append("_normals.png")); // no normal maps for invisible objects!
 
-			newP = PlanetP(new MinorPlanet(englishName,
-						    pd.value(secname+"/radius", 1.0).toDouble()/AU,
-						    pd.value(secname+"/oblateness", 0.0).toDouble(),
-						    color, // halo color
-						    pd.value(secname+"/albedo", 0.25f).toFloat(),
-						    pd.value(secname+"/roughness",0.9f).toFloat(),
-						    pd.value(secname+"/tex_map", "nomap.png").toString(),
-						    pd.value(secname+"/normals_map", normalMapName).toString(),
-						    pd.value(secname+"/model").toString(),
-						    posfunc,
-						    static_cast<KeplerOrbit*>(orbitPtr), // the KeplerOrbit object created previously
-						    osculatingFunc, // should be Q_NULLPTR
-						    closeOrbit,
-						    hidden,
-						    type));
+            newP = PlanetP(new MinorPlanet(englishName,
+                            pd.value(secname+"/radius", 1.0).toDouble()/AU,
+                            pd.value(secname+"/oblateness", 0.0).toDouble(),
+                            //color, // halo color
+                            pd.value(secname+"/albedo", 0.25f).toFloat(),
+                            pd.value(secname+"/roughness",0.9f).toFloat(),
+                            pd.value(secname+"/tex_map", "nomap.png").toString(),
+                            pd.value(secname+"/normals_map", normalMapName).toString(),
+                            pd.value(secname+"/model").toString(),
+                            posfunc,
+                            static_cast<KeplerOrbit*>(orbitPtr), // the KeplerOrbit object created previously
+                            osculatingFunc, // should be Q_NULLPTR
+                            closeOrbit,
+                            hidden,
+                            type));
 			QSharedPointer<MinorPlanet> mp =  newP.dynamicCast<MinorPlanet>();
 			//Number, Provisional designation
 			mp->setMinorPlanetNumber(pd.value(secname+"/minor_planet_number", 0).toInt());
@@ -1011,7 +1014,7 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 				mp->setAbsoluteMagnitudeAndSlope(magnitude, qBound(0.0f, slope, 1.0f));
 			}
 
-			mp->setColorIndexBV(static_cast<float>(bV));
+            //mp->setColorIndexBV(static_cast<float>(bV));
 			mp->setSpectralType(pd.value(secname+"/spec_t", "").toString(), pd.value(secname+"/spec_b", "").toString());
 			if (semi_major_axis>0)
 				mp->deltaJDE = 2.0*semi_major_axis*StelCore::JD_SECOND;
@@ -1023,26 +1026,26 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 		else if (type == "comet")
 		{
 			minorBodies << englishName;
-			newP = PlanetP(new Comet(englishName,
-					      pd.value(secname+"/radius", 1.0).toDouble()/AU,
-					      pd.value(secname+"/oblateness", 0.0).toDouble(),
-					      Vec3f(pd.value(secname+"/color", "1.0,1.0,1.0").toString()), // halo color
-					      pd.value(secname+"/albedo", 0.075f).toFloat(), // assume very dark surface
-					      pd.value(secname+"/roughness",0.9f).toFloat(),
-					      pd.value(secname+"/outgas_intensity",0.1f).toFloat(),
-					      pd.value(secname+"/outgas_falloff", 0.1f).toFloat(),
-					      pd.value(secname+"/tex_map", "nomap.png").toString(),
-					      pd.value(secname+"/model").toString(),
-					      posfunc,
-					      static_cast<KeplerOrbit*>(orbitPtr), // the KeplerOrbit object
-					      osculatingFunc, // ALWAYS NULL for comets.
-					      closeOrbit,
-					      pd.value(secname+"/hidden", false).toBool(),
-					      type,
-					      pd.value(secname+"/dust_widthfactor", 1.5f).toFloat(),
-					      pd.value(secname+"/dust_lengthfactor", 0.4f).toFloat(),
-					      pd.value(secname+"/dust_brightnessfactor", 1.5f).toFloat()
-					      ));
+            newP = PlanetP(new Comet(englishName,
+                          pd.value(secname+"/radius", 1.0).toDouble()/AU,
+                          pd.value(secname+"/oblateness", 0.0).toDouble(),
+                          Vec3f(pd.value(secname+"/color", "1.0,1.0,1.0").toString()), // halo color
+                          pd.value(secname+"/albedo", 0.075f).toFloat(), // assume very dark surface
+                          pd.value(secname+"/roughness",0.9f).toFloat(),
+                          pd.value(secname+"/outgas_intensity",0.1f).toFloat(),
+                          pd.value(secname+"/outgas_falloff", 0.1f).toFloat(),
+                          pd.value(secname+"/tex_map", "nomap.png").toString(),
+                          pd.value(secname+"/model").toString(),
+                          posfunc,
+                          static_cast<KeplerOrbit*>(orbitPtr), // the KeplerOrbit object
+                          osculatingFunc, // ALWAYS NULL for comets.
+                          closeOrbit,
+                          pd.value(secname+"/hidden", false).toBool(),
+                          type,
+                          pd.value(secname+"/dust_widthfactor", 1.5f).toFloat(),
+                          pd.value(secname+"/dust_lengthfactor", 0.4f).toFloat(),
+                          pd.value(secname+"/dust_brightnessfactor", 1.5f).toFloat()
+                          ));
 			QSharedPointer<Comet> mp = newP.dynamicCast<Comet>();
 
 			//g,k magnitude system
@@ -1062,23 +1065,23 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 			// Set possible default name of the normal map for avoiding yin-yang shaped moon
 			// phase when normal map key not exists. Example: moon_normals.png
 			// Details: https://bugs.launchpad.net/stellarium/+bug/1335609			
-			newP = PlanetP(new Planet(englishName,
-					       pd.value(secname+"/radius", 1.0).toDouble()/AU,
-					       pd.value(secname+"/oblateness", 0.0).toDouble(),
-					       Vec3f(pd.value(secname+"/color", "1.0,1.0,1.0").toString()), // halo color
-					       pd.value(secname+"/albedo", 0.25f).toFloat(),
-					       pd.value(secname+"/roughness",0.9f).toFloat(),
-					       pd.value(secname+"/tex_map", "nomap.png").toString(),
-					       pd.value(secname+"/normals_map", englishName.toLower().append("_normals.png")).toString(),
-					       pd.value(secname+"/model").toString(),
-					       posfunc,
-					       static_cast<KeplerOrbit*>(orbitPtr), // This remains Q_NULLPTR for the major planets, or has a KeplerOrbit for planet moons.
-					       osculatingFunc,
-					       closeOrbit,
-					       pd.value(secname+"/hidden", false).toBool(),
-					       pd.value(secname+"/atmosphere", false).toBool(),
-					       pd.value(secname+"/halo", true).toBool(),
-					       type));
+            newP = PlanetP(new Planet(englishName,
+                           pd.value(secname+"/radius", 1.0).toDouble()/AU,
+                           pd.value(secname+"/oblateness", 0.0).toDouble(),
+                           //Vec3f(pd.value(secname+"/color", "1.0,1.0,1.0").toString()), // halo color
+                           pd.value(secname+"/albedo", 0.25f).toFloat(),
+                           pd.value(secname+"/roughness",0.9f).toFloat(),
+                           pd.value(secname+"/tex_map", "nomap.png").toString(),
+                           pd.value(secname+"/normals_map", englishName.toLower().append("_normals.png")).toString(),
+                           pd.value(secname+"/model").toString(),
+                           posfunc,
+                           static_cast<KeplerOrbit*>(orbitPtr), // This remains Q_NULLPTR for the major planets, or has a KeplerOrbit for planet moons.
+                           osculatingFunc,
+                           closeOrbit,
+                           pd.value(secname+"/hidden", false).toBool(),
+                           pd.value(secname+"/atmosphere", false).toBool(),
+                           pd.value(secname+"/halo", true).toBool(),
+                           type));
 			newP->absoluteMagnitude = pd.value(secname+"/absolute_magnitude", -99.f).toFloat();
 
 			// Moon designation (planet index + IAU moon number)
@@ -1175,6 +1178,7 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 		newP->setSiderealPeriod(fabs(pd.value(secname+"/orbit_Period",
 						      pd.value(secname+"/orbit_visualization_period" )).toDouble()));
 
+        //NOTE: ring texture required?
 		if (pd.contains(secname+"/tex_ring")) {
 			const float rMin = pd.value(secname+"/ring_inner_size").toFloat()/AUf;
 			const float rMax = pd.value(secname+"/ring_outer_size").toFloat()/AUf;
@@ -1194,15 +1198,15 @@ bool SolarSystem::loadPlanets(const QString& filePath)
 	else qDebug() << "SolarSystem has " << systemPlanets.count() << "entries.";
 
 	// special case: load earth shadow texture
-	if (!Planet::texEarthShadow)
-		Planet::texEarthShadow = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/earth-shadow.png");
+//	if (!Planet::texEarthShadow)
+//		Planet::texEarthShadow = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/earth-shadow.png");
 
-	// Also comets just have static textures.
-	if (!Comet::comaTexture)
-		Comet::comaTexture = StelApp::getInstance().getTextureManager().createTextureThread(StelFileMgr::getInstallationDir()+"/textures/cometComa.png", StelTexture::StelTextureParams(true, GL_LINEAR, GL_CLAMP_TO_EDGE));
-	//tail textures. We use paraboloid tail bodies, textured like a fisheye sphere, i.e. center=head. The texture should be something like a mottled star to give some structure.
-	if (!Comet::tailTexture)
-		Comet::tailTexture = StelApp::getInstance().getTextureManager().createTextureThread(StelFileMgr::getInstallationDir()+"/textures/cometTail.png", StelTexture::StelTextureParams(true, GL_LINEAR, GL_CLAMP_TO_EDGE));
+//	// Also comets just have static textures.
+//	if (!Comet::comaTexture)
+//		Comet::comaTexture = StelApp::getInstance().getTextureManager().createTextureThread(StelFileMgr::getInstallationDir()+"/textures/cometComa.png", StelTexture::StelTextureParams(true, GL_LINEAR, GL_CLAMP_TO_EDGE));
+//	//tail textures. We use paraboloid tail bodies, textured like a fisheye sphere, i.e. center=head. The texture should be something like a mottled star to give some structure.
+//	if (!Comet::tailTexture)
+//		Comet::tailTexture = StelApp::getInstance().getTextureManager().createTextureThread(StelFileMgr::getInstallationDir()+"/textures/cometTail.png", StelTexture::StelTextureParams(true, GL_LINEAR, GL_CLAMP_TO_EDGE));
 
 	if (readOk>0)
 		qDebug() << "Loaded" << readOk << "Solar System bodies";
@@ -1316,290 +1320,290 @@ struct biggerDistance : public StelUtils::binary_function<PlanetP, PlanetP, bool
 // We are supposed to be in heliocentric coordinate
 void SolarSystem::draw(StelCore* core)
 {
-	// AstroCalcDialog
-	drawEphemerisItems(core);
+//	// AstroCalcDialog
+//	drawEphemerisItems(core);
 
-	if (!flagShow)
-		return;
+//	if (!flagShow)
+//		return;
 
-	// Compute each Planet distance to the observer
-	const Vec3d obsHelioPos = core->getObserverHeliocentricEclipticPos();
+//	// Compute each Planet distance to the observer
+//	const Vec3d obsHelioPos = core->getObserverHeliocentricEclipticPos();
 
-	for (const auto& p : qAsConst(systemPlanets))
-	{
-		p->computeDistance(obsHelioPos);
-	}
+//	for (const auto& p : qAsConst(systemPlanets))
+//	{
+//		p->computeDistance(obsHelioPos);
+//	}
 
-	// And sort them from the furthest to the closest
-	std::sort(systemPlanets.begin(),systemPlanets.end(),biggerDistance());
+//	// And sort them from the furthest to the closest
+//	std::sort(systemPlanets.begin(),systemPlanets.end(),biggerDistance());
 
-	if (trailFader.getInterstate()>0.0000001f)
-	{
-		StelPainter sPainter(core->getProjection2d());
-		const float ppx = static_cast<float>(sPainter.getProjector()->getDevicePixelsPerPixel());
-		allTrails->setOpacity(trailFader.getInterstate());
-		if (trailsThickness>1 || ppx>1.f)
-			sPainter.setLineWidth(trailsThickness*ppx);
-		allTrails->draw(core, &sPainter);
-		if (trailsThickness>1 || ppx>1.f)
-			sPainter.setLineWidth(1);
-	}
+//	if (trailFader.getInterstate()>0.0000001f)
+//	{
+//		StelPainter sPainter(core->getProjection2d());
+//		const float ppx = static_cast<float>(sPainter.getProjector()->getDevicePixelsPerPixel());
+//		allTrails->setOpacity(trailFader.getInterstate());
+//		if (trailsThickness>1 || ppx>1.f)
+//			sPainter.setLineWidth(trailsThickness*ppx);
+//		allTrails->draw(core, &sPainter);
+//		if (trailsThickness>1 || ppx>1.f)
+//			sPainter.setLineWidth(1);
+//	}
 
-	// Make some voodoo to determine when labels should be displayed
-	const float sdLimitMag=static_cast<float>(core->getSkyDrawer()->getLimitMagnitude());
-	const float maxMagLabel = (sdLimitMag<5.f ? sdLimitMag :
-			5.f+(sdLimitMag-5.f)*1.2f) +(static_cast<float>(labelsAmount)-3.f)*1.2f;
+//	// Make some voodoo to determine when labels should be displayed
+//	const float sdLimitMag=static_cast<float>(core->getSkyDrawer()->getLimitMagnitude());
+//	const float maxMagLabel = (sdLimitMag<5.f ? sdLimitMag :
+//			5.f+(sdLimitMag-5.f)*1.2f) +(static_cast<float>(labelsAmount)-3.f)*1.2f;
 
-	// Draw the elements
-	for (const auto& p : qAsConst(systemPlanets))
-	{
-		if ( (p->getEnglishName() != "Sun") ||
-				((p->getEnglishName() == "Sun") && !(core->getSkyDrawer()->getFlagDrawSunAfterAtmosphere())))
-			p->draw(core, maxMagLabel, planetNameFont);
-	}
+//	// Draw the elements
+//	for (const auto& p : qAsConst(systemPlanets))
+//	{
+//		if ( (p->getEnglishName() != "Sun") ||
+//				((p->getEnglishName() == "Sun") && !(core->getSkyDrawer()->getFlagDrawSunAfterAtmosphere())))
+//			p->draw(core, maxMagLabel, planetNameFont);
+//	}
 
-	if (GETSTELMODULE(StelObjectMgr)->getFlagSelectedObjectPointer() && getFlagPointer())
-		drawPointer(core);
+//	if (GETSTELMODULE(StelObjectMgr)->getFlagSelectedObjectPointer() && getFlagPointer())
+//		drawPointer(core);
 }
 
-void SolarSystem::drawEphemerisItems(const StelCore* core)
-{
-	if (flagShow || (!flagShow && getFlagEphemerisAlwaysOn()))
-	{
-		if (getFlagEphemerisMarkers())
-			drawEphemerisMarkers(core);
-		if (getFlagEphemerisLine())
-			drawEphemerisLine(core);
-	}
-}
+//void SolarSystem::drawEphemerisItems(const StelCore* core)
+//{
+//	if (flagShow || (!flagShow && getFlagEphemerisAlwaysOn()))
+//	{
+//		if (getFlagEphemerisMarkers())
+//			drawEphemerisMarkers(core);
+//		if (getFlagEphemerisLine())
+//			drawEphemerisLine(core);
+//	}
+//}
 
-Vec3f SolarSystem::getEphemerisMarkerColor(int index) const
-{
-	// Sync index with AstroCalcDialog::generateEphemeris(). If required, switch to using a QMap.
-	const QVector<Vec3f> colors={
-		ephemerisGenericMarkerColor,
-		ephemerisSecondaryMarkerColor,
-		ephemerisMercuryMarkerColor,
-		ephemerisVenusMarkerColor,
-		ephemerisMarsMarkerColor,
-		ephemerisJupiterMarkerColor,
-		ephemerisSaturnMarkerColor};
-	return colors.value(index, ephemerisGenericMarkerColor);
-}
+//Vec3f SolarSystem::getEphemerisMarkerColor(int index) const
+//{
+//	// Sync index with AstroCalcDialog::generateEphemeris(). If required, switch to using a QMap.
+//	const QVector<Vec3f> colors={
+//		ephemerisGenericMarkerColor,
+//		ephemerisSecondaryMarkerColor,
+//		ephemerisMercuryMarkerColor,
+//		ephemerisVenusMarkerColor,
+//		ephemerisMarsMarkerColor,
+//		ephemerisJupiterMarkerColor,
+//		ephemerisSaturnMarkerColor};
+//	return colors.value(index, ephemerisGenericMarkerColor);
+//}
 
-void SolarSystem::drawEphemerisMarkers(const StelCore *core)
-{
-	const int fsize = AstroCalcDialog::EphemerisList.count();
-	if (fsize==0) return;
+//void SolarSystem::drawEphemerisMarkers(const StelCore *core)
+//{
+//	const int fsize = AstroCalcDialog::EphemerisList.count();
+//	if (fsize==0) return;
 
-	StelProjectorP prj;
-	if (getFlagEphemerisHorizontalCoordinates())
-		prj = core->getProjection(StelCore::FrameAltAz, StelCore::RefractionOff);
-	else
-		prj = core->getProjection(StelCore::FrameJ2000);
-	StelPainter sPainter(prj);
+//	StelProjectorP prj;
+//	if (getFlagEphemerisHorizontalCoordinates())
+//		prj = core->getProjection(StelCore::FrameAltAz, StelCore::RefractionOff);
+//	else
+//		prj = core->getProjection(StelCore::FrameJ2000);
+//	StelPainter sPainter(prj);
 
-	float size, shift, baseSize = 4.f;
-	const bool showDates = getFlagEphemerisDates();
-	const bool showMagnitudes = getFlagEphemerisMagnitudes();
-	const bool showSkippedData = getFlagEphemerisSkipData();
-	const bool skipMarkers = getFlagEphemerisSkipMarkers();
-	const int dataStep = getEphemerisDataStep();
-	const int sizeCoeff = getEphemerisLineThickness() - 1;
-	QString info = "";
-	Vec3d win;
-	Vec3f markerColor;
+//	float size, shift, baseSize = 4.f;
+//	const bool showDates = getFlagEphemerisDates();
+//	const bool showMagnitudes = getFlagEphemerisMagnitudes();
+//	const bool showSkippedData = getFlagEphemerisSkipData();
+//	const bool skipMarkers = getFlagEphemerisSkipMarkers();
+//	const int dataStep = getEphemerisDataStep();
+//	const int sizeCoeff = getEphemerisLineThickness() - 1;
+//	QString info = "";
+//	Vec3d win;
+//	Vec3f markerColor;
 
-	if (getFlagEphemerisLine() && getFlagEphemerisScaleMarkers())
-		baseSize = 3.f; // The line lies through center of marker
+//	if (getFlagEphemerisLine() && getFlagEphemerisScaleMarkers())
+//		baseSize = 3.f; // The line lies through center of marker
 
-	for (int i =0; i < fsize; i++)
-	{
-		// Check visibility of pointer
-		if (!(sPainter.getProjector()->projectCheck(AstroCalcDialog::EphemerisList[i].coord, win)))
-			continue;
+//	for (int i =0; i < fsize; i++)
+//	{
+//		// Check visibility of pointer
+//		if (!(sPainter.getProjector()->projectCheck(AstroCalcDialog::EphemerisList[i].coord, win)))
+//			continue;
 
-		QString debugStr; // Used temporarily for development
-		const bool isComet=AstroCalcDialog::EphemerisList[i].isComet;
-		if (i == AstroCalcDialog::DisplayedPositionIndex)
-		{
-			markerColor = getEphemerisSelectedMarkerColor();
-			size = 6.f;
-		}
-		else
-		{
-			markerColor = getEphemerisMarkerColor(AstroCalcDialog::EphemerisList[i].colorIndex);
-			size = baseSize;
-		}
-		if (isComet) size += 16.f;
-		size += sizeCoeff; //
-		sPainter.setColor(markerColor);
-		sPainter.setBlending(true, GL_ONE, GL_ONE);
-		if (isComet)
-			texEphemerisCometMarker->bind();
-		else
-			texEphemerisMarker->bind();
-		if (skipMarkers)
-		{
-			if ((showDates || showMagnitudes) && showSkippedData && ((i + 1)%dataStep)!=1 && dataStep!=1)
-				continue;
-		}
-		Vec3f win;
-		float solarAngle=0.f; // Angle to possibly rotate the texture. Degrees.
-		if (prj->project(AstroCalcDialog::EphemerisList[i].coord, win))
-		{
-			if (isComet)
-			{
-				// compute solarAngle in screen space.
-				Vec3f sunWin;
-				prj->project(AstroCalcDialog::EphemerisList[i].sunCoord, sunWin);
-				// TODO: In some projections, we may need to test result and flip/mirror the angle, or deal with wrap-around effects.
-				// E.g., in cylindrical mode, the comet icon will flip as soon as the corresponding sun position wraps around the screen edge.
-				solarAngle=M_180_PIf*(atan2(-(win[1]-sunWin[1]), win[0]-sunWin[0]));
-				// This will show projected positions and angles usable in labels.
-				debugStr = QString("Sun: %1/%2 Obj: %3/%4 -->%5").arg(QString::number(sunWin[0]), QString::number(sunWin[1]), QString::number(win[0]), QString::number(win[1]), QString::number(solarAngle));
-			}
-			//sPainter.drawSprite2dMode(static_cast<float>(win[0]), static_cast<float>(win[1]), size, 180.f+AstroCalcDialog::EphemerisList[i].solarAngle*M_180_PIf);
-			sPainter.drawSprite2dMode(static_cast<float>(win[0]), static_cast<float>(win[1]), size, 270.f-solarAngle);
-		}
+//		QString debugStr; // Used temporarily for development
+//		const bool isComet=AstroCalcDialog::EphemerisList[i].isComet;
+//		if (i == AstroCalcDialog::DisplayedPositionIndex)
+//		{
+//			markerColor = getEphemerisSelectedMarkerColor();
+//			size = 6.f;
+//		}
+//		else
+//		{
+//			markerColor = getEphemerisMarkerColor(AstroCalcDialog::EphemerisList[i].colorIndex);
+//			size = baseSize;
+//		}
+//		if (isComet) size += 16.f;
+//		size += sizeCoeff; //
+//		sPainter.setColor(markerColor);
+//		sPainter.setBlending(true, GL_ONE, GL_ONE);
+//		if (isComet)
+//			texEphemerisCometMarker->bind();
+//		else
+//			texEphemerisMarker->bind();
+//		if (skipMarkers)
+//		{
+//			if ((showDates || showMagnitudes) && showSkippedData && ((i + 1)%dataStep)!=1 && dataStep!=1)
+//				continue;
+//		}
+//		Vec3f win;
+//		float solarAngle=0.f; // Angle to possibly rotate the texture. Degrees.
+//		if (prj->project(AstroCalcDialog::EphemerisList[i].coord, win))
+//		{
+//			if (isComet)
+//			{
+//				// compute solarAngle in screen space.
+//				Vec3f sunWin;
+//				prj->project(AstroCalcDialog::EphemerisList[i].sunCoord, sunWin);
+//				// TODO: In some projections, we may need to test result and flip/mirror the angle, or deal with wrap-around effects.
+//				// E.g., in cylindrical mode, the comet icon will flip as soon as the corresponding sun position wraps around the screen edge.
+//				solarAngle=M_180_PIf*(atan2(-(win[1]-sunWin[1]), win[0]-sunWin[0]));
+//				// This will show projected positions and angles usable in labels.
+//				debugStr = QString("Sun: %1/%2 Obj: %3/%4 -->%5").arg(QString::number(sunWin[0]), QString::number(sunWin[1]), QString::number(win[0]), QString::number(win[1]), QString::number(solarAngle));
+//			}
+//			//sPainter.drawSprite2dMode(static_cast<float>(win[0]), static_cast<float>(win[1]), size, 180.f+AstroCalcDialog::EphemerisList[i].solarAngle*M_180_PIf);
+//			sPainter.drawSprite2dMode(static_cast<float>(win[0]), static_cast<float>(win[1]), size, 270.f-solarAngle);
+//		}
 
-		if (showDates || showMagnitudes)
-		{
-			if (showSkippedData && ((i + 1)%dataStep)!=1 && dataStep!=1)
-				continue;
+//		if (showDates || showMagnitudes)
+//		{
+//			if (showSkippedData && ((i + 1)%dataStep)!=1 && dataStep!=1)
+//				continue;
 
-			shift = 3.f + size/1.6f;
-			if (showDates && showMagnitudes)
-				info = QString("%1 (%2)").arg(AstroCalcDialog::EphemerisList[i].objDateStr, QString::number(AstroCalcDialog::EphemerisList[i].magnitude, 'f', 2));
-			if (showDates && !showMagnitudes)
-				info = AstroCalcDialog::EphemerisList[i].objDateStr;
-			if (!showDates && showMagnitudes)
-				info = QString::number(AstroCalcDialog::EphemerisList[i].magnitude, 'f', 2);
+//			shift = 3.f + size/1.6f;
+//			if (showDates && showMagnitudes)
+//				info = QString("%1 (%2)").arg(AstroCalcDialog::EphemerisList[i].objDateStr, QString::number(AstroCalcDialog::EphemerisList[i].magnitude, 'f', 2));
+//			if (showDates && !showMagnitudes)
+//				info = AstroCalcDialog::EphemerisList[i].objDateStr;
+//			if (!showDates && showMagnitudes)
+//				info = QString::number(AstroCalcDialog::EphemerisList[i].magnitude, 'f', 2);
 
-			// Activate for debug labels.
-			//info=debugStr;
-			sPainter.drawText(AstroCalcDialog::EphemerisList[i].coord, info, 0, shift, shift, false);
-		}
-	}
-}
+//			// Activate for debug labels.
+//			//info=debugStr;
+//			sPainter.drawText(AstroCalcDialog::EphemerisList[i].coord, info, 0, shift, shift, false);
+//		}
+//	}
+//}
 
-void SolarSystem::drawEphemerisLine(const StelCore *core)
-{
-	const int size = AstroCalcDialog::EphemerisList.count();
-	if (size==0) return;
+//void SolarSystem::drawEphemerisLine(const StelCore *core)
+//{
+//	const int size = AstroCalcDialog::EphemerisList.count();
+//	if (size==0) return;
 
-	// The array of data is not empty - good news!
-	StelProjectorP prj;
-	if (getFlagEphemerisHorizontalCoordinates())
-		prj = core->getProjection(StelCore::FrameAltAz, StelCore::RefractionOff);
-	else
-		prj = core->getProjection(StelCore::FrameJ2000);
-	StelPainter sPainter(prj);
-	const float ppx = static_cast<float>(sPainter.getProjector()->getDevicePixelsPerPixel());
+//	// The array of data is not empty - good news!
+//	StelProjectorP prj;
+//	if (getFlagEphemerisHorizontalCoordinates())
+//		prj = core->getProjection(StelCore::FrameAltAz, StelCore::RefractionOff);
+//	else
+//		prj = core->getProjection(StelCore::FrameJ2000);
+//	StelPainter sPainter(prj);
+//	const float ppx = static_cast<float>(sPainter.getProjector()->getDevicePixelsPerPixel());
 
-	const float oldLineThickness=sPainter.getLineWidth();
-	const float lineThickness = getEphemerisLineThickness()*ppx;
-	if (!fuzzyEquals(lineThickness, oldLineThickness))
-		sPainter.setLineWidth(lineThickness);
+//	const float oldLineThickness=sPainter.getLineWidth();
+//	const float lineThickness = getEphemerisLineThickness()*ppx;
+//	if (!fuzzyEquals(lineThickness, oldLineThickness))
+//		sPainter.setLineWidth(lineThickness);
 
-	Vec3f color;
-	QVector<Vec3d> vertexArray;
-	QVector<Vec4f> colorArray;
-	const int limit = getEphemerisDataLimit();
-	const int nsize = static_cast<int>(size/limit);
-	vertexArray.resize(nsize);
-	colorArray.resize(nsize);
-	for (int j=0; j<limit; j++)
-	{
-		for (int i =0; i < nsize; i++)
-		{
-			color = getEphemerisMarkerColor(AstroCalcDialog::EphemerisList[i + j*nsize].colorIndex);
-			colorArray[i]=Vec4f(color, 1.0f);
-			vertexArray[i]=AstroCalcDialog::EphemerisList[i + j*nsize].coord;
-		}
-		sPainter.drawPath(vertexArray, colorArray);
-	}
+//	Vec3f color;
+//	QVector<Vec3d> vertexArray;
+//	QVector<Vec4f> colorArray;
+//	const int limit = getEphemerisDataLimit();
+//	const int nsize = static_cast<int>(size/limit);
+//	vertexArray.resize(nsize);
+//	colorArray.resize(nsize);
+//	for (int j=0; j<limit; j++)
+//	{
+//		for (int i =0; i < nsize; i++)
+//		{
+//			color = getEphemerisMarkerColor(AstroCalcDialog::EphemerisList[i + j*nsize].colorIndex);
+//			colorArray[i]=Vec4f(color, 1.0f);
+//			vertexArray[i]=AstroCalcDialog::EphemerisList[i + j*nsize].coord;
+//		}
+//		sPainter.drawPath(vertexArray, colorArray);
+//	}
 
-	if (!fuzzyEquals(lineThickness, oldLineThickness))
-		sPainter.setLineWidth(oldLineThickness); // restore line thickness
-}
+//	if (!fuzzyEquals(lineThickness, oldLineThickness))
+//		sPainter.setLineWidth(oldLineThickness); // restore line thickness
+//}
 
-void SolarSystem::fillEphemerisDates()
-{
-	const int fsize = AstroCalcDialog::EphemerisList.count();
-	if (fsize==0) return;
+//void SolarSystem::fillEphemerisDates()
+//{
+//    //const int fsize = AstroCalcDialog::EphemerisList.count();
+//	if (fsize==0) return;
 
-	StelLocaleMgr* localeMgr = &StelApp::getInstance().getLocaleMgr();
-	const bool showSmartDates = getFlagEphemerisSmartDates();
-	double JD = AstroCalcDialog::EphemerisList.first().objDate;
-	bool withTime = (fsize>1 && (AstroCalcDialog::EphemerisList[1].objDate-JD<1.0));
+//    //StelLocaleMgr* localeMgr = &StelApp::getInstance().getLocaleMgr();
+//    //const bool showSmartDates = getFlagEphemerisSmartDates();
+//	double JD = AstroCalcDialog::EphemerisList.first().objDate;
+//	bool withTime = (fsize>1 && (AstroCalcDialog::EphemerisList[1].objDate-JD<1.0));
 
-	int fYear, fMonth, fDay, sYear, sMonth, sDay, h, m, s;
-	QString info;
-	const double shift = StelApp::getInstance().getCore()->getUTCOffset(JD)*0.041666666666;
-	StelUtils::getDateFromJulianDay(JD+shift, &fYear, &fMonth, &fDay);
-	bool sFlag = true;
-	sYear = fYear;
-	sMonth = fMonth;
-	sDay = fDay;
-	const bool showSkippedData = getFlagEphemerisSkipData();
-	const int dataStep = getEphemerisDataStep();
+//	int fYear, fMonth, fDay, sYear, sMonth, sDay, h, m, s;
+//	QString info;
+//	const double shift = StelApp::getInstance().getCore()->getUTCOffset(JD)*0.041666666666;
+//	StelUtils::getDateFromJulianDay(JD+shift, &fYear, &fMonth, &fDay);
+//	bool sFlag = true;
+//	sYear = fYear;
+//	sMonth = fMonth;
+//	sDay = fDay;
+//	const bool showSkippedData = getFlagEphemerisSkipData();
+//	const int dataStep = getEphemerisDataStep();
 
-	for (int i = 0; i < fsize; i++)
-	{
-		JD = AstroCalcDialog::EphemerisList[i].objDate;
-		StelUtils::getDateFromJulianDay(JD+shift, &fYear, &fMonth, &fDay);
+//	for (int i = 0; i < fsize; i++)
+//	{
+//		JD = AstroCalcDialog::EphemerisList[i].objDate;
+//		StelUtils::getDateFromJulianDay(JD+shift, &fYear, &fMonth, &fDay);
 
-		if (showSkippedData && ((i + 1)%dataStep)!=1 && dataStep!=1)
-			continue;
+//		if (showSkippedData && ((i + 1)%dataStep)!=1 && dataStep!=1)
+//			continue;
 
-		if (showSmartDates)
-		{
-			if (sFlag)
-				info = QString("%1").arg(fYear);
+//		if (showSmartDates)
+//		{
+//			if (sFlag)
+//				info = QString("%1").arg(fYear);
 
-			if (info.isEmpty() && !sFlag && fYear!=sYear)
-				info = QString("%1").arg(fYear);
+//			if (info.isEmpty() && !sFlag && fYear!=sYear)
+//				info = QString("%1").arg(fYear);
 
-			if (!info.isEmpty())
-				info.append(QString("/%1").arg(localeMgr->romanMonthName(fMonth)));
-			else if (fMonth!=sMonth)
-				info = QString("%1").arg(localeMgr->romanMonthName(fMonth));
+//			if (!info.isEmpty())
+//				info.append(QString("/%1").arg(localeMgr->romanMonthName(fMonth)));
+//			else if (fMonth!=sMonth)
+//				info = QString("%1").arg(localeMgr->romanMonthName(fMonth));
 
-			if (!info.isEmpty())
-				info.append(QString("/%1").arg(fDay));
-			else
-				info = QString("%1").arg(fDay);
+//			if (!info.isEmpty())
+//				info.append(QString("/%1").arg(fDay));
+//			else
+//                info = QStri/*ng("%1").arg(fDay);
 
-			if (withTime) // very short step
-			{
-				if (fDay==sDay && !sFlag)
-					info.clear();
+//			if (withTime) // very short step
+//			{
+//				if (fDay==sDay && !sFlag)
+//					info.clear();
 
-				StelUtils::getTimeFromJulianDay(JD+shift, &h, &m, &s);
-				if (!info.isEmpty())
-					info.append(QString(" %1:%2").arg(h).arg(m));
-				else
-					info = QString("%1:%2").arg(h).arg(m);
-			}
+//				StelUtils::getTimeFromJulianDay(JD+shift, &h, &m, &s);
+//				if (!info.isEmpty())
+//					info.append(QString(" %1:%2").arg(h).arg(m));
+//				else
+//					info = QString("%1:%2").arg(h).arg(m);
+//			}
 
-			AstroCalcDialog::EphemerisList[i].objDateStr = info;
-			info.clear();
-			sYear = fYear;
-			sMonth = fMonth;
-			sDay = fDay;
-			sFlag = false;
-		}
-		else
-		{
-			// OK, let's use standard formats for date and time (as defined for whole planetarium)
-			if (withTime)
-				AstroCalcDialog::EphemerisList[i].objDateStr = QString("%1 %2").arg(localeMgr->getPrintableDateLocal(JD), localeMgr->getPrintableTimeLocal(JD));
-			else
-				AstroCalcDialog::EphemerisList[i].objDateStr = localeMgr->getPrintableDateLocal(JD);
-		}
-	}
-}
+//			AstroCalcDialog::EphemerisList[i].objDateStr = info;
+//			info.clear();
+//			sYear = fYear;
+//			sMonth = fMonth;
+//			sDay = fDay;
+//			sFlag = false;
+//		}
+//		else
+//		{
+//			// OK, let's use standard formats for date and time (as defined for whole planetarium)
+//			if (withTime)
+//				AstroCalcDialog::EphemerisList[i].objDateStr = QString("%1 %2").arg(localeMgr->getPrintableDateLocal(JD), localeMgr->getPrintableTimeLocal(JD));
+//			else
+//				AstroCalcDialog::EphemerisList[i].objDateStr = localeMgr->getPrintableDateLocal(JD);
+//		}
+//	}
+//}*/
 
 PlanetP SolarSystem::searchByEnglishName(QString planetEnglishName) const
 {
@@ -1622,24 +1626,25 @@ PlanetP SolarSystem::searchMinorPlanetByEnglishName(QString planetEnglishName) c
 }
 
 
-StelObjectP SolarSystem::searchByNameI18n(const QString& planetNameI18) const
-{
-	for (const auto& p : systemPlanets)
-	{
-		QString nativeName = p->getNativeNameI18n().toUpper();
-		if (p->getNameI18n().toUpper() == planetNameI18.toUpper() || (!nativeName.isEmpty() && nativeName == planetNameI18.toUpper()))
-			return qSharedPointerCast<StelObject>(p);
-	}
-	return StelObjectP();
-}
+//StelObjectP SolarSystem::searchByNameI18n(const QString& planetNameI18) const
+//{
+//	for (const auto& p : systemPlanets)
+//	{
+//		QString nativeName = p->getNativeNameI18n().toUpper();
+//		if (p->getNameI18n().toUpper() == planetNameI18.toUpper() || (!nativeName.isEmpty() && nativeName == planetNameI18.toUpper()))
+//			return qSharedPointerCast<StelObject>(p);
+//	}
+//	return StelObjectP();
+//}
 
 
 StelObjectP SolarSystem::searchByName(const QString& name) const
 {
 	for (const auto& p : systemPlanets)
 	{
-		QString nativeName = p->getNativeName().toUpper();
-		if (p->getEnglishName().toUpper() == name.toUpper() || (!nativeName.isEmpty() && nativeName == name.toUpper()))
+        //QString nativeName = p->getNativeName().toUpper();
+        //if (p->getEnglishName().toUpper() == name.toUpper() || (!nativeName.isEmpty() && nativeName == name.toUpper()))
+        if (p->getEnglishName().toUpper() == name.toUpper())
 			return qSharedPointerCast<StelObject>(p);
 	}
 	return StelObjectP();
@@ -1754,8 +1759,8 @@ StelObjectP SolarSystem::search(Vec3d pos, const StelCore* core) const
 QList<StelObjectP> SolarSystem::searchAround(const Vec3d& vv, double limitFov, const StelCore* core) const
 {
 	QList<StelObjectP> result;
-	if (!getFlagPlanets())
-		return result;
+//	if (!getFlagPlanets())
+//		return result;
 
 	const bool withAberration=core->getUseAberration();
 	Vec3d v(vv);
@@ -1790,213 +1795,213 @@ QList<StelObjectP> SolarSystem::searchAround(const Vec3d& vv, double limitFov, c
 }
 
 // Update i18 names from english names according to current sky culture translator
-void SolarSystem::updateI18n()
-{
-	const StelTranslator& trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
-	for (const auto& p : qAsConst(systemPlanets))
-		p->translateName(trans);
-}
+//void SolarSystem::updateI18n()
+//{
+//	const StelTranslator& trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
+//	for (const auto& p : qAsConst(systemPlanets))
+//		p->translateName(trans);
+//}
 
 QStringList SolarSystem::listMatchingObjects(const QString& objPrefix, int maxNbItem, bool useStartOfWords) const
 {
 	QStringList result;
-	if (getFlagPlanets())
-		result = StelObjectModule::listMatchingObjects(objPrefix, maxNbItem, useStartOfWords);
+//	if (getFlagPlanets())
+//		result = StelObjectModule::listMatchingObjects(objPrefix, maxNbItem, useStartOfWords);
 	return result;
 }
 
-void SolarSystem::setFlagTrails(bool b)
-{
-	if (getFlagTrails() != b)
-	{
-		trailFader = b;
-		if (b)
-		{
-			allTrails->reset(maxTrailPoints);
-			recreateTrails();
-		}
-		emit trailsDisplayedChanged(b);
-	}
-}
+//void SolarSystem::setFlagTrails(bool b)
+//{
+//	if (getFlagTrails() != b)
+//	{
+//		trailFader = b;
+//		if (b)
+//		{
+//			allTrails->reset(maxTrailPoints);
+//			recreateTrails();
+//		}
+//		emit trailsDisplayedChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagTrails() const
-{
-	return static_cast<bool>(trailFader);
-}
+//bool SolarSystem::getFlagTrails() const
+//{
+//	return static_cast<bool>(trailFader);
+//}
 
-void SolarSystem::setMaxTrailPoints(int max)
-{
-	if (maxTrailPoints != max)
-	{
-		maxTrailPoints = max;
-		allTrails->reset(max);
-		recreateTrails();
-		emit maxTrailPointsChanged(max);
-	}
-}
+//void SolarSystem::setMaxTrailPoints(int max)
+//{
+//	if (maxTrailPoints != max)
+//	{
+//		maxTrailPoints = max;
+//		allTrails->reset(max);
+//		recreateTrails();
+//		emit maxTrailPointsChanged(max);
+//	}
+//}
 
-void SolarSystem::setMaxTrailTimeExtent(int max)
-{
-	if (maxTrailTimeExtent != max && maxTrailTimeExtent > 0)
-	{
-		maxTrailTimeExtent = max;
-		recreateTrails();
-		emit maxTrailTimeExtentChanged(max);
-	}
-}
+//void SolarSystem::setMaxTrailTimeExtent(int max)
+//{
+//	if (maxTrailTimeExtent != max && maxTrailTimeExtent > 0)
+//	{
+//		maxTrailTimeExtent = max;
+//		recreateTrails();
+//		emit maxTrailTimeExtentChanged(max);
+//	}
+//}
 
-void SolarSystem::setTrailsThickness(int v)
-{
-	if (trailsThickness != v)
-	{
-		trailsThickness = v;
-		emit trailsThicknessChanged(v);
-	}
-}
+//void SolarSystem::setTrailsThickness(int v)
+//{
+//	if (trailsThickness != v)
+//	{
+//		trailsThickness = v;
+//		emit trailsThicknessChanged(v);
+//	}
+//}
 
-void SolarSystem::setFlagHints(bool b)
-{
-	if (getFlagHints() != b)
-	{
-		for (const auto& p : qAsConst(systemPlanets))
-			p->setFlagHints(b);
-		emit flagHintsChanged(b);
-	}
-}
+//void SolarSystem::setFlagHints(bool b)
+//{
+//	if (getFlagHints() != b)
+//	{
+//		for (const auto& p : qAsConst(systemPlanets))
+//			p->setFlagHints(b);
+//		emit flagHintsChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagHints(void) const
-{
-	for (const auto& p : systemPlanets)
-	{
-		if (p->getFlagHints())
-			return true;
-	}
-	return false;
-}
+//bool SolarSystem::getFlagHints(void) const
+//{
+//	for (const auto& p : systemPlanets)
+//	{
+//		if (p->getFlagHints())
+//			return true;
+//	}
+//	return false;
+//}
 
-void SolarSystem::setFlagLabels(bool b)
-{
-	if (getFlagLabels() != b)
-	{
-		for (const auto& p : qAsConst(systemPlanets))
-			p->setFlagLabels(b);
-		emit labelsDisplayedChanged(b);
-	}
-}
+//void SolarSystem::setFlagLabels(bool b)
+//{
+//	if (getFlagLabels() != b)
+//	{
+//		for (const auto& p : qAsConst(systemPlanets))
+//			p->setFlagLabels(b);
+//		emit labelsDisplayedChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagLabels() const
-{
-	for (const auto& p : systemPlanets)
-	{
-		if (p->getFlagLabels())
-			return true;
-	}
-	return false;
-}
+//bool SolarSystem::getFlagLabels() const
+//{
+//	for (const auto& p : systemPlanets)
+//	{
+//		if (p->getFlagLabels())
+//			return true;
+//	}
+//	return false;
+//}
 
-void SolarSystem::setFlagOrbits(bool b)
-{
-	bool old = flagOrbits;
-	flagOrbits = b;
-	bool flagPlanetsOnly = getFlagPlanetsOrbitsOnly();
-	if (!b || !selected || selected==sun)
-	{
-		if (flagPlanetsOnly)
-		{
-			for (const auto& p : qAsConst(systemPlanets))
-			{
-				if (p->getPlanetType()==Planet::isPlanet)
-					p->setFlagOrbits(b);
-				else
-					p->setFlagOrbits(false);
-			}
-		}
-		else
-		{
-			for (const auto& p : qAsConst(systemPlanets))
-				p->setFlagOrbits(b);
-		}
-	}
-	else if (getFlagIsolatedOrbits()) // If a Planet is selected and orbits are on, fade out non-selected ones
-	{
-		if (flagPlanetsOnly)
-		{
-			for (const auto& p : qAsConst(systemPlanets))
-			{
-				if (selected == p && p->getPlanetType()==Planet::isPlanet)
-					p->setFlagOrbits(b);
-				else
-					p->setFlagOrbits(false);
-			}
-		}
-		else
-		{
-			for (const auto& p : qAsConst(systemPlanets))
-			{
-				if (selected == p)
-					p->setFlagOrbits(b);
-				else
-					p->setFlagOrbits(false);
-			}
-		}
-	}
-	else
-	{
-		// A planet is selected and orbits are on - draw orbits for the planet and their moons
-		for (const auto& p : qAsConst(systemPlanets))
-		{
-			if (selected == p || selected == p->parent)
-				p->setFlagOrbits(b);
-			else
-				p->setFlagOrbits(false);
-		}
-	}
-	if(old != flagOrbits)
-		emit flagOrbitsChanged(flagOrbits);
-}
+//void SolarSystem::setFlagOrbits(bool b)
+//{
+//	bool old = flagOrbits;
+//	flagOrbits = b;
+//	bool flagPlanetsOnly = getFlagPlanetsOrbitsOnly();
+//	if (!b || !selected || selected==sun)
+//	{
+//		if (flagPlanetsOnly)
+//		{
+//			for (const auto& p : qAsConst(systemPlanets))
+//			{
+//				if (p->getPlanetType()==Planet::isPlanet)
+//					p->setFlagOrbits(b);
+//				else
+//					p->setFlagOrbits(false);
+//			}
+//		}
+//		else
+//		{
+//			for (const auto& p : qAsConst(systemPlanets))
+//				p->setFlagOrbits(b);
+//		}
+//	}
+//	else if (getFlagIsolatedOrbits()) // If a Planet is selected and orbits are on, fade out non-selected ones
+//	{
+//		if (flagPlanetsOnly)
+//		{
+//			for (const auto& p : qAsConst(systemPlanets))
+//			{
+//				if (selected == p && p->getPlanetType()==Planet::isPlanet)
+//					p->setFlagOrbits(b);
+//				else
+//					p->setFlagOrbits(false);
+//			}
+//		}
+//		else
+//		{
+//			for (const auto& p : qAsConst(systemPlanets))
+//			{
+//				if (selected == p)
+//					p->setFlagOrbits(b);
+//				else
+//					p->setFlagOrbits(false);
+//			}
+//		}
+//	}
+//	else
+//	{
+//		// A planet is selected and orbits are on - draw orbits for the planet and their moons
+//		for (const auto& p : qAsConst(systemPlanets))
+//		{
+//			if (selected == p || selected == p->parent)
+//				p->setFlagOrbits(b);
+//			else
+//				p->setFlagOrbits(false);
+//		}
+//	}
+//	if(old != flagOrbits)
+//		emit flagOrbitsChanged(flagOrbits);
+//}
 
 void SolarSystem::setFlagLightTravelTime(bool b)
 {
-	if(b!=flagLightTravelTime)
-	{
-		flagLightTravelTime = b;
-		emit flagLightTravelTimeChanged(b);
-	}
+    if(b!=flagLightTravelTime)
+    {
+        flagLightTravelTime = b;
+        //emit flagLightTravelTimeChanged(b);
+    }
 }
 
-void SolarSystem::setFlagShowObjSelfShadows(bool b)
-{
-	if(b!=flagShowObjSelfShadows)
-	{
-		flagShowObjSelfShadows = b;
-		if(!b)
-			Planet::deinitFBO();
-		emit flagShowObjSelfShadowsChanged(b);
-	}
-}
+//void SolarSystem::setFlagShowObjSelfShadows(bool b)
+//{
+//	if(b!=flagShowObjSelfShadows)
+//	{
+//		flagShowObjSelfShadows = b;
+//		if(!b)
+//			Planet::deinitFBO();
+//		emit flagShowObjSelfShadowsChanged(b);
+//	}
+//}
 
-void SolarSystem::setSelected(PlanetP obj)
-{
-	if (obj && obj->getType() == "Planet")
-	{
-		selected = obj;
-		selectedSSO.push_back(obj);
-	}
-	else
-		selected.clear();
-	// Undraw other objects hints, orbit, trails etc..
-	setFlagHints(getFlagHints());
-	setFlagOrbits(getFlagOrbits());
-}
+//void SolarSystem::setSelected(PlanetP obj)
+//{
+//	if (obj && obj->getType() == "Planet")
+//	{
+//		selected = obj;
+//		selectedSSO.push_back(obj);
+//	}
+//	else
+//		selected.clear();
+//	// Undraw other objects hints, orbit, trails etc..
+//	setFlagHints(getFlagHints());
+//	setFlagOrbits(getFlagOrbits());
+//}
 
 
 void SolarSystem::update(double deltaTime)
 {
-	trailFader.update(static_cast<int>(deltaTime*1000));
-	if (trailFader.getInterstate()>0.f)
-	{
-		allTrails->update();
-	}
+//	trailFader.update(static_cast<int>(deltaTime*1000));
+//	if (trailFader.getInterstate()>0.f)
+//	{
+//		allTrails->update();
+//	}
 
 	for (const auto& p : qAsConst(systemPlanets))
 	{
@@ -2044,9 +2049,9 @@ QStringList SolarSystem::listAllObjects(bool inEnglish) const
 	{
 		for (const auto& p : systemPlanets)
 		{
-			result << p->getNameI18n();
-			if (!p->getNativeNameI18n().isEmpty())
-				result << p->getNativeNameI18n() << p->getNativeName();
+            //result << p->getNameI18n();
+            //if (!p->getNativeNameI18n().isEmpty())
+                //result << p->getNativeNameI18n() << p->getNativeName();
 		}
 	}
 	return result;
@@ -2067,197 +2072,197 @@ QStringList SolarSystem::listAllObjectsByType(const QString &objType, bool inEng
 	{
 		for (const auto& p : systemPlanets)
 		{
-			if (p->getPlanetTypeString()==objType)
-				result << p->getNameI18n();
+            //if (p->getPlanetTypeString()==objType)
+                //result << p->getNameI18n();
 		}
 	}
 	return result;
 }
 
-void SolarSystem::selectedObjectChange(StelModule::StelModuleSelectAction)
-{
-	const QList<StelObjectP> newSelected = GETSTELMODULE(StelObjectMgr)->getSelectedObject("Planet");
-	if (!newSelected.empty())
-	{
-		setSelected(qSharedPointerCast<Planet>(newSelected[0]));
-		if (getFlagIsolatedTrails())
-			recreateTrails();
-	}
-	else
-		setSelected("");
-}
+//void SolarSystem::selectedObjectChange(StelModule::StelModuleSelectAction)
+//{
+//	const QList<StelObjectP> newSelected = GETSTELMODULE(StelObjectMgr)->getSelectedObject("Planet");
+//	if (!newSelected.empty())
+//	{
+//		setSelected(qSharedPointerCast<Planet>(newSelected[0]));
+//		if (getFlagIsolatedTrails())
+//			recreateTrails();
+//	}
+//	else
+//		setSelected("");
+//}
 
 // Activate/Deactivate planets display
-void SolarSystem::setFlagPlanets(bool b)
-{
-	if (b!=flagShow)
-	{
-		flagShow=b;
-		emit flagPlanetsDisplayedChanged(b);
-	}
-}
+//void SolarSystem::setFlagPlanets(bool b)
+//{
+//	if (b!=flagShow)
+//	{
+//		flagShow=b;
+//		emit flagPlanetsDisplayedChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagPlanets(void) const
-{
-	return flagShow;
-}
+//bool SolarSystem::getFlagPlanets(void) const
+//{
+//	return flagShow;
+//}
 
-void SolarSystem::setFlagEphemerisMarkers(bool b)
-{
-	if (b!=ephemerisMarkersDisplayed)
-	{
-		ephemerisMarkersDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_markers", b); // Immediate saving of state
-		emit ephemerisMarkersChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisMarkers(bool b)
+//{
+//	if (b!=ephemerisMarkersDisplayed)
+//	{
+//		ephemerisMarkersDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_markers", b); // Immediate saving of state
+//		emit ephemerisMarkersChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisMarkers() const
-{
-	return ephemerisMarkersDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisMarkers() const
+//{
+//	return ephemerisMarkersDisplayed;
+//}
 
-void SolarSystem::setFlagEphemerisLine(bool b)
-{
-	if (b!=ephemerisLineDisplayed)
-	{
-		ephemerisLineDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_line", b); // Immediate saving of state
-		emit ephemerisLineChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisLine(bool b)
+//{
+//	if (b!=ephemerisLineDisplayed)
+//	{
+//		ephemerisLineDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_line", b); // Immediate saving of state
+//		emit ephemerisLineChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisLine() const
-{
-	return ephemerisLineDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisLine() const
+//{
+//	return ephemerisLineDisplayed;
+//}
 
-bool SolarSystem::getFlagEphemerisAlwaysOn() const
-{
-	return ephemerisAlwaysOn;
-}
+//bool SolarSystem::getFlagEphemerisAlwaysOn() const
+//{
+//	return ephemerisAlwaysOn;
+//}
 
-void SolarSystem::setFlagEphemerisAlwaysOn(bool b)
-{
-	if (b != ephemerisAlwaysOn)
-	{
-		ephemerisAlwaysOn = b;
-		conf->setValue("astrocalc/flag_ephemeris_alwayson", b); // Immediate saving of state
-		emit ephemerisAlwaysOnChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisAlwaysOn(bool b)
+//{
+//	if (b != ephemerisAlwaysOn)
+//	{
+//		ephemerisAlwaysOn = b;
+//		conf->setValue("astrocalc/flag_ephemeris_alwayson", b); // Immediate saving of state
+//		emit ephemerisAlwaysOnChanged(b);
+//	}
+//}
 
-void SolarSystem::setFlagEphemerisHorizontalCoordinates(bool b)
-{
-	if (b!=ephemerisHorizontalCoordinates)
-	{
-		ephemerisHorizontalCoordinates=b;
-		conf->setValue("astrocalc/flag_ephemeris_horizontal", b); // Immediate saving of state
-		emit ephemerisHorizontalCoordinatesChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisHorizontalCoordinates(bool b)
+//{
+//	if (b!=ephemerisHorizontalCoordinates)
+//	{
+//		ephemerisHorizontalCoordinates=b;
+//		conf->setValue("astrocalc/flag_ephemeris_horizontal", b); // Immediate saving of state
+//		emit ephemerisHorizontalCoordinatesChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisHorizontalCoordinates() const
-{
-	return ephemerisHorizontalCoordinates;
-}
+//bool SolarSystem::getFlagEphemerisHorizontalCoordinates() const
+//{
+//	return ephemerisHorizontalCoordinates;
+//}
 
-void SolarSystem::setFlagEphemerisDates(bool b)
-{
-	if (b!=ephemerisDatesDisplayed)
-	{
-		ephemerisDatesDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_dates", b); // Immediate saving of state
-		emit ephemerisDatesChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisDates(bool b)
+//{
+//	if (b!=ephemerisDatesDisplayed)
+//	{
+//		ephemerisDatesDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_dates", b); // Immediate saving of state
+//		emit ephemerisDatesChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisDates() const
-{
-	return ephemerisDatesDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisDates() const
+//{
+//	return ephemerisDatesDisplayed;
+//}
 
-void SolarSystem::setFlagEphemerisMagnitudes(bool b)
-{
-	if (b!=ephemerisMagnitudesDisplayed)
-	{
-		ephemerisMagnitudesDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_magnitudes", b); // Immediate saving of state
-		emit ephemerisMagnitudesChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisMagnitudes(bool b)
+//{
+//	if (b!=ephemerisMagnitudesDisplayed)
+//	{
+//		ephemerisMagnitudesDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_magnitudes", b); // Immediate saving of state
+//		emit ephemerisMagnitudesChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisMagnitudes() const
-{
-	return ephemerisMagnitudesDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisMagnitudes() const
+//{
+//	return ephemerisMagnitudesDisplayed;
+//}
 
-void SolarSystem::setFlagEphemerisSkipData(bool b)
-{
-	if (b!=ephemerisSkipDataDisplayed)
-	{
-		ephemerisSkipDataDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_skip_data", b); // Immediate saving of state
-		emit ephemerisSkipDataChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisSkipData(bool b)
+//{
+//	if (b!=ephemerisSkipDataDisplayed)
+//	{
+//		ephemerisSkipDataDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_skip_data", b); // Immediate saving of state
+//		emit ephemerisSkipDataChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisSkipData() const
-{
-	return ephemerisSkipDataDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisSkipData() const
+//{
+//	return ephemerisSkipDataDisplayed;
+//}
 
-void SolarSystem::setFlagEphemerisSkipMarkers(bool b)
-{
-	if (b!=ephemerisSkipMarkersDisplayed)
-	{
-		ephemerisSkipMarkersDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_skip_markers", b); // Immediate saving of state
-		emit ephemerisSkipMarkersChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisSkipMarkers(bool b)
+//{
+//	if (b!=ephemerisSkipMarkersDisplayed)
+//	{
+//		ephemerisSkipMarkersDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_skip_markers", b); // Immediate saving of state
+//		emit ephemerisSkipMarkersChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisSkipMarkers() const
-{
-	return ephemerisSkipMarkersDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisSkipMarkers() const
+//{
+//	return ephemerisSkipMarkersDisplayed;
+//}
 
-void SolarSystem::setFlagEphemerisSmartDates(bool b)
-{
-	if (b!=ephemerisSmartDatesDisplayed)
-	{
-		ephemerisSmartDatesDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_smart_dates", b); // Immediate saving of state
-		emit ephemerisSmartDatesChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisSmartDates(bool b)
+//{
+//	if (b!=ephemerisSmartDatesDisplayed)
+//	{
+//		ephemerisSmartDatesDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_smart_dates", b); // Immediate saving of state
+//		emit ephemerisSmartDatesChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisSmartDates() const
-{
-	return ephemerisSmartDatesDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisSmartDates() const
+//{
+//	return ephemerisSmartDatesDisplayed;
+//}
 
-void SolarSystem::setFlagEphemerisScaleMarkers(bool b)
-{
-	if (b!=ephemerisScaleMarkersDisplayed)
-	{
-		ephemerisScaleMarkersDisplayed=b;
-		conf->setValue("astrocalc/flag_ephemeris_scale_markers", b); // Immediate saving of state
-		emit ephemerisScaleMarkersChanged(b);
-	}
-}
+//void SolarSystem::setFlagEphemerisScaleMarkers(bool b)
+//{
+//	if (b!=ephemerisScaleMarkersDisplayed)
+//	{
+//		ephemerisScaleMarkersDisplayed=b;
+//		conf->setValue("astrocalc/flag_ephemeris_scale_markers", b); // Immediate saving of state
+//		emit ephemerisScaleMarkersChanged(b);
+//	}
+//}
 
-bool SolarSystem::getFlagEphemerisScaleMarkers() const
-{
-	return ephemerisScaleMarkersDisplayed;
-}
+//bool SolarSystem::getFlagEphemerisScaleMarkers() const
+//{
+//	return ephemerisScaleMarkersDisplayed;
+//}
 
 void SolarSystem::setEphemerisDataStep(int step)
 {
 	ephemerisDataStep = step;
 	// automatic saving of the setting
 	conf->setValue("astrocalc/ephemeris_data_step", step);
-	emit ephemerisDataStepChanged(step);
+    //emit ephemerisDataStepChanged(step);
 }
 
 int SolarSystem::getEphemerisDataStep() const
@@ -2267,642 +2272,642 @@ int SolarSystem::getEphemerisDataStep() const
 
 void SolarSystem::setEphemerisDataLimit(int limit)
 {
-	ephemerisDataLimit = limit;
-	emit ephemerisDataLimitChanged(limit);
+    ephemerisDataLimit = limit;
+//	emit ephemerisDataLimitChanged(limit);
 }
 
 int SolarSystem::getEphemerisDataLimit() const
 {
-	return ephemerisDataLimit;
-}
-
-void SolarSystem::setEphemerisLineThickness(int v)
-{
-	ephemerisLineThickness = v;
-	// automatic saving of the setting
-	conf->setValue("astrocalc/ephemeris_line_thickness", v);
-	emit ephemerisLineThicknessChanged(v);
-}
-
-int SolarSystem::getEphemerisLineThickness() const
-{
-	return ephemerisLineThickness;
-}
-
-void SolarSystem::setEphemerisGenericMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisGenericMarkerColor)
-	{
-		ephemerisGenericMarkerColor = color;
-		emit ephemerisGenericMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisGenericMarkerColor() const
-{
-	return ephemerisGenericMarkerColor;
-}
-
-void SolarSystem::setEphemerisSecondaryMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisSecondaryMarkerColor)
-	{
-		ephemerisSecondaryMarkerColor = color;
-		emit ephemerisSecondaryMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisSecondaryMarkerColor() const
-{
-	return ephemerisSecondaryMarkerColor;
-}
-
-void SolarSystem::setEphemerisSelectedMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisSelectedMarkerColor)
-	{
-		ephemerisSelectedMarkerColor = color;
-		emit ephemerisSelectedMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisSelectedMarkerColor() const
-{
-	return ephemerisSelectedMarkerColor;
-}
-
-void SolarSystem::setEphemerisMercuryMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisMercuryMarkerColor)
-	{
-		ephemerisMercuryMarkerColor = color;
-		emit ephemerisMercuryMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisMercuryMarkerColor() const
-{
-	return ephemerisMercuryMarkerColor;
-}
-
-void SolarSystem::setEphemerisVenusMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisVenusMarkerColor)
-	{
-		ephemerisVenusMarkerColor = color;
-		emit ephemerisVenusMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisVenusMarkerColor() const
-{
-	return ephemerisVenusMarkerColor;
-}
-
-void SolarSystem::setEphemerisMarsMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisMarsMarkerColor)
-	{
-		ephemerisMarsMarkerColor = color;
-		emit ephemerisMarsMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisMarsMarkerColor() const
-{
-	return ephemerisMarsMarkerColor;
-}
-
-void SolarSystem::setEphemerisJupiterMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisJupiterMarkerColor)
-	{
-		ephemerisJupiterMarkerColor = color;
-		emit ephemerisJupiterMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisJupiterMarkerColor() const
-{
-	return ephemerisJupiterMarkerColor;
-}
-
-void SolarSystem::setEphemerisSaturnMarkerColor(const Vec3f& color)
-{
-	if (color!=ephemerisSaturnMarkerColor)
-	{
-		ephemerisSaturnMarkerColor = color;
-		emit ephemerisSaturnMarkerColorChanged(color);
-	}
-}
-
-Vec3f SolarSystem::getEphemerisSaturnMarkerColor() const
-{
-	return ephemerisSaturnMarkerColor;
-}
-
-void SolarSystem::setFlagNativePlanetNames(bool b)
-{
-	if (b!=flagNativePlanetNames)
-	{
-		flagNativePlanetNames=b;
-		for (const auto& p : qAsConst(systemPlanets))
-		{
-			if (p->getPlanetType()==Planet::isPlanet || p->getPlanetType()==Planet::isMoon || p->getPlanetType()==Planet::isStar)
-				p->setFlagNativeName(flagNativePlanetNames);
-		}
-		updateI18n();
-		emit flagNativePlanetNamesChanged(b);
-	}
-}
-
-bool SolarSystem::getFlagNativePlanetNames() const
-{
-	return flagNativePlanetNames;
-}
-
-void SolarSystem::setFlagIsolatedTrails(bool b)
-{
-	if(b!=flagIsolatedTrails)
-	{
-		flagIsolatedTrails = b;
-		recreateTrails();
-		emit flagIsolatedTrailsChanged(b);
-	}
-}
-
-bool SolarSystem::getFlagIsolatedTrails() const
-{
-	return flagIsolatedTrails;
-}
-
-int SolarSystem::getNumberIsolatedTrails() const
-{
-	return numberIsolatedTrails;
-}
-
-void SolarSystem::setNumberIsolatedTrails(int n)
-{
-	// [1..5] - valid range for trails
-	numberIsolatedTrails = qBound(1, n, 5);
-
-	if (getFlagIsolatedTrails())
-		recreateTrails();
-
-	emit numberIsolatedTrailsChanged(numberIsolatedTrails);
-}
-
-void SolarSystem::setFlagIsolatedOrbits(bool b)
-{
-	if(b!=flagIsolatedOrbits)
-	{
-		flagIsolatedOrbits = b;
-		emit flagIsolatedOrbitsChanged(b);
-		// Reinstall flag for orbits to renew visibility of orbits
-		setFlagOrbits(getFlagOrbits());
-	}
-}
-
-bool SolarSystem::getFlagIsolatedOrbits() const
-{
-	return flagIsolatedOrbits;
-}
-
-void SolarSystem::setFlagPlanetsOrbitsOnly(bool b)
-{
-	if(b!=flagPlanetsOrbitsOnly)
-	{
-		flagPlanetsOrbitsOnly = b;
-		emit flagPlanetsOrbitsOnlyChanged(b);
-		// Reinstall flag for orbits to renew visibility of orbits
-		setFlagOrbits(getFlagOrbits());
-	}
-}
-
-bool SolarSystem::getFlagPlanetsOrbitsOnly() const
-{
-	return flagPlanetsOrbitsOnly;
-}
-
-// Set/Get planets names color
-void SolarSystem::setLabelsColor(const Vec3f& c)
-{
-	if (c!=Planet::getLabelColor())
-	{
-		Planet::setLabelColor(c);
-		emit labelsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getLabelsColor(void) const
-{
-	return Planet::getLabelColor();
-}
-
-// Set/Get orbits lines color
-void SolarSystem::setOrbitsColor(const Vec3f& c)
-{
-	if (c!=Planet::getOrbitColor())
-	{
-		Planet::setOrbitColor(c);
-		emit orbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getOrbitsColor(void) const
-{
-	return Planet::getOrbitColor();
-}
-
-void SolarSystem::setMajorPlanetsOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getMajorPlanetOrbitColor())
-	{
-		Planet::setMajorPlanetOrbitColor(c);
-		emit majorPlanetsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getMajorPlanetsOrbitsColor(void) const
-{
-	return Planet::getMajorPlanetOrbitColor();
-}
-
-void SolarSystem::setMinorPlanetsOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getMinorPlanetOrbitColor())
-	{
-		Planet::setMinorPlanetOrbitColor(c);
-		emit minorPlanetsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getMinorPlanetsOrbitsColor(void) const
-{
-	return Planet::getMinorPlanetOrbitColor();
-}
-
-void SolarSystem::setDwarfPlanetsOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getDwarfPlanetOrbitColor())
-	{
-		Planet::setDwarfPlanetOrbitColor(c);
-		emit dwarfPlanetsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getDwarfPlanetsOrbitsColor(void) const
-{
-	return Planet::getDwarfPlanetOrbitColor();
-}
-
-void SolarSystem::setMoonsOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getMoonOrbitColor())
-	{
-		Planet::setMoonOrbitColor(c);
-		emit moonsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getMoonsOrbitsColor(void) const
-{
-	return Planet::getMoonOrbitColor();
-}
-
-void SolarSystem::setCubewanosOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getCubewanoOrbitColor())
-	{
-		Planet::setCubewanoOrbitColor(c);
-		emit cubewanosOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getCubewanosOrbitsColor(void) const
-{
-	return Planet::getCubewanoOrbitColor();
-}
-
-void SolarSystem::setPlutinosOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getPlutinoOrbitColor())
-	{
-		Planet::setPlutinoOrbitColor(c);
-		emit plutinosOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getPlutinosOrbitsColor(void) const
-{
-	return Planet::getPlutinoOrbitColor();
-}
-
-void SolarSystem::setScatteredDiskObjectsOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getScatteredDiscObjectOrbitColor())
-	{
-		Planet::setScatteredDiscObjectOrbitColor(c);
-		emit scatteredDiskObjectsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getScatteredDiskObjectsOrbitsColor(void) const
-{
-	return Planet::getScatteredDiscObjectOrbitColor();
-}
-
-void SolarSystem::setOortCloudObjectsOrbitsColor(const Vec3f &c)
-{
-	if (c!=Planet::getOortCloudObjectOrbitColor())
-	{
-		Planet::setOortCloudObjectOrbitColor(c);
-		emit oortCloudObjectsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getOortCloudObjectsOrbitsColor(void) const
-{
-	return Planet::getOortCloudObjectOrbitColor();
-}
-
-void SolarSystem::setCometsOrbitsColor(const Vec3f& c)
-{
-	if (c!=Planet::getCometOrbitColor())
-	{
-		Planet::setCometOrbitColor(c);
-		emit cometsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getCometsOrbitsColor(void) const
-{
-	return Planet::getCometOrbitColor();
-}
-
-void SolarSystem::setSednoidsOrbitsColor(const Vec3f& c)
-{
-	if (c!=Planet::getSednoidOrbitColor())
-	{
-		Planet::setSednoidOrbitColor(c);
-		emit sednoidsOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getSednoidsOrbitsColor(void) const
-{
-	return Planet::getSednoidOrbitColor();
-}
-
-void SolarSystem::setInterstellarOrbitsColor(const Vec3f& c)
-{
-	if (c!=Planet::getInterstellarOrbitColor())
-	{
-		Planet::setInterstellarOrbitColor(c);
-		emit interstellarOrbitsColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getInterstellarOrbitsColor(void) const
-{
-	return Planet::getInterstellarOrbitColor();
-}
-
-void SolarSystem::setMercuryOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getMercuryOrbitColor())
-	{
-		Planet::setMercuryOrbitColor(c);
-		emit mercuryOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getMercuryOrbitColor(void) const
-{
-	return Planet::getMercuryOrbitColor();
-}
-
-void SolarSystem::setVenusOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getVenusOrbitColor())
-	{
-		Planet::setVenusOrbitColor(c);
-		emit venusOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getVenusOrbitColor(void) const
-{
-	return Planet::getVenusOrbitColor();
-}
-
-void SolarSystem::setEarthOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getEarthOrbitColor())
-	{
-		Planet::setEarthOrbitColor(c);
-		emit earthOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getEarthOrbitColor(void) const
-{
-	return Planet::getEarthOrbitColor();
-}
-
-void SolarSystem::setMarsOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getMarsOrbitColor())
-	{
-		Planet::setMarsOrbitColor(c);
-		emit marsOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getMarsOrbitColor(void) const
-{
-	return Planet::getMarsOrbitColor();
-}
-
-void SolarSystem::setJupiterOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getJupiterOrbitColor())
-	{
-		Planet::setJupiterOrbitColor(c);
-		emit jupiterOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getJupiterOrbitColor(void) const
-{
-	return Planet::getJupiterOrbitColor();
-}
-
-void SolarSystem::setSaturnOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getSaturnOrbitColor())
-	{
-		Planet::setSaturnOrbitColor(c);
-		emit saturnOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getSaturnOrbitColor(void) const
-{
-	return Planet::getSaturnOrbitColor();
-}
-
-void SolarSystem::setUranusOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getUranusOrbitColor())
-	{
-		Planet::setUranusOrbitColor(c);
-		emit uranusOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getUranusOrbitColor(void) const
-{
-	return Planet::getUranusOrbitColor();
-}
-
-void SolarSystem::setNeptuneOrbitColor(const Vec3f &c)
-{
-	if (c!=Planet::getNeptuneOrbitColor())
-	{
-		Planet::setNeptuneOrbitColor(c);
-		emit neptuneOrbitColorChanged(c);
-	}
-}
-
-Vec3f SolarSystem::getNeptuneOrbitColor(void) const
-{
-	return Planet::getNeptuneOrbitColor();
-}
-
-// Set/Get if Moon display is scaled
-void SolarSystem::setFlagMoonScale(bool b)
-{
-	if(b!=flagMoonScale)
-	{
-		if (b) getMoon()->setSphereScale(moonScale);
-		else getMoon()->setSphereScale(1);
-		flagMoonScale = b;
-		emit flagMoonScaleChanged(b);
-	}
-}
+    return ephemerisDataLimit;
+}
+
+//void SolarSystem::setEphemerisLineThickness(int v)
+//{
+//	ephemerisLineThickness = v;
+//	// automatic saving of the setting
+//	conf->setValue("astrocalc/ephemeris_line_thickness", v);
+//	emit ephemerisLineThicknessChanged(v);
+//}
+
+//int SolarSystem::getEphemerisLineThickness() const
+//{
+//	return ephemerisLineThickness;
+//}
+
+//void SolarSystem::setEphemerisGenericMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisGenericMarkerColor)
+//	{
+//		ephemerisGenericMarkerColor = color;
+//		emit ephemerisGenericMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisGenericMarkerColor() const
+//{
+//	return ephemerisGenericMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisSecondaryMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisSecondaryMarkerColor)
+//	{
+//		ephemerisSecondaryMarkerColor = color;
+//		emit ephemerisSecondaryMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisSecondaryMarkerColor() const
+//{
+//	return ephemerisSecondaryMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisSelectedMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisSelectedMarkerColor)
+//	{
+//		ephemerisSelectedMarkerColor = color;
+//		emit ephemerisSelectedMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisSelectedMarkerColor() const
+//{
+//	return ephemerisSelectedMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisMercuryMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisMercuryMarkerColor)
+//	{
+//		ephemerisMercuryMarkerColor = color;
+//		emit ephemerisMercuryMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisMercuryMarkerColor() const
+//{
+//	return ephemerisMercuryMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisVenusMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisVenusMarkerColor)
+//	{
+//		ephemerisVenusMarkerColor = color;
+//		emit ephemerisVenusMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisVenusMarkerColor() const
+//{
+//	return ephemerisVenusMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisMarsMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisMarsMarkerColor)
+//	{
+//		ephemerisMarsMarkerColor = color;
+//		emit ephemerisMarsMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisMarsMarkerColor() const
+//{
+//	return ephemerisMarsMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisJupiterMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisJupiterMarkerColor)
+//	{
+//		ephemerisJupiterMarkerColor = color;
+//		emit ephemerisJupiterMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisJupiterMarkerColor() const
+//{
+//	return ephemerisJupiterMarkerColor;
+//}
+
+//void SolarSystem::setEphemerisSaturnMarkerColor(const Vec3f& color)
+//{
+//	if (color!=ephemerisSaturnMarkerColor)
+//	{
+//		ephemerisSaturnMarkerColor = color;
+//		emit ephemerisSaturnMarkerColorChanged(color);
+//	}
+//}
+
+//Vec3f SolarSystem::getEphemerisSaturnMarkerColor() const
+//{
+//	return ephemerisSaturnMarkerColor;
+//}
+
+//void SolarSystem::setFlagNativePlanetNames(bool b)
+//{
+//	if (b!=flagNativePlanetNames)
+//	{
+//		flagNativePlanetNames=b;
+//		for (const auto& p : qAsConst(systemPlanets))
+//		{
+//			if (p->getPlanetType()==Planet::isPlanet || p->getPlanetType()==Planet::isMoon || p->getPlanetType()==Planet::isStar)
+//				p->setFlagNativeName(flagNativePlanetNames);
+//		}
+//		updateI18n();
+//		emit flagNativePlanetNamesChanged(b);
+//	}
+//}
+
+//bool SolarSystem::getFlagNativePlanetNames() const
+//{
+//	return flagNativePlanetNames;
+//}
+
+//void SolarSystem::setFlagIsolatedTrails(bool b)
+//{
+//	if(b!=flagIsolatedTrails)
+//	{
+//		flagIsolatedTrails = b;
+//		recreateTrails();
+//		emit flagIsolatedTrailsChanged(b);
+//	}
+//}
+
+//bool SolarSystem::getFlagIsolatedTrails() const
+//{
+//	return flagIsolatedTrails;
+//}
+
+//int SolarSystem::getNumberIsolatedTrails() const
+//{
+//	return numberIsolatedTrails;
+//}
+
+//void SolarSystem::setNumberIsolatedTrails(int n)
+//{
+//	// [1..5] - valid range for trails
+//	numberIsolatedTrails = qBound(1, n, 5);
+
+//	if (getFlagIsolatedTrails())
+//		recreateTrails();
+
+//	emit numberIsolatedTrailsChanged(numberIsolatedTrails);
+//}
+
+//void SolarSystem::setFlagIsolatedOrbits(bool b)
+//{
+//	if(b!=flagIsolatedOrbits)
+//	{
+//		flagIsolatedOrbits = b;
+//		emit flagIsolatedOrbitsChanged(b);
+//		// Reinstall flag for orbits to renew visibility of orbits
+//		setFlagOrbits(getFlagOrbits());
+//	}
+//}
+
+//bool SolarSystem::getFlagIsolatedOrbits() const
+//{
+//	return flagIsolatedOrbits;
+//}
+
+//void SolarSystem::setFlagPlanetsOrbitsOnly(bool b)
+//{
+//	if(b!=flagPlanetsOrbitsOnly)
+//	{
+//		flagPlanetsOrbitsOnly = b;
+//		emit flagPlanetsOrbitsOnlyChanged(b);
+//		// Reinstall flag for orbits to renew visibility of orbits
+//		setFlagOrbits(getFlagOrbits());
+//	}
+//}
+
+//bool SolarSystem::getFlagPlanetsOrbitsOnly() const
+//{
+//	return flagPlanetsOrbitsOnly;
+//}
+
+//// Set/Get planets names color
+//void SolarSystem::setLabelsColor(const Vec3f& c)
+//{
+//	if (c!=Planet::getLabelColor())
+//	{
+//		Planet::setLabelColor(c);
+//		emit labelsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getLabelsColor(void) const
+//{
+//	return Planet::getLabelColor();
+//}
+
+//// Set/Get orbits lines color
+//void SolarSystem::setOrbitsColor(const Vec3f& c)
+//{
+//	if (c!=Planet::getOrbitColor())
+//	{
+//		Planet::setOrbitColor(c);
+//		emit orbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getOrbitsColor(void) const
+//{
+//	return Planet::getOrbitColor();
+//}
+
+//void SolarSystem::setMajorPlanetsOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getMajorPlanetOrbitColor())
+//	{
+//		Planet::setMajorPlanetOrbitColor(c);
+//		emit majorPlanetsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getMajorPlanetsOrbitsColor(void) const
+//{
+//	return Planet::getMajorPlanetOrbitColor();
+//}
+
+//void SolarSystem::setMinorPlanetsOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getMinorPlanetOrbitColor())
+//	{
+//		Planet::setMinorPlanetOrbitColor(c);
+//		emit minorPlanetsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getMinorPlanetsOrbitsColor(void) const
+//{
+//	return Planet::getMinorPlanetOrbitColor();
+//}
+
+//void SolarSystem::setDwarfPlanetsOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getDwarfPlanetOrbitColor())
+//	{
+//		Planet::setDwarfPlanetOrbitColor(c);
+//		emit dwarfPlanetsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getDwarfPlanetsOrbitsColor(void) const
+//{
+//	return Planet::getDwarfPlanetOrbitColor();
+//}
+
+//void SolarSystem::setMoonsOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getMoonOrbitColor())
+//	{
+//		Planet::setMoonOrbitColor(c);
+//		emit moonsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getMoonsOrbitsColor(void) const
+//{
+//	return Planet::getMoonOrbitColor();
+//}
+
+//void SolarSystem::setCubewanosOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getCubewanoOrbitColor())
+//	{
+//		Planet::setCubewanoOrbitColor(c);
+//		emit cubewanosOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getCubewanosOrbitsColor(void) const
+//{
+//	return Planet::getCubewanoOrbitColor();
+//}
+
+//void SolarSystem::setPlutinosOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getPlutinoOrbitColor())
+//	{
+//		Planet::setPlutinoOrbitColor(c);
+//		emit plutinosOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getPlutinosOrbitsColor(void) const
+//{
+//	return Planet::getPlutinoOrbitColor();
+//}
+
+//void SolarSystem::setScatteredDiskObjectsOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getScatteredDiscObjectOrbitColor())
+//	{
+//		Planet::setScatteredDiscObjectOrbitColor(c);
+//		emit scatteredDiskObjectsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getScatteredDiskObjectsOrbitsColor(void) const
+//{
+//	return Planet::getScatteredDiscObjectOrbitColor();
+//}
+
+//void SolarSystem::setOortCloudObjectsOrbitsColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getOortCloudObjectOrbitColor())
+//	{
+//		Planet::setOortCloudObjectOrbitColor(c);
+//		emit oortCloudObjectsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getOortCloudObjectsOrbitsColor(void) const
+//{
+//	return Planet::getOortCloudObjectOrbitColor();
+//}
+
+//void SolarSystem::setCometsOrbitsColor(const Vec3f& c)
+//{
+//	if (c!=Planet::getCometOrbitColor())
+//	{
+//		Planet::setCometOrbitColor(c);
+//		emit cometsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getCometsOrbitsColor(void) const
+//{
+//	return Planet::getCometOrbitColor();
+//}
+
+//void SolarSystem::setSednoidsOrbitsColor(const Vec3f& c)
+//{
+//	if (c!=Planet::getSednoidOrbitColor())
+//	{
+//		Planet::setSednoidOrbitColor(c);
+//		emit sednoidsOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getSednoidsOrbitsColor(void) const
+//{
+//	return Planet::getSednoidOrbitColor();
+//}
+
+//void SolarSystem::setInterstellarOrbitsColor(const Vec3f& c)
+//{
+//	if (c!=Planet::getInterstellarOrbitColor())
+//	{
+//		Planet::setInterstellarOrbitColor(c);
+//		emit interstellarOrbitsColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getInterstellarOrbitsColor(void) const
+//{
+//	return Planet::getInterstellarOrbitColor();
+//}
+
+//void SolarSystem::setMercuryOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getMercuryOrbitColor())
+//	{
+//		Planet::setMercuryOrbitColor(c);
+//		emit mercuryOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getMercuryOrbitColor(void) const
+//{
+//	return Planet::getMercuryOrbitColor();
+//}
+
+//void SolarSystem::setVenusOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getVenusOrbitColor())
+//	{
+//		Planet::setVenusOrbitColor(c);
+//		emit venusOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getVenusOrbitColor(void) const
+//{
+//	return Planet::getVenusOrbitColor();
+//}
+
+//void SolarSystem::setEarthOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getEarthOrbitColor())
+//	{
+//		Planet::setEarthOrbitColor(c);
+//		emit earthOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getEarthOrbitColor(void) const
+//{
+//	return Planet::getEarthOrbitColor();
+//}
+
+//void SolarSystem::setMarsOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getMarsOrbitColor())
+//	{
+//		Planet::setMarsOrbitColor(c);
+//		emit marsOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getMarsOrbitColor(void) const
+//{
+//	return Planet::getMarsOrbitColor();
+//}
+
+//void SolarSystem::setJupiterOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getJupiterOrbitColor())
+//	{
+//		Planet::setJupiterOrbitColor(c);
+//		emit jupiterOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getJupiterOrbitColor(void) const
+//{
+//	return Planet::getJupiterOrbitColor();
+//}
+
+//void SolarSystem::setSaturnOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getSaturnOrbitColor())
+//	{
+//		Planet::setSaturnOrbitColor(c);
+//		emit saturnOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getSaturnOrbitColor(void) const
+//{
+//	return Planet::getSaturnOrbitColor();
+//}
+
+//void SolarSystem::setUranusOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getUranusOrbitColor())
+//	{
+//		Planet::setUranusOrbitColor(c);
+//		emit uranusOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getUranusOrbitColor(void) const
+//{
+//	return Planet::getUranusOrbitColor();
+//}
+
+//void SolarSystem::setNeptuneOrbitColor(const Vec3f &c)
+//{
+//	if (c!=Planet::getNeptuneOrbitColor())
+//	{
+//		Planet::setNeptuneOrbitColor(c);
+//		emit neptuneOrbitColorChanged(c);
+//	}
+//}
+
+//Vec3f SolarSystem::getNeptuneOrbitColor(void) const
+//{
+//	return Planet::getNeptuneOrbitColor();
+//}
+
+//// Set/Get if Moon display is scaled
+//void SolarSystem::setFlagMoonScale(bool b)
+//{
+//	if(b!=flagMoonScale)
+//	{
+//		if (b) getMoon()->setSphereScale(moonScale);
+//		else getMoon()->setSphereScale(1);
+//		flagMoonScale = b;
+//		emit flagMoonScaleChanged(b);
+//	}
+//}
 
 // Set/Get Moon display scaling factor. This goes directly to the Moon object.
-void SolarSystem::setMoonScale(double f)
-{
-	if(!fuzzyEquals(moonScale, f))
-	{
-		moonScale = f;
-		if (flagMoonScale)
-			getMoon()->setSphereScale(moonScale);
-		emit moonScaleChanged(f);
-	}
-}
+//void SolarSystem::setMoonScale(double f)
+//{
+//	if(!fuzzyEquals(moonScale, f))
+//	{
+//		moonScale = f;
+//		if (flagMoonScale)
+//			getMoon()->setSphereScale(moonScale);
+//        //emit moonScaleChanged(f);
+//	}
+//}
 
-// Set if minor body display is scaled. This flag will be queried by all Planet objects except for the Moon.
-void SolarSystem::setFlagMinorBodyScale(bool b)
-{
-	if(b!=flagMinorBodyScale)
-	{
-		flagMinorBodyScale = b;
+//// Set if minor body display is scaled. This flag will be queried by all Planet objects except for the Moon.
+//void SolarSystem::setFlagMinorBodyScale(bool b)
+//{
+//	if(b!=flagMinorBodyScale)
+//	{
+//		flagMinorBodyScale = b;
 
-		double newScale = b ? minorBodyScale : 1.0;
-		//update the bodies with the new scale
-		for (const auto& p : qAsConst(systemPlanets))
-		{
-			if(p == moon) continue;
-			if (p->getPlanetType()!=Planet::isPlanet && p->getPlanetType()!=Planet::isStar)
-				p->setSphereScale(newScale);
-		}
-		emit flagMinorBodyScaleChanged(b);
-	}
-}
+//		double newScale = b ? minorBodyScale : 1.0;
+//		//update the bodies with the new scale
+//		for (const auto& p : qAsConst(systemPlanets))
+//		{
+//			if(p == moon) continue;
+//			if (p->getPlanetType()!=Planet::isPlanet && p->getPlanetType()!=Planet::isStar)
+//				p->setSphereScale(newScale);
+//		}
+//        //emit flagMinorBodyScaleChanged(b);
+//	}
+//}
 
-// Set minor body display scaling factor. This will be queried by all Planet objects except for the Moon.
-void SolarSystem::setMinorBodyScale(double f)
-{
-	if(!fuzzyEquals(minorBodyScale, f))
-	{
-		minorBodyScale = f;
-		if(flagMinorBodyScale) //update the bodies with the new scale
-		{
-			for (const auto& p : qAsConst(systemPlanets))
-			{
-				if(p == moon) continue;
-				if (p->getPlanetType()!=Planet::isPlanet && p->getPlanetType()!=Planet::isStar)
-					p->setSphereScale(minorBodyScale);
-			}
-		}
-		emit minorBodyScaleChanged(f);
-	}
-}
+//// Set minor body display scaling factor. This will be queried by all Planet objects except for the Moon.
+//void SolarSystem::setMinorBodyScale(double f)
+//{
+//	if(!fuzzyEquals(minorBodyScale, f))
+//	{
+//		minorBodyScale = f;
+//		if(flagMinorBodyScale) //update the bodies with the new scale
+//		{
+//			for (const auto& p : qAsConst(systemPlanets))
+//			{
+//				if(p == moon) continue;
+//				if (p->getPlanetType()!=Planet::isPlanet && p->getPlanetType()!=Planet::isStar)
+//					p->setSphereScale(minorBodyScale);
+//			}
+//		}
+//        //emit minorBodyScaleChanged(f);
+//	}
+//}
 
-// Set if Planet display is scaled
-void SolarSystem::setFlagPlanetScale(bool b)
-{
-	if(b!=flagPlanetScale)
-	{
-		double scale=(b ? planetScale : 1.);
-		for (auto& p : systemPlanets)
-		{
-			if (p->pType==Planet::isPlanet)
-				p->setSphereScale(scale);
-		}
-		flagPlanetScale = b;
-		emit flagPlanetScaleChanged(b);
-	}
-}
+//// Set if Planet display is scaled
+//void SolarSystem::setFlagPlanetScale(bool b)
+//{
+//	if(b!=flagPlanetScale)
+//	{
+//		double scale=(b ? planetScale : 1.);
+//		for (auto& p : systemPlanets)
+//		{
+//			if (p->pType==Planet::isPlanet)
+//				p->setSphereScale(scale);
+//		}
+//		flagPlanetScale = b;
+//        //emit flagPlanetScaleChanged(b);
+//	}
+//}
 
-// Set Moon display scaling factor.
-void SolarSystem::setPlanetScale(double f)
-{
-	if(!fuzzyEquals(planetScale, f))
-	{
-		planetScale = f;
-		if (flagPlanetScale)
-			for (auto& p : systemPlanets)
-			{
-				if (p->pType==Planet::isPlanet)
-					p->setSphereScale(planetScale);
-			}
-		emit planetScaleChanged(f);
-	}
-}
+//// Set Moon display scaling factor.
+//void SolarSystem::setPlanetScale(double f)
+//{
+//	if(!fuzzyEquals(planetScale, f))
+//	{
+//		planetScale = f;
+//		if (flagPlanetScale)
+//			for (auto& p : systemPlanets)
+//			{
+//				if (p->pType==Planet::isPlanet)
+//					p->setSphereScale(planetScale);
+//			}
+//        //emit planetScaleChanged(f);
+//	}
+//}
 
-// Set if Sun display is scaled
-void SolarSystem::setFlagSunScale(bool b)
-{
-	if(b!=flagSunScale)
-	{
-		if (b) getSun()->setSphereScale(sunScale);
-		else getSun()->setSphereScale(1);
-		flagSunScale = b;
-		emit flagSunScaleChanged(b);
-	}
-}
+//// Set if Sun display is scaled
+//void SolarSystem::setFlagSunScale(bool b)
+//{
+//	if(b!=flagSunScale)
+//	{
+//		if (b) getSun()->setSphereScale(sunScale);
+//		else getSun()->setSphereScale(1);
+//		flagSunScale = b;
+//    //	emit flagSunScaleChanged(b);
+//	}
+//}
 
-// Set Sun display scaling factor. This goes directly to the Sun object.
-void SolarSystem::setSunScale(double f)
-{
-	if(!fuzzyEquals(sunScale, f))
-	{
-		sunScale = f;
-		if (flagSunScale)
-			getSun()->setSphereScale(sunScale);
-		emit sunScaleChanged(f);
-	}
-}
+//// Set Sun display scaling factor. This goes directly to the Sun object.
+//void SolarSystem::setSunScale(double f)
+//{
+//	if(!fuzzyEquals(sunScale, f))
+//	{
+//		sunScale = f;
+//		if (flagSunScale)
+//			getSun()->setSphereScale(sunScale);
+//        //emit sunScaleChanged(f);
+//	}
+//}
 
 // Set selected planets by englishName
-void SolarSystem::setSelected(const QString& englishName)
-{
-	setSelected(searchByEnglishName(englishName));
-}
+//void SolarSystem::setSelected(const QString& englishName)
+//{
+//	setSelected(searchByEnglishName(englishName));
+//}
 
 // Get the list of all the planet english names
 QStringList SolarSystem::getAllPlanetEnglishNames() const
@@ -2913,13 +2918,13 @@ QStringList SolarSystem::getAllPlanetEnglishNames() const
 	return res;
 }
 
-QStringList SolarSystem::getAllPlanetLocalizedNames() const
-{
-	QStringList res;
-	for (const auto& p : systemPlanets)
-		res.append(p->getNameI18n());
-	return res;
-}
+//QStringList SolarSystem::getAllPlanetLocalizedNames() const
+//{
+//	QStringList res;
+//	for (const auto& p : systemPlanets)
+//		res.append(p->getNameI18n());
+//	return res;
+//}
 
 QStringList SolarSystem::getAllMinorPlanetCommonEnglishNames() const
 {
@@ -2934,16 +2939,16 @@ QStringList SolarSystem::getAllMinorPlanetCommonEnglishNames() const
 void SolarSystem::reloadPlanets()
 {
 	// Save flag states
-	const bool flagScaleMoon = getFlagMoonScale();
-	const double moonScale = getMoonScale();
-	const bool flagScaleMinorBodies=getFlagMinorBodyScale();
-	const double minorScale= getMinorBodyScale();
-	const bool flagPlanets = getFlagPlanets();
-	const bool flagHints = getFlagHints();
-	const bool flagLabels = getFlagLabels();
-	const bool flagOrbits = getFlagOrbits();
-	const bool flagNative = getFlagNativePlanetNames();
-	bool hasSelection = false;
+//	const bool flagScaleMoon = getFlagMoonScale();
+//	const double moonScale = getMoonScale();
+//	const bool flagScaleMinorBodies=getFlagMinorBodyScale();
+//	const double minorScale= getMinorBodyScale();
+//	const bool flagPlanets = getFlagPlanets();
+//	const bool flagHints = getFlagHints();
+//	const bool flagLabels = getFlagLabels();
+//	const bool flagOrbits = getFlagOrbits();
+//	const bool flagNative = getFlagNativePlanetNames();
+//	bool hasSelection = false;
 
 	// Save observer location (fix for LP bug # 969211)
 	// TODO: This can probably be done better with a better understanding of StelObserver --BM
@@ -2952,15 +2957,15 @@ void SolarSystem::reloadPlanets()
 	StelObjectMgr* objMgr = GETSTELMODULE(StelObjectMgr);
 
 	// Whether any planet are selected? Save the current selection...
-	const QList<StelObjectP> selectedObject = objMgr->getSelectedObject("Planet");
-	if (!selectedObject.isEmpty())
-	{
-		// ... unselect current planet.
-		hasSelection = true;
-		objMgr->unSelect();
-	}
-	// Unload all Solar System objects
-	selected.clear();//Release the selected one
+//	const QList<StelObjectP> selectedObject = objMgr->getSelectedObject("Planet");
+//	if (!selectedObject.isEmpty())
+//	{
+//		// ... unselect current planet.
+//		hasSelection = true;
+//		objMgr->unSelect();
+//	}
+//	// Unload all Solar System objects
+//	selected.clear();//Release the selected one
 
 	// GZ TODO in case this methods gets converted to only reload minor bodies: Only delete Orbits which are not referenced by some Planet.
 	for (auto* orb : qAsConst(orbits))
@@ -2972,10 +2977,10 @@ void SolarSystem::reloadPlanets()
 	sun.clear();
 	moon.clear();
 	earth.clear();
-	Planet::texEarthShadow.clear(); //Loaded in loadPlanets()
+    //Planet::texEarthShadow.clear(); //Loaded in loadPlanets()
 
-	delete allTrails;
-	allTrails = Q_NULLPTR;
+//	delete allTrails;
+//	allTrails = Q_NULLPTR;
 
 	for (const auto& p : qAsConst(systemPlanets))
 	{
@@ -2986,48 +2991,48 @@ void SolarSystem::reloadPlanets()
 	// Memory leak? What's the proper way of cleaning shared pointers?
 
 	// Also delete Comet textures (loaded in loadPlanets()
-	Comet::tailTexture.clear();
-	Comet::comaTexture.clear();
+//	Comet::tailTexture.clear();
+//	Comet::comaTexture.clear();
 
 	// Re-load the ssystem_major.ini and ssystem_minor.ini file
 	loadPlanets();	
 	computePositions(core->getJDE(), getSun());
-	setSelected("");
-	recreateTrails();
+//	setSelected("");
+//	recreateTrails();
 	
 	// Restore observer location
 	core->moveObserverTo(loc, 0., 0.);
 
 	// Restore flag states
-	setFlagMoonScale(flagScaleMoon);
-	setMoonScale(moonScale);
-	setFlagMinorBodyScale(flagScaleMinorBodies);
-	setMinorBodyScale(1.0); // force-reset first to really reach the objects in the next call.
-	setMinorBodyScale(minorScale);
-	setFlagPlanets(flagPlanets);
-	setFlagHints(flagHints);
-	setFlagLabels(flagLabels);
-	setFlagOrbits(flagOrbits);
-	setFlagNativePlanetNames(flagNative);
+//	setFlagMoonScale(flagScaleMoon);
+//	setMoonScale(moonScale);
+//	setFlagMinorBodyScale(flagScaleMinorBodies);
+//	setMinorBodyScale(1.0); // force-reset first to really reach the objects in the next call.
+//	setMinorBodyScale(minorScale);
+//	setFlagPlanets(flagPlanets);
+//	setFlagHints(flagHints);
+//	setFlagLabels(flagLabels);
+//	setFlagOrbits(flagOrbits);
+//	setFlagNativePlanetNames(flagNative);
 
 	// Restore translations
-	updateI18n();
+//	updateI18n();
 
-	if (hasSelection)
-	{
-		// Restore selection...
-		StelObjectP obj = selectedObject[0];
-		objMgr->findAndSelect(obj->getEnglishName(), obj->getType());
-	}
+//	if (hasSelection)
+//	{
+//		// Restore selection...
+//		StelObjectP obj = selectedObject[0];
+//		objMgr->findAndSelect(obj->getEnglishName(), obj->getType());
+//	}
 
-	emit solarSystemDataReloaded();
+//	emit solarSystemDataReloaded();
 }
 
 // Set the algorithm for computation of apparent magnitudes for planets in case  observer on the Earth
 void SolarSystem::setApparentMagnitudeAlgorithmOnEarth(QString algorithm)
 {
 	Planet::setApparentMagnitudeAlgorithm(algorithm);
-	emit apparentMagnitudeAlgorithmOnEarthChanged(algorithm);
+//	emit apparentMagnitudeAlgorithmOnEarthChanged(algorithm);
 }
 
 // Get the algorithm used for computation of apparent magnitudes for planets in case  observer on the Earth
@@ -3036,7 +3041,7 @@ QString SolarSystem::getApparentMagnitudeAlgorithmOnEarth() const
 	return Planet::getApparentMagnitudeAlgorithmString();
 }
 
-void SolarSystem::setFlagDrawMoonHalo(bool b)
+/*oid SolarSystem::setFlagDrawMoonHalo(bool b)
 {
 	Planet::drawMoonHalo=b;
 	emit flagDrawMoonHaloChanged(b);
@@ -3078,14 +3083,14 @@ void SolarSystem::setOrbitsThickness(int v)
 int SolarSystem::getOrbitsThickness() const
 {
 	return Planet::orbitsThickness;
-}
+}*/
 
 void SolarSystem::setGrsLongitude(int longitude)
 {
 	RotationElements::grsLongitude = longitude;
 	// automatic saving of the setting
 	conf->setValue("astro/grs_longitude", longitude);
-	emit grsLongitudeChanged(longitude);
+//	emit grsLongitudeChanged(longitude);
 }
 
 int SolarSystem::getGrsLongitude() const
@@ -3098,7 +3103,7 @@ void SolarSystem::setGrsDrift(double drift)
 	RotationElements::grsDrift = drift;
 	// automatic saving of the setting
 	conf->setValue("astro/grs_drift", drift);
-	emit grsDriftChanged(drift);
+//	emit grsDriftChanged(drift);
 }
 
 double SolarSystem::getGrsDrift() const
@@ -3111,7 +3116,7 @@ void SolarSystem::setGrsJD(double JD)
 	RotationElements::grsJD = JD;
 	// automatic saving of the setting
 	conf->setValue("astro/grs_jd", JD);
-	emit grsJDChanged(JD);
+//	emit grsJDChanged(JD);
 }
 
 double SolarSystem::getGrsJD()
@@ -3122,7 +3127,7 @@ double SolarSystem::getGrsJD()
 void SolarSystem::setFlagEarthShadowEnlargementDanjon(bool b)
 {
 	earthShadowEnlargementDanjon=b;
-	emit earthShadowEnlargementDanjonChanged(b);
+//	emit earthShadowEnlargementDanjonChanged(b);
 }
 
 bool SolarSystem::getFlagEarthShadowEnlargementDanjon() const
@@ -3130,33 +3135,33 @@ bool SolarSystem::getFlagEarthShadowEnlargementDanjon() const
 	return earthShadowEnlargementDanjon;
 }
 
-void SolarSystem::setOrbitColorStyle(QString style)
-{
-	if (style.toLower()=="groups")
-		Planet::orbitColorStyle = Planet::ocsGroups;
-	else if (style.toLower()=="major_planets")
-		Planet::orbitColorStyle = Planet::ocsMajorPlanets;
-	else
-		Planet::orbitColorStyle = Planet::ocsOneColor;
-}
+//void SolarSystem::setOrbitColorStyle(QString style)
+//{
+//	if (style.toLower()=="groups")
+//		Planet::orbitColorStyle = Planet::ocsGroups;
+//	else if (style.toLower()=="major_planets")
+//		Planet::orbitColorStyle = Planet::ocsMajorPlanets;
+//	else
+//		Planet::orbitColorStyle = Planet::ocsOneColor;
+//}
 
-QString SolarSystem::getOrbitColorStyle() const
-{
-	QString r = "one_color";
-	switch (Planet::orbitColorStyle)
-	{
-		case Planet::ocsOneColor:
-			r = "one_color";
-			break;
-		case Planet::ocsGroups:
-			r = "groups";
-			break;
-		case Planet::ocsMajorPlanets:
-			r = "major_planets";
-			break;
-	}
-	return r;
-}
+//QString SolarSystem::getOrbitColorStyle() const
+//{
+//	QString r = "one_color";
+//	switch (Planet::orbitColorStyle)
+//	{
+//		case Planet::ocsOneColor:
+//			r = "one_color";
+//			break;
+//		case Planet::ocsGroups:
+//			r = "groups";
+//			break;
+//		case Planet::ocsMajorPlanets:
+//			r = "major_planets";
+//			break;
+//	}
+//	return r;
+//}
 
 // TODO: To make the code better understandable, get rid of planet->computeModelMatrix(trans, true) here.
 QPair<double, PlanetP> SolarSystem::getSolarEclipseFactor(const StelCore* core) const

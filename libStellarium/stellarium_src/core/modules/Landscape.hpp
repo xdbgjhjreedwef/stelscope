@@ -21,14 +21,14 @@
 #define LANDSCAPE_HPP
 
 #include "VecMath.hpp"
-#include "StelToneReproducer.hpp"
+//#include "StelToneReproducer.hpp"
 #include "StelProjector.hpp"
 
-#include "StelFader.hpp"
+//#include "StelFader.hpp"
 #include "StelUtils.hpp"
-#include "StelTextureTypes.hpp"
+//#include "StelTextureTypes.hpp"
 #include "StelLocation.hpp"
-#include "StelSphereGeometry.hpp"
+//#include "StelSphereGeometry.hpp"
 
 #include <QMap>
 #include <QImage>
@@ -82,16 +82,16 @@ public:
 	//! The returned value is only approximate, content of QStrings and other small containers like the horizon polygon are not put in in detail.
 	//! However, texture image sizes must be computed and added in subclasses.
 	//! The value returned is a sum of RAM and texture memory requirements.
-	unsigned int getMemorySize() const {return memorySize;}
+    //unsigned int getMemorySize() const {return memorySize;}
 
 	//! Draw the landscape. If onlyPolygon, only draw the landscape polygon, if one is defined. If no polygon is defined, the
 	virtual void draw(StelCore* core, bool onlyPolygon) = 0;
 	void update(double deltaTime)
 	{
-		landFader.update(static_cast<int>(deltaTime*1000));
-		fogFader.update(static_cast<int>(deltaTime*1000));
-		illumFader.update(static_cast<int>(deltaTime*1000));
-		labelFader.update(static_cast<int>(deltaTime*1000));
+//		landFader.update(static_cast<int>(deltaTime*1000));
+//		fogFader.update(static_cast<int>(deltaTime*1000));
+//		illumFader.update(static_cast<int>(deltaTime*1000));
+//		labelFader.update(static_cast<int>(deltaTime*1000));
 	}
 
 	//! Set the brightness of the landscape plus brightness of optional add-on night lightscape.
@@ -103,30 +103,30 @@ public:
 	//! Returns the lightscape brightness
 	double getLightscapeBrightness() const { return static_cast<double>(lightScapeBrightness); }
 	//! Returns the lightscape brighness modulated with the fader's target state (i.e. binary on/off)
-	double getTargetLightscapeBrightness() const { return static_cast<double>(lightScapeBrightness * illumFader); }
+//	double getTargetLightscapeBrightness() const { return static_cast<double>(lightScapeBrightness * illumFader); }
 	//! Gets the currently effective lightscape brightness (modulated by the fader)
-	double getEffectiveLightscapeBrightness() const { return static_cast<double>(lightScapeBrightness * illumFader.getInterstate()); }
+//	double getEffectiveLightscapeBrightness() const { return static_cast<double>(lightScapeBrightness * illumFader.getInterstate()); }
 
 	//! Set whether landscape is displayed (does not concern fog)
-	void setFlagShow(const bool b) {landFader=b;}
+//	void setFlagShow(const bool b) {landFader=b;}
 	//! Get whether landscape is displayed (does not concern fog)
-	bool getFlagShow() const {return static_cast<bool>(landFader);}
+//	bool getFlagShow() const {return static_cast<bool>(landFader);}
 	//! Returns the currently effective land fade value
-	float getEffectiveLandFadeValue() const { return landFader.getInterstate(); }
+//	float getEffectiveLandFadeValue() const { return landFader.getInterstate(); }
 	//! Set whether fog is displayed
-	void setFlagShowFog(const bool b) {fogFader=b;}
-	//! Get whether fog is displayed
-	bool getFlagShowFog() const {return static_cast<bool>(fogFader);}
-	//! Set whether illumination is displayed
-	void setFlagShowIllumination(const bool b) {illumFader=b;}
-	//! Get whether illumination is displayed
-	bool getFlagShowIllumination() const {return static_cast<bool>(illumFader);}
+//	void setFlagShowFog(const bool b) {fogFader=b;}
+//	//! Get whether fog is displayed
+//	bool getFlagShowFog() const {return static_cast<bool>(fogFader);}
+//	//! Set whether illumination is displayed
+//	void setFlagShowIllumination(const bool b) {illumFader=b;}
+//	//! Get whether illumination is displayed
+//	bool getFlagShowIllumination() const {return static_cast<bool>(illumFader);}
 	//! Set whether labels are displayed
-	void setFlagShowLabels(const bool b) {labelFader=b;}
+    //void setFlagShowLabels(const bool b) {labelFader=b;}
 	//! Get whether labels are displayed
-	bool getFlagShowLabels() const {return static_cast<bool>(labelFader);}
+    //bool getFlagShowLabels() const {return static_cast<bool>(labelFader);}
 	//! change font and fontsize for landscape labels
-	void setLabelFontSize(const int size){fontSize=size;}
+    //void setLabelFontSize(const int size){fontSize=size;}
 
 	//! Get landscape name
 	QString getName() const {return name;}
@@ -165,7 +165,7 @@ public:
 	void setZRotation(float d) {angleRotateZOffset = d * static_cast<float>(M_PI)/180.0f;}
 
 	//! Get whether the landscape is currently fully visible (i.e. opaque).
-	bool getIsFullyVisible() const {return landFader.getInterstate() >= 0.999f;}
+//	bool getIsFullyVisible() const {return landFader.getInterstate() >= 0.999f;}
 	//! Get the sine of the limiting altitude (can be used to short-cut drawing below horizon, like star fields). There is no set here, value is only from landscape.ini
 	double getSinMinAltitudeLimit() const {return sinMinAltitudeLimit;}
 
@@ -186,8 +186,8 @@ public:
 	};
 	
 	//! Load descriptive labels from optional file gazetteer.LANG.utf8.
-	void loadLabels(const QString& landscapeId);
-	bool hasLandscapePolygon() const {return !horizonPolygon.isNull();}
+    //void loadLabels(const QString& landscapeId);
+    //bool hasLandscapePolygon() const {return !horizonPolygon.isNull();}
 
 protected:
 	//! Load attributes common to all landscapes
@@ -196,7 +196,7 @@ protected:
 	void loadCommon(const QSettings& landscapeIni, const QString& landscapeId);
 
 	//! Draw optional labels on the landscape
-	void drawLabels(StelCore *core, StelPainter *painter);
+    //void drawLabels(StelCore *core, StelPainter *painter);
 
 
 	//! Create a StelSphericalPolygon that describes a measured horizon line. If present, this can be used to draw a horizon line
@@ -221,10 +221,10 @@ protected:
 	float landscapeBrightness;  //! brightness [0..1] to draw the landscape. Computed by the LandscapeMgr.
 	float lightScapeBrightness; //! can be used to draw nightscape texture (e.g. city light pollution), if available. Computed by the LandscapeMgr.
 	bool validLandscape;   //! was a landscape loaded properly?
-	LinearFader landFader; //! Used to slowly fade in/out landscape painting.
-	LinearFader fogFader;  //! Used to slowly fade in/out fog painting.
-	LinearFader illumFader;//! Used to slowly fade in/out illumination painting.
-	LinearFader labelFader;//! Used to slowly fade in/out landscape feature labels.
+//	LinearFader landFader; //! Used to slowly fade in/out landscape painting.
+//	LinearFader fogFader;  //! Used to slowly fade in/out fog painting.
+//	LinearFader illumFader;//! Used to slowly fade in/out illumination painting.
+//	LinearFader labelFader;//! Used to slowly fade in/out landscape feature labels.
 	unsigned int rows;     //! horizontal rows.  May be given in landscape.ini:[landscape]tesselate_rows. More indicates higher accuracy, but is slower.
 	unsigned int cols;     //! vertical columns. May be given in landscape.ini:[landscape]tesselate_cols. More indicates higher accuracy, but is slower.
 	float angleRotateZ;    //! [radians] if pano does not have its left border in the east, rotate in azimuth. Configured in landscape.ini[landscape]angle_rotatez (or decor_angle_rotatez for old_style landscapes)
@@ -243,17 +243,17 @@ protected:
 	double defaultPressure;    //! [mbar]    May be given in landscape.ini:[location]atmospheric_pressure. Default -1.0 (compute from [location]/altitude), use -2 to indicate "no change".
 
 	// Optional elements which, if present, describe a horizon polygon. They can be used to render a line or a filled region, esp. in LandscapePolygonal
-	SphericalRegionP horizonPolygon;   //! Optional element describing the horizon line.
+    //SphericalRegionP horizonPolygon;   //! Optional element describing the horizon line.
 					   //! Data shall be read from the file given as landscape.ini[landscape]polygonal_horizon_list
 					   //! For LandscapePolygonal, this is the only horizon data item.
-	Vec3f horizonPolygonLineColor;     //! for all horizon types, the horizonPolygon line, if specified, will be drawn in this color
+    //Vec3f horizonPolygonLineColor;     //! for all horizon types, the horizonPolygon line, if specified, will be drawn in this color
 					   //! specified in landscape.ini[landscape]horizon_line_color. Negative red (default) indicated "don't draw".
 	// Optional element: labels for landscape features.
-	QList<LandscapeLabel> landscapeLabels;
-	int fontSize;     //! Used for landscape labels (optionally indicating landscape features)
-	Vec3f labelColor; //! Color for the landscape labels.
-	unsigned int memorySize;   //!< holds an approximate value of memory consumption (for cache cost estimate)
-    bool multisamplingEnabled_;
+    //QList<LandscapeLabel> landscapeLabels;
+    //int fontSize;     //! Used for landscape labels (optionally indicating landscape features)
+    //Vec3f labelColor; //! Color for the landscape labels.
+    //unsigned int memorySize;   //!< holds an approximate value of memory consumption (for cache cost estimate)
+    //bool multisamplingEnabled_;
 };
 
 //! @class LandscapeOldStyle
@@ -271,37 +271,37 @@ protected:
 //! for archaeoastronomy. In this case, don't forget to set calibrated=true in landscape.ini.
 //! Since V0.13.1, also this landscape has a self-luminous (light pollution) option: Configure light<n> entries with textures overlaid the tex<n> textures. Only textures with light are necessary!
 //! Can be easily made using layers with e.g. Photoshop or Gimp.
-class LandscapeOldStyle : public Landscape
+class LandscapeOldSty220615053407le : public Landscape
 {
 public:
-	LandscapeOldStyle(float radius = 2.0f);
-	virtual ~LandscapeOldStyle() Q_DECL_OVERRIDE;
+    //LandscapeOldStyle(float radius = 2.0f);
+    //virtual ~LandscapeOldStyle() Q_DECL_OVERRIDE;
 	virtual void load(const QSettings& landscapeIni, const QString& landscapeId) Q_DECL_OVERRIDE;
 	virtual void draw(StelCore* core, bool onlyPolygon) Q_DECL_OVERRIDE;
 	//void create(bool _fullpath, QMap<QString, QString> param); // still not implemented
-	virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
+    //virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
 protected:
 	typedef struct
 	{
-		StelTextureSP tex;
-		StelTextureSP tex_illum; // optional light texture.
+//		StelTextureSP tex;
+//		StelTextureSP tex_illum; // optional light texture.
 		float texCoords[4];
 	} landscapeTexCoord;
 
 private:
-	void drawFog(StelCore* core, StelPainter&) const;
+    //void drawFog(StelCore* core, StelPainter&) const;
 	// drawLight==true for illumination layer, it then selects only the self-illuminating panels.
-	void drawDecor(StelCore* core, StelPainter&, const bool drawLight=false) const;
-	void drawGround(StelCore* core, StelPainter&) const;
+    //void drawDecor(StelCore* core, StelPainter&, const bool drawLight=false) const;
+    //void drawGround(StelCore* core, StelPainter&) const;
 	QVector<Vec3d> groundVertexArr;
 	QVector<Vec2f> groundTexCoordArr;
-	StelTextureSP* sideTexs;
+//	StelTextureSP* sideTexs;
 	unsigned short int nbSideTexs;
 	unsigned short int nbSide;
-	landscapeTexCoord* sides;
-	StelTextureSP fogTex;
-	StelTextureSP groundTex;
-	QVector<QImage*> sidesImages; // Required for opacity lookup
+    landscapeTexCoord* sides;
+//	StelTextureSP fogTex;
+//	StelTextureSP groundTex;
+    //QVector<QImage*> sidesImages; // Required for opacity lookup
 	unsigned short int nbDecorRepeat;
 	float fogAltAngle;
 	float fogAngleShift;
@@ -314,8 +314,8 @@ private:
 	bool calibrated;	// if true, the documented altitudes are indeed correct (the original code is buggy!)
 	struct LOSSide
 	{
-		StelVertexArray arr;
-		StelTextureSP tex;
+        //StelVertexArray arr;
+//		StelTextureSP tex;
 		bool light; // true if texture is self-lighting.
 	};
 
@@ -338,10 +338,10 @@ public:
 	virtual ~LandscapePolygonal() Q_DECL_OVERRIDE;
 	virtual void load(const QSettings& landscapeIni, const QString& landscapeId) Q_DECL_OVERRIDE;
 	virtual void draw(StelCore* core, bool onlyPolygon) Q_DECL_OVERRIDE;
-	virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
+    //virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
 private:
 	// we have inherited: horizonFileName, horizonPolygon, horizonPolygonLineColor
-	Vec3f groundColor; //! specified in landscape.ini[landscape]ground_color.
+    //Vec3f groundColor; //! specified in landscape.ini[landscape]ground_color.
 };
 
 ///////////////////////////////////////////////////////////////
@@ -359,7 +359,7 @@ public:
 	virtual void draw(StelCore* core, bool onlyPolygon) Q_DECL_OVERRIDE;
 	//! Sample landscape texture for transparency/opacity. May be used for visibility, sunrise etc.
 	//! @param azalt normalized direction in alt-az frame
-	virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
+    //virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
 	//! create a fisheye landscape from basic parameters (no ini file needed).
 	//! @param name Landscape name
 	//! @param maptex the fisheye texture
@@ -370,12 +370,12 @@ public:
 	void create(const QString name, float texturefov, const QString& maptex, const QString &_maptexFog="", const QString& _maptexIllum="", const float angleRotateZ=0.0f);
 
 private:
-	StelTextureSP mapTex;      //!< The fisheye image, centered on the zenith.
-	StelTextureSP mapTexFog;   //!< Optional panorama of identical size (create as layer over the mapTex image in your favorite image processor).
-				   //!< can also be smaller, just the texture is again mapped onto the same geometry.
-	StelTextureSP mapTexIllum; //!< Optional fisheye image of identical size (create as layer in your favorite image processor) or at least, proportions.
+//	StelTextureSP mapTex;      //!< The fisheye image, centered on the zenith.
+//	StelTextureSP mapTexFog;   //!< Optional panorama of identical size (create as layer over the mapTex image in your favorite image processor).
+//				   //!< can also be smaller, just the texture is again mapped onto the same geometry.
+//	StelTextureSP mapTexIllum; //!< Optional fisheye image of identical size (create as layer in your favorite image processor) or at least, proportions.
 				   //!< To simulate light pollution (skyglow), street lights, light in windows, ... at night
-	QImage *mapImage;          //!< The same image as mapTex, but stored in-mem for sampling.
+    //QImage *mapImage;          //!< The same image as mapTex, but stored in-mem for sampling.
 
 	float texFov;
 };
@@ -400,7 +400,7 @@ public:
 	//! Sample landscape texture for transparency/opacity. May be used for visibility, sunrise etc.
 	//! @param azalt normalized direction in alt-az frame
 	//! @retval alpha (0=fully transparent, 1=fully opaque. Trees, leaves, glass etc may have intermediate values.)
-	virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
+    //virtual float getOpacity(Vec3d azalt) const Q_DECL_OVERRIDE;
 	//! create a spherical landscape from basic parameters (no ini file needed).
 	//! @param name Landscape name
 	//! @param maptex the equirectangular texture
@@ -419,12 +419,12 @@ public:
 				const float _illumTexTop=90.0f, const float _illumTexBottom=-90.0f, const Vec3f _bottomCapColor=Vec3f(-1.0f, 0.0f, 0.0f));
 
 private:
-	StelTextureSP mapTex;      //!< The equirectangular panorama texture
-	StelTextureSP mapTexFog;   //!< Optional panorama of identical size (create as layer over the mapTex image in your favorite image processor).
+//	StelTextureSP mapTex;      //!< The equirectangular panorama texture
+//	StelTextureSP mapTexFog;   //!< Optional panorama of identical size (create as layer over the mapTex image in your favorite image processor).
 				   //!< can also be smaller, just the texture is again mapped onto the same geometry.
-	StelTextureSP mapTexIllum; //!< Optional panorama of identical size (create as layer over the mapTex image in your favorite image processor).
+//	StelTextureSP mapTexIllum; //!< Optional panorama of identical size (create as layer over the mapTex image in your favorite image processor).
 				   //!< To simulate light pollution (skyglow), street lights, light in windows, ... at night
-	SphericalCap bottomCap;	   //!< Geometry to close the bottom with a monochrome color when mapTexBottom is given. (Avoid hole in Nadir!)
+    //SphericalCap bottomCap;	   //!< Geometry to close the bottom with a monochrome color when mapTexBottom is given. (Avoid hole in Nadir!)
 	// These vars are here to conserve texture memory. They must be allowed to be different: a landscape may have its highest elevations at 15°, fog may reach from -25 to +15°,
 	// light pollution may cover -5° (street lamps slightly below) plus parts of or even the whole sky. All have default values to simplify life.
 	float mapTexTop;           //!< zenithal top angle of the landscape texture, radians
@@ -433,8 +433,8 @@ private:
 	float fogTexBottom;	   //!< zenithal bottom angle of the fog texture, radians
 	float illumTexTop;	   //!< zenithal top angle of the illumination texture, radians
 	float illumTexBottom;	   //!< zenithal bottom angle of the illumination texture, radians
-	QImage *mapImage;          //!< The same image as mapTex, but stored in-mem for opacity sampling.
-	Vec3f bottomCapColor;      //!< The bottomCap, if specified, will be drawn in this color
+    //QImage *mapImage;          //!< The same image as mapTex, but stored in-mem for opacity sampling.
+    //Vec3f bottomCapColor;      //!< The bottomCap, if specified, will be drawn in this color
 };
 
 #endif // LANDSCAPE_HPP

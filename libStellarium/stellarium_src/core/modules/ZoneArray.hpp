@@ -27,7 +27,6 @@
 #include "Star.hpp"
 
 #include "StelCore.hpp"
-#include "StelSkyDrawer.hpp"
 #include "StarMgr.hpp"
 
 #include <QString>
@@ -98,12 +97,14 @@ public:
 	virtual void searchAround(const StelCore* core, int index,const Vec3d &v,double cosLimFov,
 							  QList<StelObjectP > &result) = 0;
 
-	//! Pure virtual method. See subclass implementation.
-	virtual void draw(StelPainter* sPainter, int index,bool is_inside,
-					  const RCMag* rcmag_table, int limitMagIndex, StelCore* core,
-					  int maxMagStarName, float names_brightness,
-					  const QVector<SphericalCap>& boundingCaps,
-					  const bool withAberration, const Vec3f vel) const = 0;
+    virtual void allZobjects(int index, QList<StelObjectP > &result) = 0;
+
+    //! Pure virtual method. See subclass implementation.
+    //	virtual void draw(StelPainter* sPainter, int index,bool is_inside,
+//					  const RCMag* rcmag_table, int limitMagIndex, StelCore* core,
+//					  int maxMagStarName, float names_brightness,
+//					  const QVector<SphericalCap>& boundingCaps,
+//					  const bool withAberration, const Vec3f vel) const = 0;
 
 	//! Get whether or not the catalog was successfully loaded.
 	//! @return @c true if at least one zone was loaded, otherwise @c false
@@ -118,6 +119,7 @@ public:
 	const QString fname;
 
 	//! Level in StelGeodesicGrid.
+    //NOTE: to be removed
 	const int level;
 
 	//! Lower bound of magnitudes in this level. Units: millimag. May be negative for brightest stars.
@@ -183,15 +185,16 @@ protected:
 	//! @param boundingCaps
 	//! @param withAberration true if aberration to be applied
 	//! @param vel velocity vector of observer planet
-	virtual void draw(StelPainter* sPainter, int index, bool isInsideViewport,
-			  const RCMag *rcmag_table, int limitMagIndex, StelCore* core,
-			  int maxMagStarName, float names_brightness,
-			  const QVector<SphericalCap>& boundingCaps,
-			  const bool withAberration, const Vec3f vel) const Q_DECL_OVERRIDE;
+//	virtual void draw(StelPainter* sPainter, int index, bool isInsideViewport,
+//			  const RCMag *rcmag_table, int limitMagIndex, StelCore* core,
+//			  int maxMagStarName, float names_brightness,
+//			  const QVector<SphericalCap>& boundingCaps,
+//			  const bool withAberration, const Vec3f vel) const Q_DECL_OVERRIDE;
 
 	virtual void scaleAxis() Q_DECL_OVERRIDE;
 	virtual void searchAround(const StelCore* core, int index,const Vec3d &v,double cosLimFov,
 					  QList<StelObjectP > &result) Q_DECL_OVERRIDE;
+    virtual void allZobjects(int index, QList<StelObjectP > &result) Q_DECL_OVERRIDE;
 
 	Star *stars;
 private:

@@ -27,12 +27,12 @@
 class HipsMgr : public StelModule
 {
 	Q_OBJECT
-	Q_PROPERTY(QList<HipsSurveyP> surveys
-			MEMBER surveys
-			NOTIFY surveysChanged)
-	Q_PROPERTY(bool flagShow READ getFlagShow WRITE setFlagShow NOTIFY showChanged)
-	Q_PROPERTY(State state READ getState NOTIFY stateChanged)
-	Q_PROPERTY(bool loaded READ isLoaded NOTIFY stateChanged)
+//	Q_PROPERTY(QList<HipsSurveyP> surveys
+//			MEMBER surveys
+//			NOTIFY surveysChanged)
+//	Q_PROPERTY(bool flagShow READ getFlagShow WRITE setFlagShow NOTIFY showChanged)
+//	Q_PROPERTY(State state READ getState NOTIFY stateChanged)
+//	Q_PROPERTY(bool loaded READ isLoaded NOTIFY stateChanged)
 
 public:
 	//! @enum State The loading state of the survey sources.
@@ -50,7 +50,7 @@ public:
 	virtual void deinit() Q_DECL_OVERRIDE;
 	virtual void update(double deltaTime) Q_DECL_OVERRIDE;
 	virtual void draw(StelCore* core) Q_DECL_OVERRIDE;
-	virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
+    //virtual double getCallOrder(StelModuleActionName actionName) const Q_DECL_OVERRIDE;
 
 	//! Return the hips survey that has a given url.
 	Q_INVOKABLE

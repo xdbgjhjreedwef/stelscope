@@ -742,7 +742,7 @@ protected:
 	//! @param thisContour the vertices defining the contour.
 	//! @param nbThisContour nb of vertice of the contour.
 	//! @param points the points to test.
-	//! @param nbPoints the number of points to test.
+    //! @param nbPoints the number of points to test.ge
 	static bool areAllPointsOutsideOneSide(const Vec3d* thisContour, int nbThisContour, const Vec3d* points, int nbPoints);
 
 	//! Computes whether the passed points are all outside of at least one SphericalCap defining the polygon boundary.

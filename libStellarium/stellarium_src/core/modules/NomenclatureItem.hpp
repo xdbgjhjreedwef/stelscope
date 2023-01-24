@@ -27,9 +27,9 @@
 #include <QList>
 
 #include "StelObject.hpp"
-#include "StelTextureTypes.hpp"
-#include "StelFader.hpp"
-#include "StelTranslator.hpp"
+//#include "StelTextureTypes.hpp"
+//#include "StelFader.hpp"
+//#include "StelTranslator.hpp"
 #include "Planet.hpp"
 #include "SolarSystem.hpp"
 
@@ -146,26 +146,26 @@ public:
 		return QString("%1").arg(identificator);
 	}
 
-	virtual float getSelectPriority(const StelCore* core) const Q_DECL_OVERRIDE;
+//	virtual float getSelectPriority(const StelCore* core) const Q_DECL_OVERRIDE;
 
 	//! Get an HTML string to describe the object
 	//! @param core A pointer to the core
 	//! @flags a set of flags with information types to include.
 	virtual QString getInfoString(const StelCore* core, const InfoStringGroup& flags) const Q_DECL_OVERRIDE;
-	virtual Vec3f getInfoColor(void) const Q_DECL_OVERRIDE;
+//	virtual Vec3f getInfoColor(void) const Q_DECL_OVERRIDE;
 	virtual Vec3d getJ2000EquatorialPos(const StelCore*) const Q_DECL_OVERRIDE;
 	//! Return the angular radius of a circle containing the feature as seen from the observer
 	//! with the circle center assumed to be at getJ2000EquatorialPos().
 	//! @return radius in degree. This value is half of the apparent angular size of the object, and is independent of the current FOV.
 	virtual double getAngularRadius(const StelCore* core) const Q_DECL_OVERRIDE;
 	//! Get the localized name of nomenclature item.
-	virtual QString getNameI18n(void) const Q_DECL_OVERRIDE;
+    //virtual QString getNameI18n(void) const Q_DECL_OVERRIDE;
 	//! Get the english name of nomenclature item.
 	virtual QString getEnglishName(void) const Q_DECL_OVERRIDE;
 
 	///////////////////////////////////////////////////////////////////////////
 	//! Translate feature name using the passed translator
-	virtual void translateName(const StelTranslator &trans);
+//	virtual void translateName(const StelTranslator &trans);
 
 	//! Compute times of nearest rise, transit and set of the item's current Planet.
 	//! @param core the currently active StelCore object
@@ -180,8 +180,8 @@ public:
 	void draw(StelCore* core, StelPainter *painter);
 	NomenclatureItemType getNomenclatureType() const { return nType;}
 
-	static void setFlagLabels(bool b){ labelsFader = b; }
-	static bool getFlagLabels(void){ return labelsFader;}
+//	static void setFlagLabels(bool b){ labelsFader = b; }
+//	static bool getFlagLabels(void){ return labelsFader;}
 	void setFlagHideLocalNomenclature(bool b) { hideLocalNomenclature=b; }
 	bool getFlagHideLocalNomenclature() const { return hideLocalNomenclature; }
 	//QString getEnglishPlanetName(void) const {return planet->getEnglishName();}
@@ -241,7 +241,7 @@ private:
 	mutable double longitude;   // degrees. Declared mutable to allow change in otherwise const methods (for special points)
 	double size;                //  km
 
-	static LinearFader labelsFader;
+//	static LinearFader labelsFader;
 };
 
 #endif // NOMENCLATUREITEM_HPP

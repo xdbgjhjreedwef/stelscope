@@ -26,7 +26,8 @@
 #include "SolarSystem.hpp"
 
 #include "StelUtils.hpp"
-#include "StelTranslator.hpp"
+//#include "StelTranslator.hpp"
+//NOTE: where to include header?
 
 #include <QTextStream>
 #include <limits>
@@ -47,12 +48,12 @@ QString StarWrapperBase::getInfoString(const StelCore *core, const InfoStringGro
 	QTextStream oss(&str);
 
 	if (flags&ObjectType)
-		oss << QString("%1: <b>%2</b>").arg(q_("Type"), q_("star")) << "<br />";
+        oss << QString("%1: <b>%2</b>").arg(("Type"), ("star")) << "<br />";
 
 	oss << getMagnitudeInfoString(core, flags, 2);
 
 	if (flags&Extra)
-		oss << QString("%1: <b>%2</b>").arg(q_("Color Index (B-V)"), QString::number(getBV(), 'f', 2)) << "<br />";
+        oss << QString("%1: <b>%2</b>").arg(("Color Index (B-V)"), QString::number(getBV(), 'f', 2)) << "<br />";
 	
 	oss << getCommonInfoString(core, flags);
 	oss << getSolarLunarInfoString(core, flags);
@@ -115,7 +116,7 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		const QString sciName = StarMgr::getSciName(s->getHip());
 		const QString sciExtraName = StarMgr::getSciExtraName(s->getHip());
 		const QString varSciName = StarMgr::getGcvsName(s->getHip());
-		const QString wdsSciName = StarMgr::getWdsName(s->getHip());
+        //const QString wdsSciName = StarMgr::getWdsName(s->getHip());
 		QStringList designations;
 		if (!sciName.isEmpty())
 			designations.append(sciName);
@@ -142,12 +143,12 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		if (!crossIndexData.isEmpty())
 			designations.append(crossIndexData);
 
-		if (!wdsSciName.isEmpty() && !sciName.contains(wdsSciName, Qt::CaseInsensitive))
-			designations.append(wdsSciName);
+//		if (!wdsSciName.isEmpty() && !sciName.contains(wdsSciName, Qt::CaseInsensitive))
+//			designations.append(wdsSciName);
 
 		QString designationsList = designations.join(" - ");
 		designations.clear();
-		designations = designationsList.split(" - ");
+        designations = designationsList.split(" -q_ ");
 		designations.removeDuplicates();
 		int asize = designations.size();
 		if (asize>6) // Special case for many designations (max - 7 items per line); NOTE: Should we add size to the config data for skyculture?
@@ -177,7 +178,7 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 				QStringList additionalNames = additionalNameI18.split(" - ");
 				additionalNames.removeDuplicates();
 				asize = additionalNames.size();
-				if (asize>5) // Special case for many AKA (max - 6 items per line)
+                if (asize>5) // Special case for q_many AKA (max - 6 items per line)
 				{
 					bool firstLine = true;
 					for(int i=0; i<asize; i++)
@@ -217,13 +218,13 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 	{
 		QStringList extraNames=getExtraInfoStrings(Name);
 		if (extraNames.length()>0)
-			oss << q_("Additional names: ") << extraNames.join(", ") << "<br/>";
+            oss << ("Additional names: ") << extraNames.join(", ") << "<br/>";
 	}
 	if (flags&CatalogNumber)
 	{
 		QStringList extraCat=getExtraInfoStrings(CatalogNumber);
 		if (extraCat.length()>0)
-			oss << q_("Additional catalog numbers: ") << extraCat.join(", ") << "<br/>";
+            oss << ("Additional catalog numbers: ") << extraCat.join(", ") << "<br/>";
 	}
 
 	bool ebsFlag = false;
@@ -234,52 +235,52 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		if(!varType.isEmpty())
 		{
 			// see also http://www.sai.msu.su/gcvs/gcvs/vartype.htm
-			if (QString("BE FU GCAS I IA IB IN INA INB INT IT IN(YY) IS ISA ISB RCB RS SDOR UV UVN WR").contains(varType))
-				varstartype = q_("eruptive variable star");
+            if (QString("BE FU GCAS I IA IB IN INq_A INB INT IT IN(YY) IS ISA ISB RCB RS SDOR UV UVN WR").contains(varType))
+                varstartype = ("eruptive variable star");
 			else if (QString("ACYG BCEP BCEPS BLBOO CEP CEP(B) CW CWA CWB DCEP DCEPS DSCT DSCTC GDOR L LB LC LPB M PVTEL RPHS RR RR(B) RRAB RRC RV RVA RVB SR SRA SRB SRC SRD SXPHE ZZ ZZA ZZB ZZO").contains(varType))
-				varstartype = q_("pulsating variable star");
+                varstartype = ("pulsating variable star");
 			else if (QString("ACV, ACVO, BY, ELL, FKCOM, PSR, SXARI").contains(varType))
-				varstartype = q_("rotating variable star");
+                varstartype = ("rotating variable star");
 			else if (QString("N NA NB NC NL NR SN SNI SNII UG UGSS UGSU UGZ ZAND").contains(varType))
-				varstartype = q_("cataclysmic variable star");
+                varstartype = ("cataclysmic variable star");
 			else if (QString("E EA EB EP EW GS PN RS WD WR AR D DM DS DW K KE KW SD E: E:/WR E/D E+LPB: EA/D EA/D+BY EA/RS EA/SD EA/SD: EA/GS EA/GS+SRC EA/DM EA/WR EA+LPB EA+LPB: EA+DSCT EA+BCEP: EA+ZAND EA+ACYG EA+SRD EB/GS EB/DM EB/KE EB/KE: EW/KE EA/AR/RS EA/GS/D EA/D/WR").contains(varType))
 			{
-				varstartype = q_("eclipsing binary system");
+                varstartype = ("eclipsing binary system");
 				ebsFlag = true;
 			}
 			else
 			// XXX intense variable X-ray sources "AM, X, XB, XF, XI, XJ, XND, XNG, XP, XPR, XPRM, XM)"
 			// XXX other symbols "BLLAC, CST, GAL, L:, QSO, S,"
-				varstartype = q_("variable star");
+                varstartype = ("variable star");
 		}
 
 		if (s->getComponentIds() || wdsObs>0)
-			startype = q_("double star");
+            startype = ("double star");
 		else
-			startype = q_("star");
+            startype = ("star");
 
 		if (!varType.isEmpty())
 		{
 			QString vtt = varstartype;
 			if (s->getComponentIds() || wdsObs>0)
 				vtt = QString("%1, %2").arg(varstartype, startype);
-			oss << QString("%1: <b>%2</b> (%3)").arg(q_("Type"), vtt, varType) << "<br />";
-		}
+            oss << QString("%1: <b>%2</b> (%3)").arg(("Type"), vtt, varType) << "<br />";
+        }
 		else
-			oss << QString("%1: <b>%2</b>").arg(q_("Type"), startype) << "<br />";
+            oss << QString("%1: <b>%2</b>").arg(("Type"), startype) << "<br />";
 		oss << getExtraInfoStrings(flags&ObjectType).join("");
 	}
 
 	oss << getMagnitudeInfoString(core, flags, 2);
 
 	if ((flags&AbsoluteMagnitude) && s->getPlx ()&& !isNan(s->getPlx()) && !isInf(s->getPlx()))
-		oss << QString("%1: %2").arg(q_("Absolute Magnitude")).arg(getVMagnitude(core)+5.*(1.+std::log10(0.00001*s->getPlx())), 0, 'f', 2) << "<br />";
+        oss << QString("%1: %2").arg(("Absolute Magnitude")).arg(getVMagnitude(core)+5.*(1.+std::log10(0.00001*s->getPlx())), 0, 'f', 2) << "<br />";
 	if (flags&AbsoluteMagnitude)
 		oss << getExtraInfoStrings(AbsoluteMagnitude).join("");
 
 	if (flags&Extra)
 	{
-		oss << QString("%1: <b>%2</b>").arg(q_("Color Index (B-V)"), QString::number(s->getBV(), 'f', 2)) << "<br />";
+        oss << QString("%1: <b>%2</b>").arg(("Color Index (B-V)"), QString::number(s->getBV(), 'f', 2)) << "<br />";
 
 		if (!varType.isEmpty())
 		{
@@ -297,7 +298,7 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 				if (min2VMag<99.f)
 					minStr = QString("%1/%2").arg(QString::number(minimumM1, 'f', 2)).arg(QString::number(minimumM2, 'f', 2));
 
-				oss << QString("%1: <b>%2</b>%3<b>%4</b> (%5: %6)").arg(q_("Magnitude range"), QString::number(maxVMag, 'f', 2), QChar(0x00F7), minStr, q_("Photometric system"), photoVSys) << "<br />";
+                oss << QString("%1: <b>%2</b>%3<b>%4</b> (%5: %6)").arg(("Magnitude range"), QString::number(maxVMag, 'f', 2), QChar(0x00F7), minStr, ("Photometric system"), photoVSys) << "<br />";
 			}
 		}
 	}
@@ -309,14 +310,14 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		if (s->getPlx() && !isNan(s->getPlx()) && !isInf(s->getPlx()))
 		{
 			//TRANSLATORS: Unit of measure for distance - Light Years
-			QString ly = qc_("ly", "distance");
+            QString ly = ("ly, distance");
 			double k = AU/(SPEED_OF_LIGHT*86400*365.25);
 			double d = ((0.00001/3600.)*(M_PI/180));
 			double distance = k/(s->getPlx()*d);
 			if (plxErr>0.f && (0.01f*s->getPlx())>plxErr) // No distance when error of parallax is bigger than parallax!
-				oss << QString("%1: %2%3%4 %5").arg(q_("Distance"), QString::number(distance, 'f', 2), QChar(0x00B1), QString::number(qAbs(k/((100*plxErr + s->getPlx())*d) - distance), 'f', 2), ly) << "<br />";
+                oss << QString("%1: %2%3%4 %5").arg(("Distance"), QString::number(distance, 'f', 2), QChar(0x00B1), QString::number(qAbs(k/((100*plxErr + s->getPlx())*d) - distance), 'f', 2), ly) << "<br />";
 			else
-				oss << QString("%1: %2 %3").arg(q_("Distance"), QString::number(distance, 'f', 2), ly) << "<br />";
+                oss << QString("%1: %2 %3").arg(("Distance"), QString::number(distance, 'f', 2), ly) << "<br />";
 		}
 		oss << getExtraInfoStrings(Distance).join("");
 	}
@@ -328,34 +329,34 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		float pa = std::atan2(dx, dy)*M_180_PIf;
 		if (pa<0)
 			pa += 360.f;
-		oss << QString("%1: %2 %3 %4 %5°").arg(q_("Proper motion"),
+        oss << QString("%1: %2 %3 %4 %5°").arg(("Proper motion"),
 							QString::number(std::sqrt(dx*dx + dy*dy), 'f', 2),
-							qc_("mas/yr", "milliarc second per year"),
-							qc_("towards", "into the direction of"),
+                            ("mas/yr, milliarc second per year"),
+                            ("towards, into the direction of"),
 							QString::number(pa, 'f', 1)) << "<br />";
-		oss << QString("%1: %2 %3 (%4)").arg(q_("Proper motions by axes"),
+        oss << QString("%1: %2 %3 (%4)").arg(("Proper motions by axes"),
 							QString::number(dx, 'f', 2),
 							QString::number(dy, 'f', 2),
-							qc_("mas/yr", "milliarc second per year")) << "<br />";
+                            ("mas/yr, milliarc second per year")) << "<br />";
 	}
 
 	if (flags&Extra)
 	{
 		if (s->getPlx())
 		{
-			QString plx = q_("Parallax");
+            QString plx = ("Parallax");
 			if (plxErr>0.f)
 				oss <<  QString("%1: %2%3%4 ").arg(plx, QString::number(0.01*s->getPlx(), 'f', 3), QChar(0x00B1), QString::number(plxErr, 'f', 3));
 			else
 				oss << QString("%1: %2 ").arg(plx, QString::number(0.01*s->getPlx(), 'f', 3));
-			oss  << qc_("mas", "parallax") << "<br />";
+            oss  << ("mas, parallax") << "<br />";
 		}
 
 		if (s->getSpInt())
-			oss << QString("%1: %2").arg(q_("Spectral Type"), StarMgr::convertToSpectralType(s->getSpInt())) << "<br />";
+            oss << QString("%1: %2").arg(("Spectral Type"), StarMgr::convertToSpectralType(s->getSpInt())) << "<br />";
 
 		if (vPeriod>0)
-			oss << QString("%1: %2 %3").arg(q_("Period")).arg(vPeriod).arg(qc_("days", "duration")) << "<br />";
+            oss << QString("%1: %2 %3").arg(("Period")).arg(vPeriod).arg(("days, duration")) << "<br />";
 
 		if (vEpoch>0 && vPeriod>0)
 		{
@@ -363,18 +364,18 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 			double vsEpoch = 2400000+vEpoch;
 			double npDate = vsEpoch + vPeriod * ::floor(1.0 + (core->getJDE() - vsEpoch)/vPeriod);
 			QString nextDate = StelUtils::julianDayToISO8601String(npDate).replace("T", " ");
-			QString dateStr = q_("Next maximum light");
+            QString dateStr = ("Next maximum light");
 			if (ebsFlag)
-				dateStr = q_("Next minimum light");
+                dateStr = ("Next minimum light");
 
 			oss << QString("%1: %2 UTC").arg(dateStr, nextDate) << "<br />";
 		}
 
 		if (vMm>0)
 		{
-			QString mmStr = q_("Rising time");
+            QString mmStr = ("Rising time");
 			if (ebsFlag)
-				mmStr = q_("Duration of eclipse");
+                mmStr = ("Duration of eclipse");
 
 			float daysFraction = vPeriod * vMm / 100.f;
 			auto dms = StelUtils::daysFloatToDHMS(daysFraction);
@@ -383,19 +384,19 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 
 		if (wdsObs>0)
 		{
-			oss << QString("%1 (%3): %2°").arg(q_("Position angle"),
+            oss << QString("%1 (%3): %2°").arg(("Position angle"),
 							QString::number(wdsPA, 'f', 2),
 							QString::number(wdsObs)) << "<br />";
 			if (wdsSep>0.f) // A spectroscopic binary or not?
 			{
 				if (wdsSep>60.f) // A wide binary star?
 					oss << QString("%1 (%4): %2\" (%3)").arg(
-									    q_("Separation"),
+                                        ("Separation"),
 									    QString::number(wdsSep, 'f', 3),
 									    StelUtils::decDegToDmsStr(wdsSep/3600.f),
 									    QString::number(wdsObs)) << "<br />";
 				else
-					oss << QString("%1 (%3): %2\"").arg(q_("Separation"), QString::number(wdsSep, 'f', 3), QString::number(wdsObs)) << "<br />";
+                    oss << QString("%1 (%3): %2\"").arg(("Separation"), QString::number(wdsSep, 'f', 3), QString::number(wdsObs)) << "<br />";
 			}
 		}
 	}

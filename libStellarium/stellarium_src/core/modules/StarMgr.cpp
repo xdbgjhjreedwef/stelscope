@@ -24,29 +24,30 @@
 #include "StelProjector.hpp"
 #include "StarMgr.hpp"
 #include "StelObject.hpp"
-#include "StelTexture.hpp"
+//#include "StelTexture.hpp"
 
-#include "StelToneReproducer.hpp"
-#include "StelTranslator.hpp"
+//#include "StelToneReproducer.hpp"
+//#include "StelTranslator.hpp"
 #include "StelGeodesicGrid.hpp"
 #include "StelApp.hpp"
-#include "StelTextureMgr.hpp"
+//#include "StelTextureMgr.hpp"
 #include "StelObjectMgr.hpp"
-#include "StelLocaleMgr.hpp"
-#include "StelSkyCultureMgr.hpp"
+//#include "StelLocaleMgr.hpp"
+//#include "StelSkyCultureMgr.hpp"
 #include "StelFileMgr.hpp"
 #include "StelModuleMgr.hpp"
 #include "StelCore.hpp"
 #include "StelIniParser.hpp"
-#include "StelPainter.hpp"
+//#include "StelPainter.hpp"
 #include "StelJsonParser.hpp"
 #include "ZoneArray.hpp"
-#include "StelSkyDrawer.hpp"
+//#include "StelSkyDrawer.hpp"
 #include "RefractionExtinction.hpp"
 #include "StelModuleMgr.hpp"
-#include "ConstellationMgr.hpp"
+//#include "ConstellationMgr.hpp"
 #include "Planet.hpp"
 #include "StelUtils.hpp"
+#include "StelSphereGeometry.hpp"
 
 #include <QTextStream>
 #include <QFile>
@@ -145,11 +146,11 @@ void StarMgr::initTriangle(int lev,int index, const Vec3f &c0, const Vec3f &c1, 
 
 StarMgr::StarMgr(void)
 	: StelObjectModule()
-	, flagStarName(false)
-	, labelsAmount(0.)
-	, gravityLabel(false)
-	, maxGeodesicGridLevel(-1)
-	, lastMaxSearchLevel(-1)
+//	, flagStarName(false)
+//	, labelsAmount(0.)
+//	, gravityLabel(false)
+    , maxGeodesicGridLevel(-1)
+    , lastMaxSearchLevel(-1)
 	, hipIndex(new HipIndexStruct[NR_OF_HIP+1])
 {
 	setObjectName("StarMgr");
@@ -160,12 +161,12 @@ StarMgr::StarMgr(void)
 /*************************************************************************
  Reimplementation of the getCallOrder method
 *************************************************************************/
-double StarMgr::getCallOrder(StelModuleActionName actionName) const
-{
-	if (actionName==StelModule::ActionDraw)
-		return StelApp::getInstance().getModuleMgr().getModule("ConstellationMgr")->getCallOrder(actionName)+10;
-	return 0;
-}
+//double StarMgr::getCallOrder(StelModuleActionName actionName) const
+//{
+//	if (actionName==StelModule::ActionDraw)
+//		return StelApp::getInstance().getModuleMgr().getModule("ConstellationMgr")->getCallOrder(actionName)+10;
+//	return 0;
+//}
 
 
 StarMgr::~StarMgr(void)
@@ -180,14 +181,14 @@ StarMgr::~StarMgr(void)
 // Allow untranslated name here if set in constellationMgr!
 QString StarMgr::getCommonName(int hip)
 {
-	ConstellationMgr* cmgr=GETSTELMODULE(ConstellationMgr);
-	if (cmgr->getConstellationDisplayStyle() == ConstellationMgr::constellationsNative)
-		return getCommonEnglishName(hip);
+    //ConstellationMgr* cmgr=GETSTELMODULE(ConstellationMgr);
+    //if (cmgr->getConstellationDisplayStyle() == ConstellationMgr::constellationsNative)
+    return getCommonEnglishName(hip);
 
-	auto it = commonNamesMapI18n.find(hip);
-	if (it!=commonNamesMapI18n.end())
-		return it.value();
-	return QString();
+//	auto it = commonNamesMapI18n.find(hip);
+//	if (it!=commonNamesMapI18n.end())
+//		return it.value();
+//	return QString();
 }
 
 QString StarMgr::getAdditionalNames(int hip)
@@ -257,10 +258,10 @@ QString StarMgr::getCrossIdentificationDesignations(QString hip)
 
 QString StarMgr::getWdsName(int hip)
 {
-	auto it = wdsStarsMapI18n.find(hip);
-	if (it!=wdsStarsMapI18n.end())
-		return QString("WDS J%1").arg(it.value().designation);
-	return QString();
+    auto it = wdsStarsMapI18n.find(hip);
+    if (it!=wdsStarsMapI18n.end())
+        return QString("WDS J%1").arg(it.value().designation);
+    return QString();
 }
 
 int StarMgr::getWdsLastObservation(int hip)
@@ -439,57 +440,64 @@ void StarMgr::init()
 
 	populateStarsDesignations();
 	populateHipparcosLists();
+///========
+    const QString skyCultureDir = "western";
+        QString ficc = StelFileMgr::findFile("skycultures/" + skyCultureDir + "/star_names.fab");
+        if (ficc.isEmpty())
+            qDebug() << "Could not load star_names.fab for sky culture " << QDir::toNativeSeparators(skyCultureDir);
+        else
+            loadCommonNames(ficc);
 
-	setFontSize(StelApp::getInstance().getScreenFontSize());
-	connect(&StelApp::getInstance(), SIGNAL(screenFontSizeChanged(int)), this, SLOT(setFontSize(int)));
+//	setFontSize(StelApp::getInstance().getScreenFontSize());
+//	connect(&StelApp::getInstance(), SIGNAL(screenFontSizeChanged(int)), this, SLOT(setFontSize(int)));
 
-	setFlagStars(conf->value("astro/flag_stars", true).toBool());
-	setFlagLabels(conf->value("astro/flag_star_name",true).toBool());
+//	setFlagStars(conf->value("astro/flag_stars", true).toBool());
+//	setFlagLabels(conf->value("astro/flag_star_name",true).toBool());
 	setFlagAdditionalNames(conf->value("astro/flag_star_additional_names",true).toBool());
 	setDesignationUsage(conf->value("astro/flag_star_designation_usage", false).toBool());
 	setFlagDblStarsDesignation(conf->value("astro/flag_star_designation_dbl", false).toBool());
 	setFlagVarStarsDesignation(conf->value("astro/flag_star_designation_var", false).toBool());
 	setFlagHIPDesignation(conf->value("astro/flag_star_designation_hip", false).toBool());
-	setLabelsAmount(conf->value("stars/labels_amount",3.).toDouble());
+//	setLabelsAmount(conf->value("stars/labels_amount",3.).toDouble());
 
 	objectMgr->registerStelObjectMgr(this);
-	texPointer = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/pointeur2.png");   // Load pointer texture
+//	texPointer = StelApp::getInstance().getTextureManager().createTexture(StelFileMgr::getInstallationDir()+"/textures/pointeur2.png");   // Load pointer texture
 
-	StelApp::getInstance().getCore()->getGeodesicGrid(maxGeodesicGridLevel)->visitTriangles(maxGeodesicGridLevel,initTriangleFunc,this);
+    StelApp::getInstance().getCore()->getGeodesicGrid(maxGeodesicGridLevel)->visitTriangles(maxGeodesicGridLevel,initTriangleFunc,this);
 	for (auto* z : qAsConst(gridLevels))
 		z->scaleAxis();
 	StelApp *app = &StelApp::getInstance();
-	connect(app, SIGNAL(languageChanged()), this, SLOT(updateI18n()));
-	connect(&app->getSkyCultureMgr(), SIGNAL(currentSkyCultureChanged(QString)), this, SLOT(updateSkyCulture(const QString&)));
+    //connect(app, SIGNAL(languageChanged()), this, SLOT(updateI18n()));
+    //connect(&app->getSkyCultureMgr(), SIGNAL(currentSkyCultureChanged(QString)), this, SLOT(updateSkyCulture(const QString&)));
 
-	QString displayGroup = N_("Display Options");
-	addAction("actionShow_Stars", displayGroup, N_("Stars"), "flagStarsDisplayed", "S");
-	addAction("actionShow_Stars_Labels", displayGroup, N_("Stars labels"), "flagLabelsDisplayed", "Alt+S");
+    QString displayGroup = ("Display Options");
+    //addAction("actionShow_Stars", displayGroup, N_("Stars"), "flagStarsDisplayed", "S");
+    //addAction("actionShow_Stars_Labels", displayGroup, N_("Stars labels"), "flagLabelsDisplayed", "Alt+S");
 	// Details: https://github.com/Stellarium/stellarium/issues/174
-	addAction("actionShow_Stars_MagnitudeLimitIncrease", displayGroup, N_("Increase the magnitude limit for stars"), "increaseStarsMagnitudeLimit()");
-	addAction("actionShow_Stars_MagnitudeLimitReduce", displayGroup, N_("Reduce the magnitude limit for stars"), "reduceStarsMagnitudeLimit()");
+    //addAction("actionShow_Stars_MagnitudeLimitIncrease", displayGroup, N_("Increase the magnitude limit for stars"), "increaseStarsMagnitudeLimit()");
+    //addAction("actionShow_Stars_MagnitudeLimitReduce", displayGroup, N_("Reduce the magnitude limit for stars"), "reduceStarsMagnitudeLimit()");
 }
 
 
-void StarMgr::drawPointer(StelPainter& sPainter, const StelCore* core)
-{
-	const QList<StelObjectP> newSelected = objectMgr->getSelectedObject("Star");
-	if (!newSelected.empty())
-	{
-		const StelObjectP obj = newSelected[0];
-		Vec3d pos=obj->getJ2000EquatorialPos(core);
+//void StarMgr::drawPointer(StelPainter& sPainter, const StelCore* core)
+//{
+//	const QList<StelObjectP> newSelected = objectMgr->getSelectedObject("Star");
+//	if (!newSelected.empty())
+//	{
+//		const StelObjectP obj = newSelected[0];
+//		Vec3d pos=obj->getJ2000EquatorialPos(core);
 
-		Vec3f screenpos;
-		// Compute 2D pos and return if outside screen
-		if (!sPainter.getProjector()->project(pos, screenpos))
-			return;
+//		Vec3f screenpos;
+//		// Compute 2D pos and return if outside screen
+//		if (!sPainter.getProjector()->project(pos, screenpos))
+//			return;
 
-		sPainter.setColor(obj->getInfoColor());
-		texPointer->bind();
-		sPainter.setBlending(true);
-		sPainter.drawSprite2dMode(screenpos[0], screenpos[1], 13.f, static_cast<float>(StelApp::getInstance().getAnimationTime())*40.f);
-	}
-}
+//		sPainter.setColor(obj->getInfoColor());
+//		texPointer->bind();
+//		sPainter.setBlending(true);
+//		sPainter.drawSprite2dMode(screenpos[0], screenpos[1], 13.f, static_cast<float>(StelApp::getInstance().getAnimationTime())*40.f);
+//	}
+//}
 
 bool StarMgr::checkAndLoadCatalog(const QVariantMap& catDesc)
 {
@@ -560,20 +568,20 @@ bool StarMgr::checkAndLoadCatalog(const QVariantMap& catDesc)
 		}
 	}
 
-	ZoneArray* z = ZoneArray::create(catalogFilePath, true);
-	if (z)
-	{
-		if (z->level<gridLevels.size())
-		{
-			qWarning() << QDir::toNativeSeparators(catalogFileName) << ", " << z->level << ": duplicate level";
-			delete z;
-			return true;
-		}
-		Q_ASSERT(z->level==maxGeodesicGridLevel+1);
-		Q_ASSERT(z->level==gridLevels.size());
-		++maxGeodesicGridLevel;
-		gridLevels.append(z);
-	}
+    ZoneArray* z = ZoneArray::create(catalogFilePath, true);
+    if (z)
+    {
+        if (z->level<gridLevels.size())
+        {
+            qWarning() << QDir::toNativeSeparators(catalogFileName) << ", " << z->level << ": duplicate level";
+            delete z;
+            return true;
+        }
+        Q_ASSERT(z->level==maxGeodesicGridLevel+1);
+        Q_ASSERT(z->level==gridLevels.size());
+        ++maxGeodesicGridLevel;
+        gridLevels.append(z);
+    }
 	return true;
 }
 
@@ -583,6 +591,7 @@ void StarMgr::setCheckFlag(const QString& catId, bool b)
 	int idx=0;
 	for (const auto& catV : qAsConst(catalogsDescription))
 	{
+        //FIXME: possible empty catV here
 		++idx;
 		QVariantMap m = catV.toMap();
 		if (m.value("id").toString()!=catId)
@@ -605,7 +614,7 @@ void StarMgr::setCheckFlag(const QString& catId, bool b)
 void StarMgr::loadData(QVariantMap starsConfig)
 {
 	// Please do not init twice:
-	Q_ASSERT(maxGeodesicGridLevel < 0);
+    Q_ASSERT(maxGeodesicGridLevel < 0);
 
 	qDebug() << "Loading star data ...";
 
@@ -621,7 +630,7 @@ void StarMgr::loadData(QVariantMap starsConfig)
 		hipIndex[i].a = Q_NULLPTR;
 		hipIndex[i].z = Q_NULLPTR;
 		hipIndex[i].s = Q_NULLPTR;
-	}
+    }
 	for (auto* z : qAsConst(gridLevels))
 		z->updateHipIndex(hipIndex);
 
@@ -653,8 +662,8 @@ void StarMgr::loadData(QVariantMap starsConfig)
 			component_array = initStringListFromFile(tmpFic);
 	}
 
-	lastMaxSearchLevel = maxGeodesicGridLevel;
-	qDebug() << "Finished loading star catalogue data, max_geodesic_level: " << maxGeodesicGridLevel;	
+    lastMaxSearchLevel = maxGeodesicGridLevel;
+//	qDebug() << "Finished loading star catalogue data, max_geodesic_level: " << maxGeodesicGridLevel;
 }
 
 void StarMgr::populateHipparcosLists()
@@ -706,12 +715,12 @@ void StarMgr::populateHipparcosLists()
 					classicalCepheidsTypeStars.push_back(sacc);
 				}
 			}
-			if (!getWdsName(s->getHip()).isEmpty())
-			{
-				QMap<StelObjectP, float> sd;
-				sd[so] = getWdsLastSeparation(s->getHip());
-				doubleHipStars.push_back(sd);
-			}
+            if (!getWdsName(s->getHip()).isEmpty())
+            {
+                QMap<StelObjectP, float> sd;
+                sd[so] = getWdsLastSeparation(s->getHip());
+                doubleHipStars.push_back(sd);
+            }
 			// use separate variables for avoid the overflow (esp. for Barnard's star)
 			PMData properMotion = getProperMotion(s->getHip());
 			float pmX = properMotion.first;
@@ -1271,7 +1280,7 @@ int StarMgr::getMaxSearchLevel() const
 	{
 		const float mag_min = 0.001f*z->mag_min;
 		RCMag rcmag;
-		if (StelApp::getInstance().getCore()->getSkyDrawer()->computeRCMag(mag_min, &rcmag)==false)
+        if (StelApp::getInstance().getCore()->computeRCMag(mag_min, &rcmag)==false)
 			break;
 		rval = z->level;
 	}
@@ -1282,93 +1291,93 @@ int StarMgr::getMaxSearchLevel() const
 // Draw all the stars
 void StarMgr::draw(StelCore* core)
 {
-	const StelProjectorP prj = core->getProjection(StelCore::FrameJ2000);
-	StelSkyDrawer* skyDrawer = core->getSkyDrawer();
+    ///const StelProjectorP prj = core->getProjection(StelCore::FrameJ2000);
+    //StelSkyDrawer* skyDrawer = core->getSkyDrawer();
 	// If stars are turned off don't waste time below
 	// projecting all stars just to draw disembodied labels
-	if (!static_cast<bool>(starsFader.getInterstate()))
-		return;
+//	if (!static_cast<bool>(starsFader.getInterstate()))
+//		return;
 
-	int maxSearchLevel = getMaxSearchLevel();
-	QVector<SphericalCap> viewportCaps = prj->getViewportConvexPolygon()->getBoundingSphericalCaps();
-	viewportCaps.append(core->getVisibleSkyArea());
-	const GeodesicSearchResult* geodesic_search_result = core->getGeodesicGrid(maxSearchLevel)->search(viewportCaps,maxSearchLevel);
+//	int maxSearchLevel = getMaxSearchLevel();
+//	QVector<SphericalCap> viewportCaps = prj->getViewportConvexPolygon()->getBoundingSphericalCaps();
+//	viewportCaps.append(core->getVisibleSkyArea());
+//	const GeodesicSearchResult* geodesic_search_result = core->getGeodesicGrid(maxSearchLevel)->search(viewportCaps,maxSearchLevel);
 
-	// Set temporary static variable for optimization
-	const float names_brightness = labelsFader.getInterstate() * starsFader.getInterstate();
+//	// Set temporary static variable for optimization
+//	const float names_brightness = labelsFader.getInterstate() * starsFader.getInterstate();
 
-	// prepare for aberration: Explan. Suppl. 2013, (7.38)
-	const bool withAberration=core->getUseAberration();
-	Vec3d vel(0.);
-	if (withAberration)
-	{
-		vel=core->getCurrentPlanet()->getHeliocentricEclipticVelocity();
-		StelCore::matVsop87ToJ2000.transfo(vel);
-		vel*=core->getAberrationFactor()*(AU/(86400.0*SPEED_OF_LIGHT));
-	}
-	const Vec3f velf=vel.toVec3f();
+//	// prepare for aberration: Explan. Suppl. 2013, (7.38)
+//	const bool withAberration=core->getUseAberration();
+//	Vec3d vel(0.);
+//	if (withAberration)
+//	{
+//		vel=core->getCurrentPlanet()->getHeliocentricEclipticVelocity();
+//		StelCore::matVsop87ToJ2000.transfo(vel);
+//		vel*=core->getAberrationFactor()*(AU/(86400.0*SPEED_OF_LIGHT));
+//	}
+//	const Vec3f velf=vel.toVec3f();
 
-	// Prepare openGL for drawing many stars
-	StelPainter sPainter(prj);
-	sPainter.setFont(starFont);
-	skyDrawer->preDrawPointSource(&sPainter);
+//	// Prepare openGL for drawing many stars
+//	StelPainter sPainter(prj);
+//	sPainter.setFont(starFont);
+//	skyDrawer->preDrawPointSource(&sPainter);
 
-	// Prepare a table for storing precomputed RCMag for all ZoneArrays
-	RCMag rcmag_table[RCMAG_TABLE_SIZE];
+//	// Prepare a table for storing precomputed RCMag for all ZoneArrays
+//	RCMag rcmag_table[RCMAG_TABLE_SIZE];
 	
-	// Draw all the stars of all the selected zones
-	for (const auto* z : qAsConst(gridLevels))
-	{
-		int limitMagIndex=RCMAG_TABLE_SIZE;
-		const float mag_min = 0.001f*z->mag_min;
-		const float k = (0.001f*z->mag_range)/z->mag_steps; // MagStepIncrement
-		for (int i=0;i<RCMAG_TABLE_SIZE;++i)
-		{
-			const float mag = mag_min+k*i;
-			if (skyDrawer->computeRCMag(mag, &rcmag_table[i])==false)
-			{
-				if (i==0)
-					goto exit_loop;
+//	// Draw all the stars of all the selected zones
+//	for (const auto* z : qAsConst(gridLevels))
+//	{
+//		int limitMagIndex=RCMAG_TABLE_SIZE;
+//		const float mag_min = 0.001f*z->mag_min;
+//		const float k = (0.001f*z->mag_range)/z->mag_steps; // MagStepIncrement
+//		for (int i=0;i<RCMAG_TABLE_SIZE;++i)
+//		{
+//			const float mag = mag_min+k*i;
+//			if (skyDrawer->computeRCMag(mag, &rcmag_table[i])==false)
+//			{
+//				if (i==0)
+//					goto exit_loop;
 				
-				// The last magnitude at which the star is visible
-				limitMagIndex = i-1;
+//				// The last magnitude at which the star is visible
+//				limitMagIndex = i-1;
 				
-				// We reached the point where stars are not visible anymore
-				// Fill the rest of the table with zero and leave.
-				for (;i<RCMAG_TABLE_SIZE;++i)
-				{
-					rcmag_table[i].luminance=0;
-					rcmag_table[i].radius=0;
-				}
-				break;
-			}
-			rcmag_table[i].radius *= starsFader.getInterstate();
-		}
-		lastMaxSearchLevel = z->level;
+//				// We reached the point where stars are not visible anymore
+//				// Fill the rest of the table with zero and leave.
+//				for (;i<RCMAG_TABLE_SIZE;++i)
+//				{
+//					rcmag_table[i].luminance=0;
+//					rcmag_table[i].radius=0;
+//				}
+//				break;
+//			}
+//			rcmag_table[i].radius *= starsFader.getInterstate();
+//		}
+//		lastMaxSearchLevel = z->level;
 
-		int maxMagStarName = 0;
-		if (labelsFader.getInterstate()>0.f)
-		{
-			// Adapt magnitude limit of the stars labels according to FOV and labelsAmount
-			float maxMag = (skyDrawer->getLimitMagnitude()-6.5f)*0.7f+(static_cast<float>(labelsAmount)*1.2f)-2.f;
-			int x = static_cast<int>((maxMag-mag_min)/k);
-			if (x > 0)
-				maxMagStarName = x;
-		}
-		int zone;
+//		int maxMagStarName = 0;
+//		if (labelsFader.getInterstate()>0.f)
+//		{
+//			// Adapt magnitude limit of the stars labels according to FOV and labelsAmount
+//			float maxMag = (skyDrawer->getLimitMagnitude()-6.5f)*0.7f+(static_cast<float>(labelsAmount)*1.2f)-2.f;
+//			int x = static_cast<int>((maxMag-mag_min)/k);
+//			if (x > 0)
+//				maxMagStarName = x;
+//		}
+//		int zone;
 		
-		for (GeodesicSearchInsideIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
-			z->draw(&sPainter, zone, true, rcmag_table, limitMagIndex, core, maxMagStarName, names_brightness, viewportCaps, withAberration, velf);
-		for (GeodesicSearchBorderIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
-			z->draw(&sPainter, zone, false, rcmag_table, limitMagIndex, core, maxMagStarName,names_brightness, viewportCaps, withAberration, velf);
-	}
-	exit_loop:
+//		for (GeodesicSearchInsideIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
+//			z->draw(&sPainter, zone, true, rcmag_table, limitMagIndex, core, maxMagStarName, names_brightness, viewportCaps, withAberration, velf);
+//		for (GeodesicSearchBorderIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
+//			z->draw(&sPainter, zone, false, rcmag_table, limitMagIndex, core, maxMagStarName,names_brightness, viewportCaps, withAberration, velf);
+//	}
+//	exit_loop:
 
-	// Finish drawing many stars
-	skyDrawer->postDrawPointSource(&sPainter);
+//	// Finish drawing many stars
+//	skyDrawer->postDrawPointSource(&sPainter);
 
-	if (objectMgr->getFlagSelectedObjectPointer())
-		drawPointer(sPainter, core);
+//	if (objectMgr->getFlagSelectedObjectPointer())
+//		drawPointer(sPainter, core);
 }
 
 
@@ -1377,8 +1386,8 @@ void StarMgr::draw(StelCore* core)
 QList<StelObjectP > StarMgr::searchAround(const Vec3d& vv, double limFov, const StelCore* core) const
 {
 	QList<StelObjectP > result;
-	if (!getFlagStars())
-		return result;
+//	if (!getFlagStars())
+//		return result;
 
 	Vec3d v(vv);
 	v.normalize();
@@ -1421,62 +1430,137 @@ QList<StelObjectP > StarMgr::searchAround(const Vec3d& vv, double limFov, const 
 	e2 *= f;
 	e3 *= f;
 	// Search the triangles
-	SphericalConvexPolygon c(e3, e2, e2, e0);
-	const GeodesicSearchResult* geodesic_search_result = core->getGeodesicGrid(lastMaxSearchLevel)->search(c.getBoundingSphericalCaps(),lastMaxSearchLevel);
+    SphericalConvexPolygon c(e3, e2, e2, e0);
+    const GeodesicSearchResult* geodesic_search_result = core->getGeodesicGrid(lastMaxSearchLevel)->search(c.getBoundingSphericalCaps(),lastMaxSearchLevel);
 
 	// Iterate over the stars inside the triangles
 	f = cos(limFov * M_PI/180.);
+    ///FIXME: search without geodesic grid?
+    ///NOTE: remove ZoneArray?
 	for (auto* z : gridLevels)
-	{
+    {
 		//qDebug() << "search inside(" << it->first << "):";
-		int zone;
-		for (GeodesicSearchInsideIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
-		{
-			z->searchAround(core, zone,v,f,result);
-			//qDebug() << " " << zone;
-		}
-		//qDebug() << StelUtils::getEndLineChar() << "search border(" << it->first << "):";
-		for (GeodesicSearchBorderIterator it1(*geodesic_search_result,z->level); (zone = it1.next()) >= 0;)
-		{
-			z->searchAround(core, zone,v,f,result);
-			//qDebug() << " " << zone;
-		}
+        int zone = -1;
+        for (GeodesicSearchInsideIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
+        {
+            z->searchAround(core, zone,v,f,result);
+            //qDebug() << " " << zone;
+        }
+        //qDebug() << StelUtils::getEndLineChar() << "search border(" << it->first << "):";
+        for (GeodesicSearchBorderIterator it1(*geodesic_search_result,z->level); (zone = it1.next()) >= 0;)
+        {
+            z->searchAround(core, zone,v,f,result);
+            //qDebug() << " " << zone;
+        }
 	}
 	return result;
+}
+
+QList<StelObjectP > StarMgr::allZobjects(const Vec3d& vv, const StelCore* core) const
+{
+    QList<StelObjectP > result;
+//	if (!getFlagStars())
+//		return result;
+
+    Vec3d v(vv);
+    v.normalize();
+
+    // find any vectors h0 and h1 (length 1), so that h0*v=h1*v=h0*h1=0
+    int i;
+    {
+        const double a0 = fabs(v[0]);
+        const double a1 = fabs(v[1]);
+        const double a2 = fabs(v[2]);
+        if (a0 <= a1)
+        {
+            if (a0 <= a2) i = 0;
+            else i = 2;
+        } else
+        {
+            if (a1 <= a2) i = 1;
+            else i = 2;
+        }
+    }
+    Vec3d h0(0.0,0.0,0.0);
+    h0[i] = 1.0;
+    Vec3d h1 = h0 ^ v;
+    h1.normalize();
+    h0 = h1 ^ v;
+    h0.normalize();
+
+    // Now we have h0*v=h1*v=h0*h1=0.
+    // Construct a region with 4 corners e0,e1,e2,e3 inside which all desired stars must be:
+    double f = 1.4142136 * tan(limFov * M_PI/180.0);
+    h0 *= f;
+    h1 *= f;
+    Vec3d e0 = v + h0;
+    Vec3d e1 = v + h1;
+    Vec3d e2 = v - h0;
+    Vec3d e3 = v - h1;
+    f = 1.0/e0.length();
+    e0 *= f;
+    e1 *= f;
+    e2 *= f;
+    e3 *= f;
+    // Search the triangles
+    SphericalConvexPolygon c(e3, e2, e2, e0);
+    const GeodesicSearchResult* geodesic_search_result = core->getGeodesicGrid(lastMaxSearchLevel)->search(c.getBoundingSphericalCaps(),lastMaxSearchLevel);
+
+    // Iterate over the stars inside the triangles
+    f = cos(limFov * M_PI/180.);
+    ///FIXME: search without geodesic grid?
+    ///NOTE: remove ZoneArray?
+    for (auto* z : gridLevels)
+    {
+        //qDebug() << "search inside(" << it->first << "):";
+        int zone = -1;
+        for (GeodesicSearchInsideIterator it1(*geodesic_search_result,z->level);(zone = it1.next()) >= 0;)
+        {
+            z->searchAround(core, zone,v,f,result);
+            //qDebug() << " " << zone;
+        }
+        //qDebug() << StelUtils::getEndLineChar() << "search border(" << it->first << "):";
+        for (GeodesicSearchBorderIterator it1(*geodesic_search_result,z->level); (zone = it1.next()) >= 0;)
+        {
+            z->searchAround(core, zone,v,f,result);
+            //qDebug() << " " << zone;
+        }
+    }
+    return result;
 }
 
 
 //! Update i18 names from english names according to passed translator.
 //! The translation is done using gettext with translated strings defined in translations.h
-void StarMgr::updateI18n()
-{
-	const StelTranslator& trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
-	commonNamesMapI18n.clear();
-	commonNamesIndexI18n.clear();
-	additionalNamesMapI18n.clear();
-	additionalNamesIndexI18n.clear();
-	for (QHash<int,QString>::ConstIterator it(commonNamesMap.constBegin());it!=commonNamesMap.constEnd();it++)
-	{
-		const int i = it.key();
-		const QString t(trans.qtranslate(it.value()));
-		commonNamesMapI18n[i] = t;
-		commonNamesIndexI18n[t.toUpper()] = i;
-	}
-	for (QHash<int,QString>::ConstIterator ita(additionalNamesMap.constBegin());ita!=additionalNamesMap.constEnd();ita++)
-	{
-		const int i = ita.key();
-		QStringList a = ita.value().split(" - ");
-		QStringList tn;
-		for (const auto& str : a)
-		{
-			QString tns = trans.qtranslate(str);
-			tn << tns;
-			additionalNamesIndexI18n[tns.toUpper()] = i;
-		}
-		const QString r = tn.join(" - ");
-		additionalNamesMapI18n[i] = r;
-	}
-}
+//void StarMgr::updateI18n()
+//{
+//	const StelTranslator& trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
+//	commonNamesMapI18n.clear();
+//	commonNamesIndexI18n.clear();
+//	additionalNamesMapI18n.clear();
+//	additionalNamesIndexI18n.clear();
+//	for (QHash<int,QString>::ConstIterator it(commonNamesMap.constBegin());it!=commonNamesMap.constEnd();it++)
+//	{
+//		const int i = it.key();
+//		const QString t(trans.qtranslate(it.value()));
+//		commonNamesMapI18n[i] = t;
+//		commonNamesIndexI18n[t.toUpper()] = i;
+//	}
+//	for (QHash<int,QString>::ConstIterator ita(additionalNamesMap.constBegin());ita!=additionalNamesMap.constEnd();ita++)
+//	{
+//		const int i = ita.key();
+//		QStringList a = ita.value().split(" - ");
+//		QStringList tn;
+//		for (const auto& str : a)
+//		{
+//			QString tns = trans.qtranslate(str);
+//			tn << tns;
+//			additionalNamesIndexI18n[tns.toUpper()] = i;
+//		}
+//		const QString r = tn.join(" - ");
+//		additionalNamesMapI18n[i] = r;
+//	}
+//}
 
 // Search the star by HP number
 StelObjectP StarMgr::searchHP(int hp) const
@@ -1494,31 +1578,32 @@ StelObjectP StarMgr::searchHP(int hp) const
 	return StelObjectP();
 }
 
-StelObjectP StarMgr::searchByNameI18n(const QString& nameI18n) const
-{
-	QString objw = nameI18n.toUpper();
+//StelObjectP StarMgr::searchByNameI18n(const QString& nameI18n) const
+//{
+//	QString objw = nameI18n.toUpper();
 
-	// Search by I18n common name
-	auto it = commonNamesIndexI18n.find(objw);
-	if (it!=commonNamesIndexI18n.end())
-		return searchHP(it.value());
+//	// Search by I18n common name
+//	auto it = commonNamesIndexI18n.find(objw);
+//	if (it!=commonNamesIndexI18n.end())
+//		return searchHP(it.value());
 
-	if (getFlagAdditionalNames())
-	{
-		// Search by I18n additional common names
-		auto ita = additionalNamesIndexI18n.find(objw);
-		if (ita!=additionalNamesIndexI18n.end())
-			return searchHP(ita.value());
-	}
+//	if (getFlagAdditionalNames())
+//	{
+//		// Search by I18n additional common names
+//		auto ita = additionalNamesIndexI18n.find(objw);
+//		if (ita!=additionalNamesIndexI18n.end())
+//			return searchHP(ita.value());
+//	}
 
-	return searchByName(nameI18n);
-}
+//	return searchByName(nameI18n);
+//}
 
 
 StelObjectP StarMgr::searchByName(const QString& name) const
 {
 	QString objw = name.toUpper();
-
+    //FIXME: not called properly
+    //return searchHP(11767);
 	// Search by HP number if it's an HP formatted number
 	QRegularExpression rx("^\\s*(HP|HIP)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
 	QRegularExpressionMatch match=rx.match(objw);
@@ -1606,8 +1691,8 @@ StelObjectP StarMgr::searchByID(const QString &id) const
 QStringList StarMgr::listMatchingObjects(const QString& objPrefix, int maxNbItem, bool useStartOfWords) const
 {
 	QStringList result;
-	if (maxNbItem <= 0 || !getFlagStars())
-		return result;
+//	if (maxNbItem <= 0 || !getFlagStars())
+//		return result;
 
 	QString objw = objPrefix.toUpper();
 	bool found;
@@ -1919,58 +2004,58 @@ QStringList StarMgr::listMatchingObjects(const QString& objPrefix, int maxNbItem
 		}
 	}
 
-	// Add exact WDS catalogue numbers
-	QRegularExpression wdsRx("^(WDS)\\s*(\\S+)\\s*$", QRegularExpression::CaseInsensitiveOption);
-	if (wdsRx.match(objw).hasMatch())
-	{
-		for (auto wds = wdsStarsIndexI18n.lowerBound(objw); wds != wdsStarsIndexI18n.end(); ++wds)
-		{
-			if (wds.key().startsWith(objw))
-			{
-				if (maxNbItem==0)
-					break;
-				result << getWdsName(wds.value());
-				--maxNbItem;
-			}
-			else
-				break;
-		}
-	}
+//	// Add exact WDS catalogue numbers
+//	QRegularExpression wdsRx("^(WDS)\\s*(\\S+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+//	if (wdsRx.match(objw).hasMatch())
+//	{
+//		for (auto wds = wdsStarsIndexI18n.lowerBound(objw); wds != wdsStarsIndexI18n.end(); ++wds)
+//		{
+//			if (wds.key().startsWith(objw))
+//			{
+//				if (maxNbItem==0)
+//					break;
+//				result << getWdsName(wds.value());
+//				--maxNbItem;
+//			}
+//			else
+//				break;
+//		}
+//	}
 
 	result.sort();	
 	return result;
 }
 
 //! Define font file name and size to use for star names display
-void StarMgr::setFontSize(int newFontSize)
-{
-	starFont.setPixelSize(newFontSize);
-}
+//void StarMgr::setFontSize(int newFontSize)
+//{
+//	starFont.setPixelSize(newFontSize);
+//}
 
-void StarMgr::updateSkyCulture(const QString& skyCultureDir)
-{
-	// Load culture star names in english
-	QString fic = StelFileMgr::findFile("skycultures/" + skyCultureDir + "/star_names.fab");
-	if (fic.isEmpty())
-		qDebug() << "Could not load star_names.fab for sky culture " << QDir::toNativeSeparators(skyCultureDir);
-	else
-		loadCommonNames(fic);
+//void StarMgr::updateSkyCulture(const QString& skyCultureDir)
+//{
+//	// Load culture star names in english
+//	QString fic = StelFileMgr::findFile("skycultures/" + skyCultureDir + "/star_names.fab");
+//	if (fic.isEmpty())
+//		qDebug() << "Could not load star_names.fab for sky culture " << QDir::toNativeSeparators(skyCultureDir);
+//	else
+//		loadCommonNames(fic);
 
-	// Turn on sci names/catalog names for western cultures only
-	setFlagSciNames(skyCultureDir.contains("western", Qt::CaseInsensitive));
-	updateI18n();
-}
+//	// Turn on sci names/catalog names for western cultures only
+//	setFlagSciNames(skyCultureDir.contains("western", Qt::CaseInsensitive));
+//	updateI18n();
+//}
 
 void StarMgr::increaseStarsMagnitudeLimit()
 {
 	StelCore* core = StelApp::getInstance().getCore();
-	core->getSkyDrawer()->setCustomStarMagnitudeLimit(core->getSkyDrawer()->getCustomStarMagnitudeLimit() + 0.1);
+    core->setCustomStarMagnitudeLimit(core->getCustomStarMagnitudeLimit() + 0.1);
 }
 
 void StarMgr::reduceStarsMagnitudeLimit()
 {
 	StelCore* core = StelApp::getInstance().getCore();
-	core->getSkyDrawer()->setCustomStarMagnitudeLimit(core->getSkyDrawer()->getCustomStarMagnitudeLimit() - 0.1);
+    core->setCustomStarMagnitudeLimit(core->getCustomStarMagnitudeLimit() - 0.1);
 }
 
 void StarMgr::populateStarsDesignations()
@@ -2000,11 +2085,11 @@ void StarMgr::populateStarsDesignations()
 	else
 		loadWds(fic);
 
-	fic = StelFileMgr::findFile("stars/default/cross-id.dat");
-	if (fic.isEmpty())
-		qWarning() << "WARNING: could not load cross-identification data file: stars/default/cross-id.dat";
-	else
-		loadCrossIdentificationData(fic);
+//	fic = StelFileMgr::findFile("stars/default/cross-id.dat");
+//	if (fic.isEmpty())
+//		qWarning() << "WARNING: could not load cross-identification data file: stars/default/cross-id.dat";
+//    else->getSkyDrawer()
+//		loadCrossIdentificationData(fic);
 
 	fic = StelFileMgr::findFile("stars/default/hip_plx_err.dat");
 	if (fic.isEmpty())
@@ -2054,7 +2139,7 @@ QStringList StarMgr::listAllObjectsByType(const QString &objType, bool inEnglish
 	QList<QMap<StelObjectP, float>> starsT2;
 	int type = objType.toInt();
 	// Use SkyTranslator for translation star names
-	const StelTranslator& trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
+    //const StelTranslator& trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
 	switch (type)
 	{
 		case 0: // Interesting double stars
@@ -2078,7 +2163,7 @@ QStringList StarMgr::listAllObjectsByType(const QString &objType, bool inEnglish
 			{
 				for (const auto &star : doubleStars)
 				{
-					result << trans.qtranslate(star);
+                    result << (star);
 				}
 			}
 			break;
@@ -2104,7 +2189,7 @@ QStringList StarMgr::listAllObjectsByType(const QString &objType, bool inEnglish
 			{
 				for (const auto &star : variableStars)
 				{
-					result << trans.qtranslate(star);
+                    result << (star);
 				}
 			}
 			break;
@@ -2163,7 +2248,7 @@ QStringList StarMgr::listAllObjectsByType(const QString &objType, bool inEnglish
 	{
 		for (const auto& star : qAsConst(starsT1))
 		{
-			starName = inEnglish ? star->getEnglishName() : star->getNameI18n();
+            starName = inEnglish ? star->getEnglishName() : "star->getNameI18n()";
 			if (!starName.isEmpty())
 				result << starName;
 			else
@@ -2175,7 +2260,7 @@ QStringList StarMgr::listAllObjectsByType(const QString &objType, bool inEnglish
 	{
 		for (const auto& star : qAsConst(starsT2))
 		{
-			starName = inEnglish ? star.firstKey()->getEnglishName() : star.firstKey()->getNameI18n();
+            starName = inEnglish ? star.firstKey()->getEnglishName() : "star.firstKey()->getNameI18n()";
 			if (!starName.isEmpty())
 				result << starName;
 			else

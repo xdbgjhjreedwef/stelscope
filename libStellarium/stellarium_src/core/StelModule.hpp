@@ -135,13 +135,13 @@ public:
 	//! the stars module will be drawn before the constellations
 	//! @param actionName the name of the action for which we want the call order
 	//! @return the value defining the order. The closer to 0 the earlier the module's action will be called
-	virtual double getCallOrder(StelModuleActionName actionName) const {Q_UNUSED(actionName) return 0;}
+    //virtual double getCallOrder(StelModuleActionName actionName) const {Q_UNUSED(actionName) return 0;}
 
 	//! Detect or show the configuration GUI elements for the module.  This is to be used with
 	//! plugins to display a configuration dialog from the plugin list window.
 	//! @param show if true, make the configuration GUI visible.  If false, hide the config GUI if there is one.
 	//! @return true if the module has a configuration GUI, else false.
-	virtual bool configureGui(bool show=true) {Q_UNUSED(show) return false;}
+    //virtual bool configureGui(bool show=true) {Q_UNUSED(show) return false;}
 
 protected:
 	//! convenience methods to add an action (call to slot) to the StelActionMgr object.
@@ -152,22 +152,22 @@ protected:
 	//! @param slot name of slot in target recipient
 	//! @param shortcut default shortcut. Can be reconfigured.
 	//! @param altShortcut default alternative shortcut. Can be reconfigured.
-	class StelAction* addAction(const QString& id, const QString& groupId, const QString& text,
-	                            QObject* target, const char* slot,
-	                            const QString& shortcut="", const QString& altShortcut="");
+//	class StelAction* addAction(const QString& id, const QString& groupId, const QString& text,
+//	                            QObject* target, const char* slot,
+//	                            const QString& shortcut="", const QString& altShortcut="");
 
-	//! convenience methods to add an action (call to own slot) to the StelActionMgr object.
-	//! @param id unique identifier. Should be called actionMy_Action. (i.e., start with "action" and then "Capitalize_Underscore" style.)
-	//! @param groupId string to be used in the Help menu. The action will be listed in this group.
-	//! @param text short translatable description what the action does.
-	//! @param slot name of slot in target recipient
-	//! @param shortcut default shortcut. Can be reconfigured.
-	//! @param altShortcut default alternative shortcut. Can be reconfigured.
-	class StelAction* addAction(const QString& id, const QString& groupId, const QString& text,
-	                            const char* slot,
-	                            const QString& shortcut="", const QString& altShortcut="") {
-		return addAction(id, groupId, text, this, slot, shortcut, altShortcut);
-	}
+//	//! convenience methods to add an action (call to own slot) to the StelActionMgr object.
+//	//! @param id unique identifier. Should be called actionMy_Action. (i.e., start with "action" and then "Capitalize_Underscore" style.)
+//	//! @param groupId string to be used in the Help menu. The action will be listed in this group.
+//	//! @param text short translatable description what the action does.
+//	//! @param slot name of slot in target recipient
+//	//! @param shortcut default shortcut. Can be reconfigured.
+//	//! @param altShortcut default alternative shortcut. Can be reconfigured.
+//	class StelAction* addAction(const QString& id, const QString& groupId, const QString& text,
+//	                            const char* slot,
+//	                            const QString& shortcut="", const QString& altShortcut="") {
+//		return addAction(id, groupId, text, this, slot, shortcut, altShortcut);
+//	}
 
 	//! convenience methods to add an action (call to Lambda functor) to the StelActionMgr object.
 	//! @param id unique identifier. Should be called actionMy_Action. (i.e., start with "action" and then "Capitalize_Underscore" style.)
@@ -177,9 +177,9 @@ protected:
 	//! @param lambda a C++11 Lambda function.
 	//! @param shortcut default shortcut. Can be reconfigured.
 	//! @param altShortcut default alternative shortcut. Can be reconfigured.
-	StelAction* addAction(const QString& id, const QString& groupId, const QString& text,
-						QObject* contextObject, std::function<void()> lambda,
-						const QString& shortcut="", const QString& altShortcut="");
+//	StelAction* addAction(const QString& id, const QString& groupId, const QString& text,
+//						QObject* contextObject, std::function<void()> lambda,
+//						const QString& shortcut="", const QString& altShortcut="");
 };
 
 Q_DECLARE_METATYPE(StelModule::StelModuleSelectAction)

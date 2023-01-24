@@ -19,7 +19,7 @@
  
 #include "StelModule.hpp"
 #include "StelApp.hpp"
-#include "StelActionMgr.hpp"
+//#include "StelActionMgr.hpp"
 
 StelModule::StelModule()
 {
@@ -36,18 +36,18 @@ QString StelModule::getModuleVersion() const
 	return PACKAGE_VERSION;
 }
 
-class StelAction* StelModule::addAction(const QString& id, const QString& groupId, const QString& text,
-                                        QObject* target, const char* slot,
-                                        const QString& shortcut, const QString& altShortcut)
-{
-	StelActionMgr* mgr = StelApp::getInstance().getStelActionManager();
-	return mgr->addAction(id, groupId, text, target, slot, shortcut, altShortcut);
-}
+//class StelAction* StelModule::addAction(const QString& id, const QString& groupId, const QString& text,
+//                                        QObject* target, const char* slot,
+//                                        const QString& shortcut, const QString& altShortcut)
+//{
+//	StelActionMgr* mgr = StelApp::getInstance().getStelActionManager();
+//	return mgr->addAction(id, groupId, text, target, slot, shortcut, altShortcut);
+//}
 
- StelAction* StelModule::addAction(const QString& id, const QString& groupId, const QString& text,
-					QObject* contextObject, std::function<void()> lambda,
-					const QString& shortcut, const QString& altShortcut)
-{
-	StelActionMgr* mgr = StelApp::getInstance().getStelActionManager();
-	return mgr->addAction(id, groupId, text, contextObject, lambda, shortcut, altShortcut);
-}
+// StelAction* StelModule::addAction(const QString& id, const QString& groupId, const QString& text,
+//					QObject* contextObject, std::function<void()> lambda,
+//					const QString& shortcut, const QString& altShortcut)
+//{
+//	StelActionMgr* mgr = StelApp::getInstance().getStelActionManager();
+//	return mgr->addAction(id, groupId, text, contextObject, lambda, shortcut, altShortcut);
+//}

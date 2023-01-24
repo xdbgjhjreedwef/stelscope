@@ -20,7 +20,7 @@
 
 #include "StelApp.hpp"
 #include "StelOBJ.hpp"
-#include "StelTextureMgr.hpp"
+//#include "StelTextureMgr.hpp"
 #include "StelUtils.hpp"
 
 #include <QBuffer>

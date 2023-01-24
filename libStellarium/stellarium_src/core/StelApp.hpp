@@ -30,33 +30,34 @@
 
 // Predeclaration of some classes
 class StelCore;
-class StelTextureMgr;
+//class StelTextureMgr;
 class StelObjectMgr;
-class StelLocaleMgr;
+//class StelLocaleMgr;
 class StelModuleMgr;
-class StelMainView;
-class StelSkyCultureMgr;
-class StelViewportEffect;
-class QOpenGLFramebufferObject;
-class QOpenGLFunctions;
+//class StelMainView;
+//class StelSkyCultureMgr;
+//class StelViewportEffect;
+//class QOpenGLFramebufferObject;
+//class QOpenGLFunctions;
 class QSettings;
-class QNetworkAccessManager;
-class QNetworkReply;
+//class QNetworkAccessManager;
+//class QNetworkReply;
 class QTimer;
 class StelLocationMgr;
-class StelSkyLayerMgr;
-class StelAudioMgr;
-class StelVideoMgr;
-class StelGuiBase;
-class StelMainScriptAPIProxy;
-class StelScriptMgr;
-class StelActionMgr;
+//class StelSkyLayerMgr;
+//class StelAudioMgr;
+//class StelVideoMgr;
+//class StelGuiBase;
+//class StelMainScriptAPIProxy;
+//class StelScriptMgr;
+//class StelActionMgr;
 class StelPropertyMgr;
-class StelProgressController;
+//class StelProgressController;
 
-#ifdef 	ENABLE_SPOUT
-class SpoutSender;
-#endif
+//#ifdef 	ENABLE_SPOUT
+//class SpoutSender;
+//#endif
+#include <libstellarium-global.h>
 
 //! @class StelApp
 //! Singleton main Stellarium application class.
@@ -69,32 +70,32 @@ class SpoutSender;
 //! The StelApp class is also the one managing the StelModule in a generic manner
 //! by calling their update, drawing and other methods when needed.
 //! @author Fabien Chereau
-class StelApp : public QObject
+class STELLARIUMSHARED_EXPORT StelApp : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(bool nightMode READ getVisionModeNight WRITE setVisionModeNight NOTIFY visionNightModeChanged)
-	Q_PROPERTY(bool flagShowDecimalDegrees  READ getFlagShowDecimalDegrees  WRITE setFlagShowDecimalDegrees  NOTIFY flagShowDecimalDegreesChanged)
-	Q_PROPERTY(bool flagUseAzimuthFromSouth READ getFlagSouthAzimuthUsage   WRITE setFlagSouthAzimuthUsage   NOTIFY flagUseAzimuthFromSouthChanged)
-	Q_PROPERTY(bool flagUseCCSDesignation   READ getFlagUseCCSDesignation   WRITE setFlagUseCCSDesignation   NOTIFY flagUseCCSDesignationChanged)
-	Q_PROPERTY(bool flagUseFormattingOutput READ getFlagUseFormattingOutput WRITE setFlagUseFormattingOutput NOTIFY flagUseFormattingOutputChanged)
-	Q_PROPERTY(bool flagOverwriteInfoColor  READ getFlagOverwriteInfoColor  WRITE setFlagOverwriteInfoColor  NOTIFY flagOverwriteInfoColorChanged)
-	Q_PROPERTY(Vec3f overwriteInfoColor	READ getOverwriteInfoColor	WRITE setOverwriteInfoColor	 NOTIFY overwriteInfoColorChanged)
-	Q_PROPERTY(Vec3f daylightInfoColor	READ getDaylightInfoColor	WRITE setDaylightInfoColor	 NOTIFY daylightInfoColorChanged)
-	Q_PROPERTY(int  screenFontSize          READ getScreenFontSize          WRITE setScreenFontSize          NOTIFY screenFontSizeChanged)
-	Q_PROPERTY(int  guiFontSize             READ getGuiFontSize             WRITE setGuiFontSize             NOTIFY guiFontSizeChanged)
+//	Q_PROPERTY(bool nightMode READ getVisionModeNight WRITE setVisionModeNight NOTIFY visionNightModeChanged)
+//	Q_PROPERTY(bool flagShowDecimalDegrees  READ getFlagShowDecimalDegrees  WRITE setFlagShowDecimalDegrees  NOTIFY flagShowDecimalDegreesChanged)
+//	Q_PROPERTY(bool flagUseAzimuthFromSouth READ getFlagSouthAzimuthUsage   WRITE setFlagSouthAzimuthUsage   NOTIFY flagUseAzimuthFromSouthChanged)
+//	Q_PROPERTY(bool flagUseCCSDesignation   READ getFlagUseCCSDesignation   WRITE setFlagUseCCSDesignation   NOTIFY flagUseCCSDesignationChanged)
+//	Q_PROPERTY(bool flagUseFormattingOutput READ getFlagUseFormattingOutput WRITE setFlagUseFormattingOutput NOTIFY flagUseFormattingOutputChanged)
+//	Q_PROPERTY(bool flagOverwriteInfoColor  READ getFlagOverwriteInfoColor  WRITE setFlagOverwriteInfoColor  NOTIFY flagOverwriteInfoColorChanged)
+//	Q_PROPERTY(Vec3f overwriteInfoColor	READ getOverwriteInfoColor	WRITE setOverwriteInfoColor	 NOTIFY overwriteInfoColorChanged)
+//	Q_PROPERTY(Vec3f daylightInfoColor	READ getDaylightInfoColor	WRITE setDaylightInfoColor	 NOTIFY daylightInfoColorChanged)
+//	Q_PROPERTY(int  screenFontSize          READ getScreenFontSize          WRITE setScreenFontSize          NOTIFY screenFontSizeChanged)
+//	Q_PROPERTY(int  guiFontSize             READ getGuiFontSize             WRITE setGuiFontSize             NOTIFY guiFontSizeChanged)
 
-	Q_PROPERTY(QString version READ getVersion CONSTANT)
+//	Q_PROPERTY(QString version READ getVersion CONSTANT)
 
 public:
-	friend class StelAppGraphicsWidget;
-	friend class StelRootItem;
 
-	//! Create and initialize the main Stellarium application.
-	//! @param parent the QObject parent
-	//! The configFile will be searched for in the search path by the StelFileMgr,
-	//! it is therefore possible to specify either just a file name or path within the
-	//! search path, or use a full path or even a relative path to an existing file
-	StelApp(StelMainView* parent);
+    //! Create and initialize the main Stellarium application.
+    //! @param parent the QObject parent
+    //! The configFile will be searched for in the search path by the StelFileMgr,
+    //! it is therefore possible to specify either just a file name or path within the
+    //! search path, or use a full path or even a relative path to an existing file
+    StelApp(QObject* parent=0);
+    //friend class StelAppGraphicsWidget;
+	friend class StelRootItem;
 
 	//! Deinitialize and destroy the main Stellarium application.
 	virtual ~StelApp() Q_DECL_OVERRIDE;
@@ -128,17 +129,17 @@ public:
 	//! @return the module pointer.
 	StelModule* getModule(const QString& moduleID) const;
 
-	//! Get the locale manager to use for i18n & date/time localization.
-	//! @return the font manager to use for loading fonts.
-	StelLocaleMgr& getLocaleMgr() const {return *localeMgr;}
+//	//! Get the locale manager to use for i18n & date/time localization.
+//	//! @return the font manager to use for loading fonts.
+//	StelLocaleMgr& getLocaleMgr() const {return *localeMgr;}
 
-	//! Get the sky cultures manager.
-	//! @return the sky cultures manager
-	StelSkyCultureMgr& getSkyCultureMgr() const {return *skyCultureMgr;}
+//	//! Get the sky cultures manager.
+//	//! @return the sky cultures manager
+//	StelSkyCultureMgr& getSkyCultureMgr() const {return *skyCultureMgr;}
 
-	//! Get the texture manager to use for loading textures.
-	//! @return the texture manager to use for loading textures.
-	StelTextureMgr& getTextureManager() const {return *textureMgr;}
+//	//! Get the texture manager to use for loading textures.
+//	//! @return the texture manager to use for loading textures.
+//	StelTextureMgr& getTextureManager() const {return *textureMgr;}
 
 	//! Get the Location manager to use for managing stored locations
 	//! @return the Location manager to use for managing stored locations
@@ -148,19 +149,19 @@ public:
 	//! @return the StelObject manager to use for querying from all stellarium objects 	.
 	StelObjectMgr& getStelObjectMgr() const {return *stelObjectMgr;}
 
-	StelSkyLayerMgr& getSkyImageMgr() const {return *skyImageMgr;}
+//	StelSkyLayerMgr& getSkyImageMgr() const {return *skyImageMgr;}
 
-	//! Get the audio manager
-	StelAudioMgr* getStelAudioMgr() const {return audioMgr;}
+//	//! Get the audio manager
+//	StelAudioMgr* getStelAudioMgr() const {return audioMgr;}
 
-	//! Get the actions manager to use for managing and editing actions
-	StelActionMgr* getStelActionManager() const {return actionMgr;}
+//	//! Get the actions manager to use for managing and editing actions
+//	StelActionMgr* getStelActionManager() const {return actionMgr;}
 
 	//! Return the property manager
 	StelPropertyMgr* getStelPropertyManager() const {return propMgr;}
 
-	//! Get the video manager
-	StelVideoMgr* getStelVideoMgr() const {return videoMgr;}
+//	//! Get the video manager
+//	StelVideoMgr* getStelVideoMgr() const {return videoMgr;}
 
 	//! Get the core of the program.
 	//! It is the one which provide the projection, navigation and tone converter.
@@ -177,10 +178,10 @@ public:
 #endif
 
 	//! Get the common instance of QNetworkAccessManager used in stellarium
-	QNetworkAccessManager* getNetworkAccessManager() const {return networkAccessManager;}
+    //QNetworkAccessManager* getNetworkAccessManager() const {return networkAccessManager;}
 
-	//! Update translations, font for GUI and sky everywhere in the program.
-	void updateI18n();
+//	//! Update translations, font for GUI and sky everywhere in the program.
+//	void updateI18n();
 
 	//! Return the main configuration options
 	QSettings* getSettings() const {return confSettings;}
@@ -196,38 +197,38 @@ public:
 	// @return the max squared distance in pixels that any object has travelled since the last update.
 	void draw();
 
-	//! Get the ratio between real device pixel and "Device Independent Pixel".
-	//! Usually this value is 1, but for a mac with retina screen this will be value 2.
-	qreal getDevicePixelsPerPixel() const {return devicePixelsPerPixel;}
-	void setDevicePixelsPerPixel(qreal dppp);
+//	//! Get the ratio between real device pixel and "Device Independent Pixel".
+//	//! Usually this value is 1, but for a mac with retina screen this will be value 2.
+//	qreal getDevicePixelsPerPixel() const {return devicePixelsPerPixel;}
+//	void setDevicePixelsPerPixel(qreal dppp);
 	
 	//! Get the scaling ratio to apply on all display elements, like GUI, text etc..
 	//! When this ratio is 1, all pixel sizes used in Stellarium will look OK on a regular
 	//! computer screen with 96 pixel per inch (reference for tuning sizes).
-	float getGlobalScalingRatio() const {return globalScalingRatio;}
-	void setGlobalScalingRatio(float r) {globalScalingRatio=r;}
+//	float getGlobalScalingRatio() const {return globalScalingRatio;}
+//	void setGlobalScalingRatio(float r) {globalScalingRatio=r;}
 
 	//! Get the fontsize used for screen text.
-	int getScreenFontSize() const { return screenFontSize; }
+//	int getScreenFontSize() const { return screenFontSize; }
 	//! Change screen font size.
-	void setScreenFontSize(int s);
+//	void setScreenFontSize(int s);
 	//! Get the principal font size used for GUI panels.
-	int getGuiFontSize() const;
+//	int getGuiFontSize() const;
 	//! change GUI font size.
-	void setGuiFontSize(int s);
+//	void setGuiFontSize(int s);
 
 	//! Get the GUI instance implementing the abstract GUI interface.
-	StelGuiBase* getGui() const {return stelGui;}
+//	StelGuiBase* getGui() const {return stelGui;}
 	//! Tell the StelApp instance which GUI is currently being used.
 	//! The caller is responsible for destroying the GUI.
-	void setGui(StelGuiBase* b) {stelGui=b;}
+//	void setGui(StelGuiBase* b) {stelGui=b;}
 
-#ifdef ENABLE_SCRIPTING
-	//! Get the script API proxy (for signal handling)
-	StelMainScriptAPIProxy* getMainScriptAPIProxy() const {return scriptAPIProxy;}
-	//! Get the script manager
-	StelScriptMgr& getScriptMgr() const {return *scriptMgr;}
-#endif
+//#ifdef ENABLE_SCRIPTING
+//	//! Get the script API proxy (for signal handling)
+//	StelMainScriptAPIProxy* getMainScriptAPIProxy() const {return scriptAPIProxy;}
+//	//! Get the script manager
+//	StelScriptMgr& getScriptMgr() const {return *scriptMgr;}
+//#endif
 
 	static void initStatic();
 	static void deinitStatic();
@@ -235,135 +236,135 @@ public:
 	//! Add a progression indicator to the GUI (if applicable).
 	//! @return a controller which can be used to indicate the current status.
 	//! The StelApp instance remains the owner of the controller.
-	StelProgressController* addProgressBar();
-	void removeProgressBar(StelProgressController* p);
+//	StelProgressController* addProgressBar();
+//	void removeProgressBar(StelProgressController* p);
 
 	//! Define the type of viewport effect to use
 	//! @param effectName must be one of 'none', 'framebufferOnly', 'sphericMirrorDistorter'
-	void setViewportEffect(const QString& effectName);
+//	void setViewportEffect(const QString& effectName);
 	//! Get the type of viewport effect currently used
-	QString getViewportEffect() const;
+//	QString getViewportEffect() const;
 
 	//! Dump diagnostics about action call priorities
-	void dumpModuleActionPriorities(StelModule::StelModuleActionName actionName) const;
+//	void dumpModuleActionPriorities(StelModule::StelModuleActionName actionName) const;
 	
 	///////////////////////////////////////////////////////////////////////////
 	// Scriptable methods
 public slots:
 	//! Call this when the size of the GL window has changed.
-	void glWindowHasBeenResized(const QRectF &rect);
+//	void glWindowHasBeenResized(const QRectF &rect);
 
 	//! Set flag for activating night vision mode.
-	void setVisionModeNight(bool);
+//	void setVisionModeNight(bool);
 	//! Get flag for activating night vision mode.
-	bool getVisionModeNight() const {return flagNightVision;}
+//	bool getVisionModeNight() const {return flagNightVision;}
 
 	//! Set flag for activating overwrite mode for text color in info panel.
-	void setFlagOverwriteInfoColor(bool);
+//	void setFlagOverwriteInfoColor(bool);
 	//! Get flag for activating overwrite mode for text color in info panel.
-	bool getFlagOverwriteInfoColor() const {return flagOverwriteInfoColor; }
+//	bool getFlagOverwriteInfoColor() const {return flagOverwriteInfoColor; }
 
 	//! Set flag for showing decimal degree in various places.
-	void setFlagShowDecimalDegrees(bool b);
-	//! Get flag for showing decimal degree in various places.
-	bool getFlagShowDecimalDegrees() const {return flagShowDecimalDegrees;}
+    //void setFlagShowDecimalDegrees(bool b);
+    //! Get flag for showing decimal degree in various places.
+    //bool getFlagShowDecimalDegrees() const {return flagShowDecimalDegrees;}
 
-	//! Set flag for using calculation of azimuth from south towards west (instead north towards east)
-	bool getFlagSouthAzimuthUsage() const { return flagUseAzimuthFromSouth; }
-	//! Get flag for using calculation of azimuth from south towards west (instead north towards east)
-	void setFlagSouthAzimuthUsage(bool use) { flagUseAzimuthFromSouth=use; emit flagUseAzimuthFromSouthChanged(use);}
+    //! Set flag for using calculation of azimuth from south towards west (instead north towards east)
+    bool getFlagSouthAzimuthUsage() const { return flagUseAzimuthFromSouth; }
+    //! Get flag for using calculation of azimuth from south towards west (instead north towards east)
+    void setFlagSouthAzimuthUsage(bool use) { flagUseAzimuthFromSouth=use; /*emit flagUseAzimuthFromSouthChanged(use);*/}
 	
-	//! Set flag for using of formatting output for coordinates
-	void setFlagUseFormattingOutput(bool b);
-	//! Get flag for using of formatting output for coordinates
-	bool getFlagUseFormattingOutput() const {return flagUseFormattingOutput;}
+//	//! Set flag for using of formatting output for coordinates
+//	void setFlagUseFormattingOutput(bool b);
+//	//! Get flag for using of formatting output for coordinates
+//	bool getFlagUseFormattingOutput() const {return flagUseFormattingOutput;}
 
-	//! Set flag for using designations for celestial coordinate systems
-	void setFlagUseCCSDesignation(bool b);
-	//! Get flag for using designations for celestial coordinate systems
-	bool getFlagUseCCSDesignation() const {return flagUseCCSDesignation;}
+    //! Set flag for using designations for celestial coordinate systems
+    void setFlagUseCCSDesignation(bool b);
+//    //! Get flag for using designations for celestial coordinate systems
+    bool getFlagUseCCSDesignation() const {return flagUseCCSDesignation;}
 
 	//! Define info text color for overwrites
-	void setOverwriteInfoColor(const Vec3f& color);
+//	void setOverwriteInfoColor(const Vec3f& color);
 	//! Get info text color
-	Vec3f getOverwriteInfoColor() const;
+//	Vec3f getOverwriteInfoColor() const;
 
 	//! Define info text color for daylight mode
-	void setDaylightInfoColor(const Vec3f& color);
+//	void setDaylightInfoColor(const Vec3f& color);
 	//! Get info text color
-	Vec3f getDaylightInfoColor() const;
+//	Vec3f getDaylightInfoColor() const;
 
 	//! Get the current number of frame per second.
 	//! @return the FPS averaged on the last second
-	float getFps() const {return fps;}
+//	float getFps() const {return fps;}
 
 	//! Set global application font.
 	//! To retrieve, you can use QGuiApplication::font().
 	//! emits fontChanged(font)
-	void setAppFont(QFont font);
+//	void setAppFont(QFont font);
 
 	//! Returns the default FBO handle, to be used when StelModule instances want to release their own FBOs.
 	//! Note that this is usually not the same as QOpenGLContext::defaultFramebufferObject(),
 	//! so use this call instead of the Qt version!
 	//! Valid through a StelModule::draw() call, do not use elsewhere.
-	quint32 getDefaultFBO() const { return currentFbo; }
+//	quint32 getDefaultFBO() const { return currentFbo; }
 
 	//! Makes sure the correct GL context used for main drawing is made current.
 	//! This is always the case during init() and draw() calls, but if OpenGL access is required elsewhere,
 	//! this MUST be called before using any GL functions.
-	void ensureGLContextCurrent();
+//	void ensureGLContextCurrent();
 
 	//! Return the time since when stellarium is running in second.
 	static double getTotalRunTime();
 
 	//! Return the scaled time for animated objects
-	static double getAnimationTime();
+//	static double getAnimationTime();
 
 	//! Report that a download occured. This is used for statistics purposes.
 	//! Connect this slot to QNetworkAccessManager::finished() slot to obtain statistics at the end of the program.
-	void reportFileDownloadFinished(QNetworkReply* reply);
+//	void reportFileDownloadFinished(QNetworkReply* reply);
 
 	//! do some cleanup and call QCoreApplication::exit(0)
 	void quit();
 signals:
-	void visionNightModeChanged(bool);
-	void flagShowDecimalDegreesChanged(bool);
-	void flagUseAzimuthFromSouthChanged(bool);
-	void flagUseCCSDesignationChanged(bool);
-	void flagUseFormattingOutputChanged(bool);
-	void flagOverwriteInfoColorChanged(bool);
-	void colorSchemeChanged(const QString&);
-	void languageChanged();
-	void screenFontSizeChanged(int);
-	void guiFontSizeChanged(int);
-	void fontChanged(QFont);
-	void overwriteInfoColorChanged(const Vec3f & color);
-	void daylightInfoColorChanged(const Vec3f & color);
+//	void visionNightModeChanged(bool);
+//	void flagShowDecimalDegreesChanged(bool);
+//	void flagUseAzimuthFromSouthChanged(bool);
+//	void flagUseCCSDesignationChanged(bool);
+//	void flagUseFormattingOutputChanged(bool);
+//	void flagOverwriteInfoColorChanged(bool);
+//	void colorSchemeChanged(const QString&);
+//	void languageChanged();
+//	void screenFontSizeChanged(int);
+//	void guiFontSizeChanged(int);
+//	void fontChanged(QFont);
+//	void overwriteInfoColorChanged(const Vec3f & color);
+//	void daylightInfoColorChanged(const Vec3f & color);
 
 	//! Called just after a progress bar is added.
-	void progressBarAdded(const StelProgressController*);
+//	void progressBarAdded(const StelProgressController*);
 	//! Called just before a progress bar is removed.
-	void progressBarRemoved(const StelProgressController*);
+//	void progressBarRemoved(const StelProgressController*);
 	//! Called just before we exit Qt mainloop.
-	void aboutToQuit();
+    //void aboutToQuit();
 
 private:
 	//! Handle mouse clics.
-	void handleClick(class QMouseEvent* event);
+//	void handleClick(class QMouseEvent* event);
 	//! Handle mouse wheel.
-	void handleWheel(class QWheelEvent* event);
+//	void handleWheel(class QWheelEvent* event);
 	//! Handle mouse move.
-	bool handleMove(qreal x, qreal y, Qt::MouseButtons b);
+//	bool handleMove(qreal x, qreal y, Qt::MouseButtons b);
 	//! Handle key press and release.
-	void handleKeys(class QKeyEvent* event);
+//	void handleKeys(class QKeyEvent* event);
 	//! Handle pinch on multi touch devices.
-	void handlePinch(qreal scale, bool started);
+//	void handlePinch(qreal scale, bool started);
 
 	//! Used internally to set the viewport effects.
-	void prepareRenderBuffer();
+//	void prepareRenderBuffer();
 	//! Used internally to set the viewport effects.
 	//! @param drawFbo the OpenGL fbo we need to render into.
-	void applyRenderBuffer(quint32 drawFbo=0);
+//	void applyRenderBuffer(quint32 drawFbo=0);
 
 	QString getVersion() const;
 
@@ -376,7 +377,7 @@ private:
 #endif
 
 	//! The main window which is the parent of this object
-	StelMainView* mainWin;
+//	StelMainView* mainWin;
 
 	// The associated StelCore instance
 	StelCore* core;
@@ -385,19 +386,19 @@ private:
 	StelModuleMgr* moduleMgr;
 
 	// Locale manager for the application
-	StelLocaleMgr* localeMgr;
+//	StelLocaleMgr* localeMgr;
 
-	// Sky cultures manager for the application
-	StelSkyCultureMgr* skyCultureMgr;
+//	// Sky cultures manager for the application
+//	StelSkyCultureMgr* skyCultureMgr;
 
-	//Actions manager fot the application.  Will replace shortcutMgr.
-	StelActionMgr* actionMgr;
+//	//Actions manager fot the application.  Will replace shortcutMgr.
+//	StelActionMgr* actionMgr;
 
 	//Property manager for the application
 	StelPropertyMgr* propMgr;
 
 	// Textures manager for the application
-	StelTextureMgr* textureMgr;
+//	StelTextureMgr* textureMgr;
 
 	// Manager for all the StelObjects of the program
 	StelObjectMgr* stelObjectMgr;
@@ -406,42 +407,42 @@ private:
 	StelLocationMgr* planetLocationMgr;
 
 	// Main network manager used for the program
-	QNetworkAccessManager* networkAccessManager;
+    //QNetworkAccessManager* networkAccessManager;
 
 	//! Get proxy settings from config file... if not set use http_proxy env var
-	void setupNetworkProxy();
+    //void setupNetworkProxy();
 
 	// The audio manager.  Must execute in the main thread.
-	StelAudioMgr* audioMgr;
+//	StelAudioMgr* audioMgr;
 
-	// The video manager.  Must execute in the main thread.
-	StelVideoMgr* videoMgr;
+//	// The video manager.  Must execute in the main thread.
+//	StelVideoMgr* videoMgr;
 
-	StelSkyLayerMgr* skyImageMgr;
+//	StelSkyLayerMgr* skyImageMgr;
 
-#ifdef ENABLE_SCRIPTING
-	// The script API proxy object (for bridging threads)
-	StelMainScriptAPIProxy* scriptAPIProxy;
+//#ifdef ENABLE_SCRIPTING
+//	// The script API proxy object (for bridging threads)
+//	StelMainScriptAPIProxy* scriptAPIProxy;
 
-	// The script manager based on Qt script engine
-	StelScriptMgr* scriptMgr;
-#endif
+//	// The script manager based on Qt script engine
+//	StelScriptMgr* scriptMgr;
+//#endif
 
-	StelGuiBase* stelGui;
+//	StelGuiBase* stelGui;
 	
 	// Store the ratio between real device pixel in "Device Independent Pixel"
 	// Usually this value is 1, but for a mac with retina screen this will be value 2.
-	qreal devicePixelsPerPixel;
+//	qreal devicePixelsPerPixel;
 
 	// The scaling ratio to apply on all display elements, like GUI, text etc..
-	float globalScalingRatio;
+//	float globalScalingRatio;
 	
-	float fps;
-	int frame;
-	double frameTimeAccum;		// Used for fps counter
+//	float fps;
+//	int frame;
+//	double frameTimeAccum;		// Used for fps counter
 
 	//! Define whether we are in night vision mode
-	bool flagNightVision;
+//	bool flagNightVision;
 
 	QSettings* confSettings;
 
@@ -449,45 +450,45 @@ private:
 	bool initialized;
 
 	static qint64 startMSecs;
-	static double animationScale;
+    //static double animationScale;
 
 	// Temporary variables used to store the last gl window resize
 	// if the core was not yet initialized
-	qreal saveProjW;
-	qreal saveProjH;
+//	qreal saveProjW;
+//	qreal saveProjH;
 
 	//! Store the number of downloaded files for statistics.
-	int nbDownloadedFiles;
+//	int nbDownloadedFiles;
 	//! Store the summed size of all downloaded files in bytes.
-	qint64 totalDownloadedSize;
+//	qint64 totalDownloadedSize;
 
 	//! Store the number of downloaded files read from the cache for statistics.
-	int nbUsedCache;
+//	int nbUsedCache;
 	//! Store the summed size of all downloaded files read from the cache in bytes.
-	qint64 totalUsedCacheSize;
+//	qint64 totalUsedCacheSize;
 
-	QList<StelProgressController*> progressControllers;
+//	QList<StelProgressController*> progressControllers;
 
-	int screenFontSize;
+//	int screenFontSize;
 
 	// Framebuffer object used for viewport effects.
-	QOpenGLFramebufferObject* renderBuffer;
-	StelViewportEffect* viewportEffect;
-	QOpenGLFunctions* gl;
+//	QOpenGLFramebufferObject* renderBuffer;
+//	StelViewportEffect* viewportEffect;
+//	QOpenGLFunctions* gl;
 	
-	bool flagShowDecimalDegrees;  // Format infotext with decimal degrees, not minutes/seconds
-	bool flagUseAzimuthFromSouth; // Display calculate azimuth from south towards west (as in some astronomical literature)
-	bool flagUseFormattingOutput; // Use tabular coordinate format for infotext
-	bool flagUseCCSDesignation;   // Use symbols like alpha (RA), delta (declination) for coordinate system labels
-	bool flagOverwriteInfoColor; // Overwrite and use color for text in info panel
-	Vec3f overwriteInfoColor;
-	Vec3f daylightInfoColor;
-#ifdef 	ENABLE_SPOUT
-	SpoutSender* spoutSender;
-#endif
+//    bool flagShowDecimalDegrees;  // Format infotext with decimal degrees, not minutes/seconds
+    bool flagUseAzimuthFromSouth; // Display calculate azimuth from south towards west (as in some astronomical literature)
+//	bool flagUseFormattingOutput; // Use tabular coordinate format for infotext
+    bool flagUseCCSDesignation;   // Use symbols like alpha (RA), delta (declination) for coordinate system labels
+//	bool flagOverwriteInfoColor; // Overwrite and use color for text in info panel
+//	Vec3f overwriteInfoColor;
+//	Vec3f daylightInfoColor;
+//#ifdef 	ENABLE_SPOUT
+//	SpoutSender* spoutSender;
+//#endif
 
 	// The current main FBO/render target handle, without requiring GL queries. Valid through a draw() call
-	quint32 currentFbo;
+//	quint32 currentFbo;
 };
 
 #endif // STELAPP_HPP

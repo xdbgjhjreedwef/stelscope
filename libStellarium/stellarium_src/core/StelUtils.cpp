@@ -21,9 +21,11 @@
  #include <malloc.h>
 #endif
 
+//#include <QtZli
+
 #include "StelUtils.hpp"
 #include "VecMath.hpp"
-#include "StelLocaleMgr.hpp"
+//#include "StelLocaleMgr.hpp"
 #include <QBuffer>
 #include <QString>
 #include <QStringList>
@@ -119,10 +121,11 @@ QString daysFloatToDHMS(float days)
 	remain *= 60.0f;
 
 	auto r = QString("%1%2 %3%4 %5%6 %7%8")
-	.arg(d)		.arg(qc_("d", "duration"))
-	.arg(h)		.arg(qc_("h", "duration"))
-	.arg(m)		.arg(qc_("m", "duration"))
-	.arg(remain)	.arg(qc_("s", "duration"));
+            //NOTE: qc_ macro
+    .arg(d)		.arg(QString("d").append("duration"))
+    .arg(h)		.arg(QString("h").append("duration"))
+    .arg(m)		.arg(QString("m").append("duration"))
+    .arg(remain)	.arg(QString("s").append("duration"));
 
 	return r;
 }
@@ -782,11 +785,11 @@ QString localeDateString(const int year, const int month, const int day, const i
 			}
 			else if (frag == "ddd")
 			{
-				out += StelLocaleMgr::shortDayName(dayOfWeek+1);
+                out += QString("TODO: short day name");//StelLocaleMgr::shortDayName(dayOfWeek+1);
 			}
 			else if (frag == "dddd")
 			{
-				out += StelLocaleMgr::longDayName(dayOfWeek+1);
+                out += QString("TODO: long day name");// StelLocaleMgr::longDayName(dayOfWeek+1);
 			}
 			else if (frag == "M")
 			{
@@ -798,11 +801,11 @@ QString localeDateString(const int year, const int month, const int day, const i
 			}
 			else if (frag == "MMM")
 			{
-				out += StelLocaleMgr::shortMonthName(month);
+                out += QString("TODO: short month name");//StelLocaleMgr::shortMonthName(month);
 			}
 			else if (frag == "MMMM")
 			{
-				out += StelLocaleMgr::longMonthName(month);
+                out += QString("TODO: long month name");//StelLocaleMgr::longMonthName(month);
 			}
 			else if (frag == "y")
 			{

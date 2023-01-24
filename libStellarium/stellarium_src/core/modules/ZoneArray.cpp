@@ -18,11 +18,9 @@
  */
 
 #include "ZoneArray.hpp"
-#include "StelApp.hpp"
 #include "StelFileMgr.hpp"
-#include "StelGeodesicGrid.hpp"
+#include "RefractionExtinction.hpp"
 #include "StelObject.hpp"
-#include "StelPainter.hpp"
 
 #include <QDebug>
 #include <QFile>
@@ -226,7 +224,10 @@ ZoneArray::ZoneArray(const QString& fname, QFile* file, int level, int mag_min,
 			  mag_range(mag_range), mag_steps(mag_steps),
 			  star_position_scale(0.0), nr_of_stars(0), zones(Q_NULLPTR), file(file)
 {
-	nr_of_zones = static_cast<unsigned int>(StelGeodesicGrid::nrOfZones(level));
+    //FIXME: empty array
+    //{return (20<<(level<<1));}
+    //nr_of_zones = static_cast<unsigned int>(StelGeodesicGrid::nrOfZones(level));
+    nr_of_zones = 20<<(level<<1);
 }
 
 bool ZoneArray::readFile(QFile& file, void *data, qint64 size)
@@ -402,104 +403,116 @@ SpecialZoneArray<Star>::~SpecialZoneArray(void)
 		zones = Q_NULLPTR;
 	}
 	nr_of_zones = 0;
-	nr_of_stars = 0;
+    //nr_of_//void SpecialZoneArray<Star>::draw(StelPainter* sPainter, int index, bool isInsideViewport, const RCMag* rcmag_table,
+            //				  int limitMagIndex, StelCore* core, int maxMagStarName, float names_brightness,
+            //				  const QVector<SphericalCap> &boundingCaps,
+            //				  const bool withAberration, const Vec3f vel) const
+            //{stars = 0;
 }
 
-template<class Star>
-void SpecialZoneArray<Star>::draw(StelPainter* sPainter, int index, bool isInsideViewport, const RCMag* rcmag_table,
-				  int limitMagIndex, StelCore* core, int maxMagStarName, float names_brightness,
-				  const QVector<SphericalCap> &boundingCaps,
-				  const bool withAberration, const Vec3f vel) const
-{
-	StelSkyDrawer* drawer = core->getSkyDrawer();
-	Vec3f vf;
-	static const double d2000 = 2451545.0;
-	const float movementFactor = static_cast<float>((M_PI/180.)*(0.0001/3600.) * ((core->getJDE()-d2000)/365.25) / static_cast<double>(star_position_scale));
+//template<class Star>
+//void SpecialZoneArray<Star>::draw(StelPainter* sPainter, int index, bool isInsideViewport, const RCMag* rcmag_table,
+//				  int limitMagIndex, StelCore* core, int maxMagStarName, float names_brightness,
+//				  const QVector<SphericalCap> &boundingCaps,
+//				  const bool withAberration, const Vec3f vel) const
+//{
+//	StelSkyDrawer* drawer = core->getSkyDrawer();
+//	Vec3f vf;
+//	static const double d2000 = 2451545.0;
+//	const float movementFactor = static_cast<float>((M_PI/180.)*(0.0001/3600.) * ((core->getJDE()-d2000)/365.25) / static_cast<double>(star_position_scale));
 
-	const Extinction& extinction=core->getSkyDrawer()->getExtinction();
-	const bool withExtinction=drawer->getFlagHasAtmosphere() && extinction.getExtinctionCoefficient()>=0.01f;
-	const float k = 0.001f*static_cast<float>(mag_range)/static_cast<float>(mag_steps); // from StarMgr.cpp line 654
+//	const Extinction& extinction=core->getSkyDrawer()->getExtinction();
+//	const bool withExtinction=drawer->getFlagHasAtmosphere() && extinction.getExtinctionCoefficient()>=0.01f;
+//	const float k = 0.001f*static_cast<float>(mag_range)/static_cast<float>(mag_steps); // from StarMgr.cpp line 654
 	
-	// Allow artificial cutoff:
-	// find the (integer) mag at which is just bright enough to be drawn.
-	int cutoffMagStep=limitMagIndex;
-	if (drawer->getFlagStarMagnitudeLimit())
-	{
-		cutoffMagStep = (static_cast<int>(drawer->getCustomStarMagnitudeLimit()*1000.0) - mag_min)*mag_steps/mag_range;
-		if (cutoffMagStep>limitMagIndex)
-			cutoffMagStep = limitMagIndex;
-	}
-	Q_ASSERT(cutoffMagStep<RCMAG_TABLE_SIZE);
+//	// Allow artificial cutoff:
+//	// find the (integer) mag at which is just bright enough to be drawn.
+//	int cutoffMagStep=limitMagIndex;
+//	if (drawer->getFlagStarMagnitudeLimit())
+//	{
+//		cutoffMagStep = (static_cast<int>(drawer->getCustomStarMagnitudeLimit()*1000.0) - mag_min)*mag_steps/mag_range;
+//		if (cutoffMagStep>limitMagIndex)
+//			cutoffMagStep = limitMagIndex;
+//	}
+//	Q_ASSERT(cutoffMagStep<RCMAG_TABLE_SIZE);
     
-	// Go through all stars, which are sorted by magnitude (bright stars first)
-	const SpecialZoneData<Star>* zoneToDraw = getZones() + index;
-	const Star* lastStar = zoneToDraw->getStars() + zoneToDraw->size;
-	for (const Star* s=zoneToDraw->getStars();s<lastStar;++s)
-	{
-		// Artifical cutoff per magnitude
-		if (s->getMag() > cutoffMagStep)
-			break;
+//	// Go through all stars, which are sorted by magnitude (bright stars first)
+//	const SpecialZoneData<Star>* zoneToDraw = getZones() + index;
+//	const Star* lastStar = zoneToDraw->getStars() + zoneToDraw->size;
+//	for (const Star* s=zoneToDraw->getStars();s<lastStar;++s)
+//	{//void SpecialZoneArray<Star>::draw(StelPainter* sPainter, int index, bool isInsideViewport, const RCMag* rcmag_table,
+//				  int limitMagIndex, StelCore* core, int maxMagStarName, float names_brightness,
+//				  const QVector<SphericalCap> &boundingCaps,
+//				  const bool withAberration, const Vec3f vel) const
+//{
+//		// Artifical cutoff per magnitude
+//		if (s->getMag() > cutoffMagStep)
+//			break;
     
-		// Because of the test above, the star should always be visible from this point.
+//		// Because of the test above, the star should always be visible from this point.
 		
-		// Array of 2 numbers containing radius and magnitude
-		const RCMag* tmpRcmag = &rcmag_table[s->getMag()];
+//		// Array of 2 numbers containing radius and magnitude
+//		const RCMag* tmpRcmag = &rcmag_table[s->getMag()];
 		
-		// Get the star position from the array
-		s->getJ2000Pos(zoneToDraw, movementFactor, vf);
+//		// Get the star position from the array
+//		s->getJ2000Pos(zoneToDraw, movementFactor, vf);
 
-		// Aberration: vf contains Equatorial J2000 position.
-		if (withAberration)
-		{
-			//Q_ASSERT_X(fabs(vf.lengthSquared()-1.0f)<0.0001f, "ZoneArray aberration", "vertex length not unity");
-			vf.normalize(); // required!
-			vf+=vel;
-			vf.normalize();
-		}
+//		// Aberration: vf contains Equatorial J2000 position.
+//		if (withAberration)
+//		{
+//			//Q_ASSERT_X(fabs(vf.lengthSquared()-1.0f)<0.0001f, "ZoneArray aberration", "vertex length not unity");
+//			vf.normalize(); // required!
+//			vf+=vel;
+//			vf.normalize();
+//		}
 		
-		// If the star zone is not strictly contained inside the viewport, eliminate from the 
-		// beginning the stars actually outside viewport.
-		if (!isInsideViewport)
-		{
-			vf.normalize();
-			bool isVisible = true;
-			for (const auto& cap : boundingCaps)
-			{
-				if (!cap.contains(vf))
-				{
-					isVisible = false;
-					continue;
-				}
-			}
-			if (!isVisible)
-				continue;
-		}
+//		// If the star zone is not strictly contained inside the viewport, eliminate from the
+//		// beginning the stars actually outside viewport.
+//		if (!isInsideViewport)
+//		{
+//			vf.normalize();
+//		//void SpecialZoneArray<Star>::draw(StelPainter* sPainter, int index, bool isInsideViewport, const RCMag* rcmag_table,
+//				  int limitMagIndex, StelCore* core, int maxMagStarName, float names_brightness,
+//				  const QVector<SphericalCap> &boundingCaps,
+//				  const bool withAberration, const Vec3f vel) const
+//{	bool isVisible = true;
+//			for (const auto& cap : boundingCaps)
+//			{
+//				if (!cap.contains(vf))
+//				{
+//					isVisible = false;
+//					continue;
+//				}
+//			}
+//			if (!isVisible)
+//				continue;
+//		}
 
-		int extinctedMagIndex = s->getMag();
-		float twinkleFactor=1.0f; // allow height-dependent twinkle.
-		if (withExtinction)
-		{
-			Vec3f altAz(vf);
-			altAz.normalize();
-			core->j2000ToAltAzInPlaceNoRefraction(&altAz);
-			float extMagShift=0.0f;
-			extinction.forward(altAz, &extMagShift);
-			extinctedMagIndex = s->getMag() + static_cast<int>(extMagShift/k);
-			if (extinctedMagIndex >= cutoffMagStep || extinctedMagIndex<0) // i.e., if extincted it is dimmer than cutoff or extinctedMagIndex is negative (missing star catalog), so remove
-				continue;
-			tmpRcmag = &rcmag_table[extinctedMagIndex];
-			twinkleFactor=qMin(1.0f, 1.0f-0.9f*altAz[2]); // suppress twinkling in higher altitudes. Keep 0.1 twinkle amount in zenith.
-		}
+//		int extinctedMagIndex = s->getMag();
+//		float twinkleFactor=1.0f; // allow height-dependent twinkle.
+//		if (withExtinction)
+//		{
+//			Vec3f altAz(vf);
+//			altAz.normalize();
+//			core->j2000ToAltAzInPlaceNoRefraction(&altAz);
+//			float extMagShift=0.0f;
+//			extinction.forward(altAz, &extMagShift);
+//			extinctedMagIndex = s->getMag() + static_cast<int>(extMagShift/k);
+//			if (extinctedMagIndex >= cutoffMagStep || extinctedMagIndex<0) // i.e., if extincted it is dimmer than cutoff or extinctedMagIndex is negative (missing star catalog), so remove
+//				continue;
+//			tmpRcmag = &rcmag_table[extinctedMagIndex];
+//			twinkleFactor=qMin(1.0f, 1.0f-0.9f*altAz[2]); // suppress twinkling in higher altitudes. Keep 0.1 twinkle amount in zenith.
+//		}
 
-		if (drawer->drawPointSource(sPainter, vf, *tmpRcmag, s->getBVIndex(), !isInsideViewport, twinkleFactor) && s->hasName() && extinctedMagIndex < maxMagStarName && s->hasComponentID()<=1)
-		{
-			const float offset = tmpRcmag->radius*0.7f;
-			const Vec3f colorr = StelSkyDrawer::indexToColor(s->getBVIndex())*0.75f;
-			sPainter->setColor(colorr,names_brightness);
-			sPainter->drawText(vf.toVec3d(), s->getScreenNameI18n(), 0, offset, offset, false);
-		}
-	}
-}
+//		if (drawer->drawPointSource(sPainter, vf, *tmpRcmag, s->getBVIndex(), !isInsideViewport, twinkleFactor) && s->hasName() && extinctedMagIndex < maxMagStarName && s->hasComponentID()<=1)
+//		{
+//			const float offset = tmpRcmag->radius*0.7f;
+//			const Vec3f colorr = StelSkyDrawer::indexToColor(s->getBVIndex())*0.75f;
+//			sPainter->setColor(colorr,names_brightness);
+//			sPainter->drawText(vf.toVec3d(), s->getScreenNameI18n(), 0, offset, offset, false);
+//		}
+//	}
+//}
 
 template<class Star>
 void SpecialZoneArray<Star>::searchAround(const StelCore* core, int index, const Vec3d &v, double cosLimFov,
@@ -508,17 +521,29 @@ void SpecialZoneArray<Star>::searchAround(const StelCore* core, int index, const
 	static const double d2000 = 2451545.0;
 	const double movementFactor = (M_PI/180.)*(0.0001/3600.) * ((core->getJDE()-d2000)/365.25)/ static_cast<double>(star_position_scale);
 	const SpecialZoneData<Star> *const z = getZones()+index;
-	Vec3f tmp;
-	Vec3f vf = v.toVec3f();
+    Vec3f tmp;//vstar
+    Vec3f vf = v.toVec3f();//vobserver
 	for (const Star* s=z->getStars();s<z->getStars()+z->size;++s)
 	{
 		s->getJ2000Pos(z,static_cast<float>(movementFactor), tmp);
 		tmp.normalize();
 		if (tmp*vf >= static_cast<float>(cosLimFov))
 		{
-			// TODO: do not select stars that are too faint to display
+            // TODO: do not select stars that are too faint to display
 			result.push_back(s->createStelObject(this,z));
 		}
 	}
+}
+
+template<class Star>
+void SpecialZoneArray<Star>::allZobjects(int index,
+                      QList<StelObjectP > &result)
+{
+    const SpecialZoneData<Star> *const z = getZones()+index;
+    for (const Star* s=z->getStars();s<z->getStars()+z->size;++s)
+    {
+            // TODO: do not select stars that are too faint to display
+            result.push_back(s->createStelObject(this,z));
+    }
 }
 

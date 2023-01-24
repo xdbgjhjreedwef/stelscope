@@ -24,7 +24,7 @@
 #include "StelFileMgr.hpp"
 #include "StelUtils.hpp"
 #include "StelJsonParser.hpp"
-#include "StelLocaleMgr.hpp"
+//#include "StelLocaleMgr.hpp"
 
 #include <QStringListModel>
 #include <QDebug>
@@ -890,15 +890,15 @@ bool StelLocationMgr::deleteUserLocation(const QString& id)
 }
 
 // lookup location from IP address.
-void StelLocationMgr::locationFromIP()
-{
-	QSettings* conf = StelApp::getInstance().getSettings();
-	QNetworkRequest req( QUrl( conf->value("main/geoip_api_url", "https://freegeoip.stellarium.org/json/").toString() ) );
-	req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
-	req.setRawHeader("User-Agent", StelUtils::getUserAgentString().toLatin1());
-	QNetworkReply* networkReply=StelApp::getInstance().getNetworkAccessManager()->get(req);
-	connect(networkReply, SIGNAL(finished()), this, SLOT(changeLocationFromNetworkLookup()));
-}
+//void StelLocationMgr::locationFromIP()
+//{
+//	QSettings* conf = StelApp::getInstance().getSettings();
+//	QNetworkRequest req( QUrl( conf->value("main/geoip_api_url", "https://freegeoip.stellarium.org/json/").toString() ) );
+//	req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+//	req.setRawHeader("User-Agent", StelUtils::getUserAgentString().toLatin1());
+//	QNetworkReply* networkReply=StelApp::getInstance().getNetworkAccessManager()->get(req);
+//	connect(networkReply, SIGNAL(finished()), this, SLOT(changeLocationFromNetworkLookup()));
+//}
 
 #ifdef ENABLE_GPS
 void StelLocationMgr::locationFromGPS(int interval)

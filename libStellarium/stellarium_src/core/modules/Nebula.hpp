@@ -23,8 +23,8 @@
 #define NEBULA_HPP
 
 #include "StelObject.hpp"
-#include "StelTranslator.hpp"
-#include "StelTextureTypes.hpp"
+//#include "StelTranslator.hpp"
+//#include "StelTextureTypes.hpp"
 
 #include <QString>
 
@@ -173,16 +173,16 @@ public:
 	virtual QString getType() const Q_DECL_OVERRIDE {return NEBULA_TYPE;}
 	virtual QString getID() const Q_DECL_OVERRIDE {return getDSODesignation(); } //this depends on the currently shown catalog flags, should this be changed?
 	virtual Vec3d getJ2000EquatorialPos(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual double getCloseViewFov(const StelCore* core = Q_NULLPTR) const Q_DECL_OVERRIDE;
+    //virtual double getCloseViewFov(const StelCore* core = Q_NULLPTR) const Q_DECL_OVERRIDE;
 	virtual float getVMagnitude(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual float getSelectPriority(const StelCore* core) const Q_DECL_OVERRIDE;
-	virtual Vec3f getInfoColor() const Q_DECL_OVERRIDE;
-	virtual QString getNameI18n() const Q_DECL_OVERRIDE {return nameI18;}
+    //virtual float getSelectPriority(const StelCore* core) const Q_DECL_OVERRIDE;
+    //virtual Vec3f getInfoColor() const Q_DECL_OVERRIDE;
+    //virtual QString getNameI18n() const Q_DECL_OVERRIDE {return nameI18;}
 	virtual QString getEnglishName() const Q_DECL_OVERRIDE {return englishName;}
 	QString getEnglishAliases() const;
 	QString getI18nAliases() const;
 	virtual double getAngularRadius(const StelCore*) const Q_DECL_OVERRIDE;
-	virtual SphericalRegionP getRegion() const Q_DECL_OVERRIDE {return pointRegion;}
+    //virtual SphericalRegionP getRegion() const Q_DECL_OVERRIDE {return pointRegion;}
 
 	// Methods specific to Nebula
 	void setLabelColor(const Vec3f& v) {labelColor = v;}
@@ -202,7 +202,7 @@ public:
 	float getSurfaceBrightness(const StelCore* core, bool arcsec=false) const;
 	float getSurfaceBrightnessWithExtinction(const StelCore* core, bool arcsec=false) const;
 	//! Compute an extended object's contrast index
-	float getContrastIndex(const StelCore* core) const;
+    //float getContrastIndex(const StelCore* core) const;
 
 	//! Return object's B magnitude as seen from observer, without including extinction.
 	virtual float getBMagnitude(const StelCore* core) const;
@@ -238,23 +238,23 @@ private:
 	friend struct DrawNebulaFuncObject;
 
 	//! Translate nebula name using the passed translator
-	void translateName(const StelTranslator& trans)
-	{
-		nameI18 = trans.qtranslate(englishName);
-		nameI18Aliases.clear();
-		for (auto &alias : englishAliases)
-			nameI18Aliases.append(trans.qtranslate(alias));
-	}	
+//	void translateName(const StelTranslator& trans)
+//	{
+//		nameI18 = trans.qtranslate(englishName);
+//		nameI18Aliases.clear();
+//		for (auto &alias : englishAliases)
+//			nameI18Aliases.append(trans.qtranslate(alias));
+//	}
 
 	void readDSO(QDataStream& in);
 
-	void drawLabel(StelPainter& sPainter, float maxMagLabel) const;
-	void drawHints(StelPainter& sPainter, float maxMagHints, StelCore *core) const;
-	void drawOutlines(StelPainter& sPainter, float maxMagHints) const;
+    //void drawLabel(StelPainter& sPainter, float maxMagLabel) const;
+    //void drawHints(StelPainter& sPainter, float maxMagHints, StelCore *core) const;
+    //void drawOutlines(StelPainter& sPainter, float maxMagHints) const;
 
 	bool objectInDisplayedType() const;
 
-	static Vec3f getHintColor(Nebula::NebulaType nType);
+    //static Vec3f getHintColor(Nebula::NebulaType nType);
 	float getVisibilityLevelByMagnitude() const;
 
 	//! Get the printable description of morphological nebula type.
@@ -312,27 +312,27 @@ private:
 	Vec3d XY;				// Store temporary 2D position
 	NebulaType nType;
 
-	SphericalRegionP pointRegion;
+    //SphericalRegionP pointRegion;
 	QStringList designations;
 
-	static StelTextureSP texCircle;				// The symbolic circle texture
-	static StelTextureSP texCircleLarge;			// The symbolic circle texture for large objects
-	static StelTextureSP texRegion;				// The symbolic dashed shape texture
-	static StelTextureSP texGalaxy;				// Type 0
-	static StelTextureSP texGalaxyLarge;			// Type 0_large
-	static StelTextureSP texOpenCluster;			// Type 1
-	static StelTextureSP texOpenClusterLarge;		// Type 1_large
-	static StelTextureSP texOpenClusterXLarge;	// Type 1_extralarge
-	static StelTextureSP texGlobularCluster;		// Type 2
-	static StelTextureSP texGlobularClusterLarge;	// Type 2_large
-	static StelTextureSP texPlanetaryNebula;		// Type 3
-	static StelTextureSP texDiffuseNebula;		// Type 4
-	static StelTextureSP texDiffuseNebulaLarge;	// Type 4_large
-	static StelTextureSP texDiffuseNebulaXLarge;	// Type 4_extralarge
-	static StelTextureSP texDarkNebula;			// Type 5
-	static StelTextureSP texDarkNebulaLarge;		// Type 5_large
-	static StelTextureSP texOpenClusterWithNebulosity;	// Type 6
-	static StelTextureSP texOpenClusterWithNebulosityLarge;	// Type 6_large
+//	static StelTextureSP texCircle;				// The symbolic circle texture
+//	static StelTextureSP texCircleLarge;			// The symbolic circle texture for large objects
+//	static StelTextureSP texRegion;				// The symbolic dashed shape texture
+//	static StelTextureSP texGalaxy;				// Type 0
+//	static StelTextureSP texGalaxyLarge;			// Type 0_large
+//	static StelTextureSP texOpenCluster;			// Type 1
+//	static StelTextureSP texOpenClusterLarge;		// Type 1_large
+//	static StelTextureSP texOpenClusterXLarge;	// Type 1_extralarge
+//	static StelTextureSP texGlobularCluster;		// Type 2
+//	static StelTextureSP texGlobularClusterLarge;	// Type 2_large
+//	static StelTextureSP texPlanetaryNebula;		// Type 3
+//	static StelTextureSP texDiffuseNebula;		// Type 4
+//	static StelTextureSP texDiffuseNebulaLarge;	// Type 4_large
+//	static StelTextureSP texDiffuseNebulaXLarge;	// Type 4_extralarge
+//	static StelTextureSP texDarkNebula;			// Type 5
+//	static StelTextureSP texDarkNebulaLarge;		// Type 5_large
+//	static StelTextureSP texOpenClusterWithNebulosity;	// Type 6
+//	static StelTextureSP texOpenClusterWithNebulosityLarge;	// Type 6_large
 	static float hintsBrightness;
 
 	static Vec3f labelColor;				// The color of labels

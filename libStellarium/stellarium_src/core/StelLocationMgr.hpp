@@ -107,7 +107,7 @@ public slots:
 	const StelLocation locationForString(const QString& s) const;
 
 	//! Find location via online lookup of IP address
-	void locationFromIP();
+    //void locationFromIP();
 
 	//! return a QStringList of valid timezone names in Stellarium's location database.
 	QStringList getAllTimezoneNames() const;
