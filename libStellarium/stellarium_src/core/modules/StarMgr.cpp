@@ -1461,6 +1461,7 @@ QList<StelObjectP > StarMgr::allZobjects(const Vec3d& vv, const StelCore* core) 
     QList<StelObjectP > result;
 //	if (!getFlagStars())
 //		return result;
+    double limFov = 1.0;
 
     Vec3d v(vv);
     v.normalize();

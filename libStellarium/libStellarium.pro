@@ -163,12 +163,13 @@ HEADERS += \
     stellarium_src/libstellarium-global.h
 
 STELLARIUM_SOURCE_DIR="./"
-INSTALL_DATADIR="/home/qwerty/qt/StelScope/libStellarium/stel_data/"
+#user config directory
+message("Make sure INSTALL_DATADIR points to stellarium data dir!")
+INSTALL_DATADIR="$$PWD/stel_data/"
 STELLARIUM_VERSION="0"
 GIT_REVISION="0"
 PACKAGE_VERSION="0"
 GIT_BRANCH="gutted"
-GUTTED_FILEPATH="/qt/"
 DEFINES += "INSTALL_DATADIR=\\\"$$INSTALL_DATADIR\\\""
 DEFINES += "STELLARIUM_SOURCE_DIR=\\\"$$STELLARIUM_SOURCE_DIR\\\""
 DEFINES += "STELLARIUM_VERSION=\\\"$$STELLARIUM_VERSION\\\""
@@ -176,7 +177,9 @@ DEFINES += "GIT_REVISION=\\\"$$GIT_REVISION\\\""
 DEFINES += "PACKAGE_VERSION=\\\"$$PACKAGE_VERSION\\\""
 DEFINES += "GIT_BRANCH=\\\"$$GIT_BRANCH\\\""
 
-GUTTED_FILEPATH = "/qt/StelScope/libStellarium/stel_data/"
+#data dir with configs, etc
+message("Make sure GUTTED_FILEPATH points to stellarium data dir!")
+GUTTED_FILEPATH = "/qt/stelscope/libStellarium/stel_data/"
 DEFINES += "GUTTED_FILEPATH=\\\"$$GUTTED_FILEPATH\\\""
 #STELLARIUM_DATA_ROOT="/home/qwerty/qt/Stellarium_gutted/stel_data/"
 

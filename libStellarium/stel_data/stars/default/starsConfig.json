@@ -75,7 +75,7 @@
             "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_5_2v0_1.cat"
         },
         {
-            "checked": true,
+            "checked": false,
             "checksum": "3005959bf7baca36d266def2fecf36d3",
             "count": 24.7,
             "fileName": "stars_6_2v0_1.cat",
@@ -88,7 +88,7 @@
             "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_6_2v0_1.cat"
         },
         {
-            "checked": true,
+            "checked": false,
             "checksum": "15f856fb4c7830a71cb8d60e1decc387",
             "count": 50.8,
             "fileName": "stars_7_2v0_1.cat",
@@ -101,7 +101,7 @@
             "url": "https://github.com/Stellarium/stellarium-data/releases/download/stars-2.0/stars_7_2v0_1.cat"
         },
         {
-            "checked": true,
+            "checked": false,
             "checksum": "9e2e362022824c60d7e4d94ef8c3af12",
             "count": 92.3,
             "fileName": "stars_8_2v0_1.cat",

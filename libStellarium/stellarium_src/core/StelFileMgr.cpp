@@ -60,8 +60,9 @@ void StelFileMgr::init()
 	userDir = QDir::homePath() + "/Library/Application Support/Stellarium";
 #elif defined(GUTTED_FILEPATH)
     userDir = QDir::homePath() + GUTTED_FILEPATH;
-    qDebug()<<"!!!!!!!!!!!!!!!!!!1:"<<GUTTED_FILEPATH;
-    qDebug()<<"!!!!!!!!!!!!!!!!!!1:"<<QDir::homePath();
+    qDebug()<<"StelFileMgr: GUTTED_FILEPATH:"<<GUTTED_FILEPATH;
+    qDebug()<<"StelFileMgr: userDir:"<<userDir;
+    qDebug()<<"StelFileMgr: home path:"<<QDir::homePath();
 #else
 	userDir = QDir::homePath() + "/.stellarium";
 #endif
